@@ -1,0 +1,519 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>The Profilling Module &#8212; rootplots 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Plotting Module" href="mpl.html" />
+    <link rel="prev" title="The Histogramming Module" href="hist.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mpl.html" title="The Plotting Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="hist.html" title="The Histogramming Module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">rootplots 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="hist.html"
+                        title="previous chapter">The Histogramming Module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mpl.html"
+                        title="next chapter">The Plotting Module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/profile.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-rootplots.profile">
+<span id="the-profilling-module"></span><h1>The Profilling Module<a class="headerlink" href="#module-rootplots.profile" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The classes defined in this module do <strong>NOT</strong> provide drawing capabilities, so there is <strong>NO</strong> draw() nor paint()
+method. Use other libraries like matplotlib to plot the data. But for your convenience, this package provides a
+module for easy plotting using matplotlib. See, <a class="reference internal" href="mpl.html#module-rootplots.mpl" title="rootplots.mpl"><code class="xref py py-mod docutils literal notranslate"><span class="pre">rootplots.mpl</span></code></a></p>
+</div>
+<dl class="class">
+<dt id="rootplots.profile.ProfileND">
+<em class="property">class </em><code class="descclassname">rootplots.profile.</code><code class="descname">ProfileND</code><span class="sig-paren">(</span><em>dim: int</em>, <em>minBin</em>, <em>maxBin</em>, <em>nBins</em>, <em>minValue=None</em>, <em>maxValue=None</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/profile.html#ProfileND"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND" title="Permalink to this definition">¶</a></dt>
+<dd><p>Profile histograms are used to compute the mean value of Y and its error for each bin in X.</p>
+<p>This class does not provide drawing posibilities, so there is no draw() method. Use other libraries,like matplotlib,
+to rootplots the data, see example below.</p>
+<p>For each bin we have:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">The</span> <span class="n">mean</span> <span class="n">of</span> <span class="n">Y</span> <span class="ow">is</span> <span class="n">the</span> <span class="nb">sum</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">that</span> <span class="nb">bin</span> <span class="n">divided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">entries</span> <span class="n">per</span> <span class="nb">bin</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">The</span> <span class="n">error</span> <span class="n">on</span> <span class="n">X</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">width</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">bin</span> <span class="n">divided</span> <span class="n">by</span> <span class="mf">2.</span>
+<span class="o">-</span> <span class="n">The</span> <span class="n">error</span> <span class="n">on</span> <span class="n">Y</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">standard</span> <span class="n">deviation</span> <span class="n">divided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">number_of_entries_per_bin</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dim</strong> (<em>int</em>) – the number of dimensions of the profile</li>
+<li><strong>minBin</strong> (<em>array like</em>) – an array containing the minimum value of lower edge of bins for each dimension.</li>
+<li><strong>maxBin</strong> (<em>array like</em>) – an array containing the maximum value of upper edge of bins for each dimension.</li>
+<li><strong>nBins</strong> (<em>array like</em>) – an array containing the number of bins for each dimension.</li>
+<li><strong>title</strong> (<em>string</em>) – the title of the profile.</li>
+<li><strong>minValue</strong> (<em>float</em>) – the minimum value accepted to fill a bin.
+the lowest value accepted on Y (vertical axis).
+This filter is not used when minValue is None</li>
+<li><strong>maxValue</strong> (<em>float</em>) – the maximum value accepted to fill a bin.
+the highest value accepted on Y (vertical axis).
+This filter is not used when maxValue is None</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>A simple profile bins start from <cite>0.1</cite> to <cite>5.1</cite> and contains <cite>10 bins</cite>, without limits on Y</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prof</span> <span class="o">=</span> <span class="n">ProfileND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.1</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>If you want limits on Y, let say discard those values that are not within
+[-1,1] use as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prof</span> <span class="o">=</span> <span class="n">ProfileND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.1</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Fill the profilehist</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prof</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="mf">2.3</span><span class="p">],</span> <span class="mf">10.</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Full example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rootplots.profile</span> <span class="k">as</span> <span class="nn">pr</span>
+<span class="kn">import</span> <span class="nn">rootplots.mpl</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">hprof</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">ProfileND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">],[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2500</span><span class="p">):</span>
+    <span class="n">px</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">py</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pz</span> <span class="o">=</span> <span class="n">px</span><span class="o">*</span><span class="n">px</span> <span class="o">+</span> <span class="n">py</span><span class="o">*</span><span class="n">py</span>
+
+    <span class="n">hprof</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="n">px</span><span class="p">],</span><span class="n">pz</span><span class="p">)</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">plot_profile</span><span class="p">(</span><span class="n">hprof</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="rootplots.profile.ProfileND.fill_profile">
+<code class="descname">fill_profile</code><span class="sig-paren">(</span><em>x</em>, <em>val: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.fill_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.fill_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the profile (without weights). Use this and not the fill*() methods of the parent histogram.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>array-like</em>) – the coordinates on the axis of a cell.</li>
+<li><strong>size of the array is the same as the number of dimensions</strong> (<em>The</em>) – </li>
+<li><strong>- x contains coordinates not indexes of the bins</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or -1</strong> if no bin
+was found or the input values are not valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rootplots.profile.ProfileND.fill_profile_w">
+<code class="descname">fill_profile_w</code><span class="sig-paren">(</span><em>x</em>, <em>val: float</em>, <em>w: float = 1</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.fill_profile_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.fill_profile_w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the profile with weights. Use this and not the fill*() methods of the parent histogram.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>array-like</em>) – the coordinates on the axis of a cell.</li>
+<li><strong>size of the array is the same as the number of dimensions</strong> (<em>The</em>) – </li>
+<li><strong>- x contains coordinates not indexes of the bins</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+<li><strong>w</strong> (<em>float</em>) – a weight associated with Y value</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or 0</strong> if no bin
+was found or the input values are not valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rootplots.profile.ProfileND.get_cell_content">
+<code class="descname">get_cell_content</code><span class="sig-paren">(</span><em>i: int</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.get_cell_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.get_cell_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the content of the cell ‘i’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> (<em>int</em>) – a valid cell index (aka global linear bin)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">float or 0.0 if the position is outside cells ranges</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rootplots.profile.ProfileND.get_cell_content_error">
+<code class="descname">get_cell_content_error</code><span class="sig-paren">(</span><em>i: int</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.get_cell_content_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.get_cell_content_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the error value associated with cell ‘i’</p>
+<p>The error on per cell is the standard deviation (in that cell) divided by the sqrt(number_of_entries_per_cell).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> (<em>int</em>) – a valid cell index (aka global linear bin)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">float.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rootplots.profile.ProfileND.get_cells_contents">
+<code class="descname">get_cells_contents</code><span class="sig-paren">(</span><em>includeEmptyBins=False</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.get_cells_contents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.get_cells_contents" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns the contents of all bins (cells) per each dimension.</dt>
+<dd>By default it <strong>does not</strong> include empty cells.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>includeEmptyBins</strong> (<em>bool</em>) – if empty bins are included in the list.
+If True then empty bins are included, otherwise they are NOT included</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of list.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rootplots.profile.ProfileND.get_cells_contents_errors">
+<code class="descname">get_cells_contents_errors</code><span class="sig-paren">(</span><em>includeEmptyBins=False</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.get_cells_contents_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.get_cells_contents_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list containing the errors on the Y axis associated to each bin.
+By default it <strong>does not</strong> include empty bins.</p>
+<p>The error on Y per bin is the standard deviation (in that bin) divided by the sqrt(number_of_entries_per_bin).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>includeEmptyBins</strong> (<em>bool</em>) – if empty bins are included in the list.
+If True then empty bins are included, otherwise they are NOT included</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rootplots.profile.Profile1D">
+<em class="property">class </em><code class="descclassname">rootplots.profile.</code><code class="descname">Profile1D</code><span class="sig-paren">(</span><em>nBins: int</em>, <em>minBin: float</em>, <em>maxBin: float</em>, <em>minValue=None</em>, <em>maxValue=None</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/profile.html#Profile1D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile1D" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 1-Dimensional Profile</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>minBin</strong> (<em>float</em>) – the minimum value of lower edge of bins</li>
+<li><strong>maxBin</strong> (<em>float</em>) – the maximum value of upper edge of bins</li>
+<li><strong>nBins</strong> (<em>integer</em>) – the number of bins</li>
+<li><strong>title</strong> (<em>string</em>) – the title of the histogram</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="rootplots.profile.Profile1D.fill">
+<code class="descname">fill</code><span class="sig-paren">(</span><em>x: float</em>, <em>val: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile1D.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile1D.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the histogram (no weights).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>- x contains coordinates not indexes of the bins</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or -1</strong> if no bin
+was found or the input values are not valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rootplots.profile.Profile1D.fill_w">
+<code class="descname">fill_w</code><span class="sig-paren">(</span><em>x: float</em>, <em>val: float</em>, <em>w: float = 1</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile1D.fill_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile1D.fill_w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the histogram with weights.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>- x contains coordinates not indexes of the bins</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+<li><strong>w</strong> (<em>float</em>) – a weight associated with Y value</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or 0</strong> if no bin
+was found or the input values are not valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rootplots.profile.Profile2D">
+<em class="property">class </em><code class="descclassname">rootplots.profile.</code><code class="descname">Profile2D</code><span class="sig-paren">(</span><em>nBinsX: int</em>, <em>minBinX: float</em>, <em>maxBinX: float</em>, <em>nBinsY: int</em>, <em>minBinY: float</em>, <em>maxBinY: float</em>, <em>minValue=None</em>, <em>maxValue=None</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/profile.html#Profile2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 2-Dimensional Profile</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nBinsX</strong> (<em>integer</em>) – the number of bins on the X-axis</li>
+<li><strong>minBinX</strong> (<em>float</em>) – the minimum value of lower edge of bins on the X-axis</li>
+<li><strong>maxBinX</strong> (<em>float</em>) – the maximum value of upper edge of bins on the X-axis</li>
+<li><strong>nBinsY</strong> (<em>integer</em>) – the number of bins on the Y-axis</li>
+<li><strong>minBinY</strong> (<em>float</em>) – the minimum value of lower edge of bins on the Y-axis</li>
+<li><strong>maxBinY</strong> (<em>float</em>) – the maximum value of upper edge of bins on the Y-axis</li>
+<li><strong>title</strong> (<em>string</em>) – the title of the histogram</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="rootplots.profile.Profile2D.fill">
+<code class="descname">fill</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>val: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile2D.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile2D.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the histogram (no weights).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>y</strong> (<em>float</em>) – the coordinates on the Y-axis of a bin.</li>
+<li><strong>- x</strong><strong>, </strong><strong>y are coordinates inside a valid bin and not bin indexes</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or -1</strong> if no bin
+was found or the input values are not valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rootplots.profile.Profile2D.fill_w">
+<code class="descname">fill_w</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>val: float</em>, <em>w: float = 1</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile2D.fill_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile2D.fill_w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the histogram with weights.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>y</strong> (<em>float</em>) – the coordinates on the Y-axis of a bin.</li>
+<li><strong>- x</strong><strong>, </strong><strong>y are coordinates inside a valid bin and not bin indexes</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+<li><strong>w</strong> (<em>float</em>) – a weight associated with Y value</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or 0</strong> if no bin
+was found or the input values are not valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rootplots.profile.Profile3D">
+<em class="property">class </em><code class="descclassname">rootplots.profile.</code><code class="descname">Profile3D</code><span class="sig-paren">(</span><em>nBinsX: int</em>, <em>minBinX: float</em>, <em>maxBinX: float</em>, <em>nBinsY: int</em>, <em>minBinY: float</em>, <em>maxBinY: float</em>, <em>nBinsZ: int</em>, <em>minBinZ: float</em>, <em>maxBinZ: float</em>, <em>minValue=None</em>, <em>maxValue=None</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/profile.html#Profile3D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 3-Dimensional Profile</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>nBinsX</strong> – the number of bins on the X-axis</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="rootplots.profile.Profile3D.fill">
+<code class="descname">fill</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>z: float</em>, <em>val: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile3D.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile3D.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the histogram (no weights).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>y</strong> (<em>float</em>) – the coordinates on the Y-axis of a bin.</li>
+<li><strong>z</strong> (<em>float</em>) – the coordinates on the Z-axis of a bin.</li>
+<li><strong>- x</strong><strong>, </strong><strong>y</strong><strong>, </strong><strong>z are coordinates inside a valid bin and not bin indexes</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or -1</strong> if no bin
+was found or the input values are not valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rootplots.profile.Profile3D.fill_w">
+<code class="descname">fill_w</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>z: float</em>, <em>val: float</em>, <em>w: float = 1</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile3D.fill_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile3D.fill_w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the histogram with weights.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>y</strong> (<em>float</em>) – the coordinates on the Y-axis of a bin.</li>
+<li><strong>z</strong> (<em>float</em>) – the coordinates on the Z-axis of a bin.</li>
+<li><strong>- x</strong><strong>, </strong><strong>y</strong><strong>, </strong><strong>z are coordinates inside a valid bin and not bin indexes</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+<li><strong>w</strong> (<em>float</em>) – a weight associated with Y value</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or 0</strong> if no bin
+was found or the input values are not valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mpl.html" title="The Plotting Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="hist.html" title="The Histogramming Module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">rootplots 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mihai Niculescu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

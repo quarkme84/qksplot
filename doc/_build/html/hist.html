@@ -1,0 +1,364 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>The Histogramming Module &#8212; rootplots 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference for Histogram Module" href="reference_hist.html" />
+    <link rel="prev" title="Welcome to rootplots’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reference_hist.html" title="Reference for Histogram Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to rootplots’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">rootplots 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Histogramming Module</a><ul>
+<li><a class="reference internal" href="#the-histogram-classes">The Histogram Classes</a></li>
+<li><a class="reference internal" href="#creating-histograms">Creating Histograms</a><ul>
+<li><a class="reference internal" href="#importing-the-library">importing the library</a></li>
+<li><a class="reference internal" href="#d-histogram">1D histogram</a></li>
+<li><a class="reference internal" href="#id1">2D histogram</a></li>
+<li><a class="reference internal" href="#id2">3D histogram</a></li>
+<li><a class="reference internal" href="#nd-histogram">ND histogram</a></li>
+<li><a class="reference internal" href="#the-title-of-the-histogram">the title of the histogram</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#filling">Filling</a><ul>
+<li><a class="reference internal" href="#id3">1D histogram</a></li>
+<li><a class="reference internal" href="#id4">2D histogram</a></li>
+<li><a class="reference internal" href="#id5">3D histogram</a></li>
+<li><a class="reference internal" href="#id6">ND histogram</a></li>
+<li><a class="reference internal" href="#advanced-filling-methods">Advanced Filling Methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#operations">Operations</a></li>
+<li><a class="reference internal" href="#projections">Projections</a></li>
+<li><a class="reference internal" href="#drawing">Drawing</a></li>
+<li><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to rootplots’s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reference_hist.html"
+                        title="next chapter">Reference for Histogram Module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/hist.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-histogramming-module">
+<h1>The Histogramming Module<a class="headerlink" href="#the-histogramming-module" title="Permalink to this headline">¶</a></h1>
+<p>This module contains classes for histogramming.</p>
+<p>We’ll cover the classes and their functionalities by directly using them in different examples.</p>
+<div class="section" id="the-histogram-classes">
+<h2>The Histogram Classes<a class="headerlink" href="#the-histogram-classes" title="Permalink to this headline">¶</a></h2>
+<p>This package provides full support for N-Dimensional histograms: <a class="reference internal" href="reference_hist.html#rootplots.hist.HistND" title="rootplots.hist.HistND"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistND</span></code></a>.
+But for your convenience, there are also classes derived from <a class="reference internal" href="reference_hist.html#rootplots.hist.HistND" title="rootplots.hist.HistND"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistND</span></code></a>
+that are more convenient to use when you need lower dimensional histograms:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="reference_hist.html#rootplots.hist.Hist1D" title="rootplots.hist.Hist1D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hist1D</span></code></a> a 1D histogram</li>
+<li><a class="reference internal" href="reference_hist.html#rootplots.hist.Hist2D" title="rootplots.hist.Hist2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hist2D</span></code></a> a 2D histogram</li>
+<li><a class="reference internal" href="reference_hist.html#rootplots.hist.Hist3D" title="rootplots.hist.Hist3D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hist3D</span></code></a> a 3D histogram</li>
+</ul>
+</div></blockquote>
+<p>Regardles of the histogram’s dimension, the bins are all <em>floats</em> and <em>equal width</em> on the axis. As such, for the moment the histograms don’t support
+non-linear axis such as logarithmic axis.</p>
+</div>
+<div class="section" id="creating-histograms">
+<h2>Creating Histograms<a class="headerlink" href="#creating-histograms" title="Permalink to this headline">¶</a></h2>
+<p>To create a histogram we must say how the bins are distributed on each axis (per dimension).
+For each dimension of the histogram, the expected information is: the number of bins per axis,
+the minimum value on the axis of the lowest bin and the maximum value on the axis of the highest bin.</p>
+<div class="section" id="importing-the-library">
+<h3>importing the library<a class="headerlink" href="#importing-the-library" title="Permalink to this headline">¶</a></h3>
+<p>But first we must import the histogram module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rootplots.hist</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>This command imports all classes defined in rootplots.hist module, more precisly the classes for 1D, 2D, 3D and ND histograms.</p>
+</div>
+<div class="section" id="d-histogram">
+<h3>1D histogram<a class="headerlink" href="#d-histogram" title="Permalink to this headline">¶</a></h3>
+<p>The easiest histograms to create are <strong>one dimensional</strong> (<a class="reference internal" href="reference_hist.html#rootplots.hist.Hist1D" title="rootplots.hist.Hist1D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hist1D</span></code></a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">Hist1D</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Above we created a 1D histogram that contains <em>100 bins</em> starting from <em>-3.0</em> to <em>3.0</em>.</p>
+</div>
+<div class="section" id="id1">
+<h3>2D histogram<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>To create <strong>two dimensional</strong> histograms (<a class="reference internal" href="reference_hist.html#rootplots.hist.Hist2D" title="rootplots.hist.Hist2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hist2D</span></code></a>) it gets a bit complex, because we must explicitly say how the bins are distributed on 2 axis.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h2</span> <span class="o">=</span> <span class="n">Hist2D</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we recongnize the first 3 arguments as representing the bin distribution on the first axis/dimension as we did previously for <em>h</em> . For the second axis, we can see that it has 60 bins starting from 0 and grow equally spaced till 1000.</p>
+</div>
+<div class="section" id="id2">
+<h3>3D histogram<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>A bit more complex is to create <strong>three dimensional</strong> histograms (<a class="reference internal" href="reference_hist.html#rootplots.hist.Hist3D" title="rootplots.hist.Hist3D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hist3D</span></code></a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h3</span> <span class="o">=</span> <span class="n">Hist3D</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To construct 3D histograms is basically the same as for 2D histograms with the added difference we need 3 more arguments to specify bin distribution on the third axis. Pretty simple!</p>
+</div>
+<div class="section" id="nd-histogram">
+<h3>ND histogram<a class="headerlink" href="#nd-histogram" title="Permalink to this headline">¶</a></h3>
+<p>When we want to go to <strong>higher dimensions</strong> then 3 we must use the <strong>N-Dimensional histogram class</strong> (<a class="reference internal" href="reference_hist.html#rootplots.hist.HistND" title="rootplots.hist.HistND"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistND</span></code></a>). Here, the interface is a bit different since we must deal
+with <strong>N</strong> values for each parameter from the bin distribution. For this reason we must use <em>arrays</em> or <em>lists</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hN</span> <span class="o">=</span> <span class="n">HistND</span><span class="p">(</span> <span class="n">N</span><span class="p">,</span> <span class="n">minBins</span><span class="p">,</span> <span class="n">maxBins</span><span class="p">,</span> <span class="n">nBins</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where <em>N</em> is the number of dimensions and the other arguments are arrays/lists. Where we understand that the <em>ith</em> element represents its value on <em>ith</em> dimension/axis. For example, a <strong>5 dimensional histogram</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="o">=</span><span class="mi">5</span>
+<span class="n">mins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">maxis</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">nbins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+
+<span class="n">h5</span> <span class="o">=</span> <span class="n">HistND</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">mins</span><span class="p">,</span> <span class="n">maxis</span><span class="p">,</span> <span class="n">nbins</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or, simply:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h5</span> <span class="o">=</span> <span class="n">HistND</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>We interpret as:</p>
+<blockquote>
+<div><ul class="simple">
+<li>the histogram has 5 dimensions</li>
+<li>the first axis has 5 bins starting from 0 till 5</li>
+<li>the second axis has 6 bins starting from -1 till 6</li>
+<li>the third axis has 8 bins starting from 0 till 8</li>
+<li>the fourth axis has 10 bins starting from 2 till 8</li>
+<li>the fifth axis has 10 bins starting from 1 till 11</li>
+</ul>
+</div></blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">N-dimensional histogramming is very demanding of memory: a HistND with 8 dimensions and 100 bins per dimension needs more than 2.5GB of RAM!</p>
+</div>
+</div>
+<div class="section" id="the-title-of-the-histogram">
+<h3>the title of the histogram<a class="headerlink" href="#the-title-of-the-histogram" title="Permalink to this headline">¶</a></h3>
+<p>There is one more argument that all histogram classes share it. We didn’t show it because its not important to the histogramming functionality, the argument is the <em>title</em> of the histogram. This argument is only used to keep it around untill the moment of drawing the histogram. That’s his only functionality.</p>
+<p>Let’s see an example on how to use <strong>title</strong> it in the constructor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h2</span> <span class="o">=</span> <span class="n">Hist2D</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Nch vs Pt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="filling">
+<h2>Filling<a class="headerlink" href="#filling" title="Permalink to this headline">¶</a></h2>
+<p>A histogram is useless if it is not filled.</p>
+<p>In this section we present the filling methods of histograms of different dimensions.
+First, we start with the simples methods. We kept the more advanced functionality in a subsection of it own at the end of this section.</p>
+<div class="section" id="id3">
+<h3>1D histogram<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>One can fill a 1-dimensional histogram by simply calling the <a class="reference internal" href="reference_hist.html#rootplots.hist.Hist1D.fill" title="rootplots.hist.Hist1D.fill"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill</span></code></a> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This methods automatically searches the bin that can contain the value <em>val</em> and adds 1 to the counter of the bin.</p>
+<p>You can specify a weight using the <a class="reference internal" href="reference_hist.html#rootplots.hist.Hist1D.fill_w" title="rootplots.hist.Hist1D.fill_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_w</span></code></a> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="o">.</span><span class="n">fill_w</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Which automatically searches the bin that can contain the value <em>val</em> and adds the weight <em>w</em> to the counter of the bin.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Using the simple fill methods there is no need to say which bin you want filled, just a position that is inside a bin.</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>2D histogram<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>The 2D histograms are filled similary to 1D case, with the exception  this time we must take care of 2 axis:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h2</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">valX</span><span class="p">,</span> <span class="n">valY</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, the <a class="reference internal" href="reference_hist.html#rootplots.hist.Hist2D.fill" title="rootplots.hist.Hist2D.fill"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill</span></code></a> method automatically searches the bin on the first axis (alternatively called X-axis) that can contain the value <em>valX</em> and the bin on the second axis (aka called Y-axis) that can contain the value <em>valY</em> and adds 1 to the counter of the bin.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You may wonder: since there are bins on X-axis and bins on Y-axis which bin its actually filled?</p>
+<p class="last">The answear: None of those. Because those bins don’t exists for the reason that internally, the histogram classes contain <strong>N-dimensional cells</strong> also known as <strong>global linear bins</strong> as you may find it in other parts of the documentation. These cells represent the intersection of the bins from all axis.</p>
+</div>
+<p>Respectively, there is a <a class="reference internal" href="reference_hist.html#rootplots.hist.Hist2D.fill_w" title="rootplots.hist.Hist2D.fill_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_w</span></code></a> method for which you can specify a weight:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h2</span><span class="o">.</span><span class="n">fill_w</span><span class="p">(</span><span class="n">valX</span><span class="p">,</span> <span class="n">valY</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>3D histogram<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Its obvious by now, the fill methods for the 3D histogram are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h3</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">valX</span><span class="p">,</span> <span class="n">valY</span><span class="p">,</span> <span class="n">valZ</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>respectively:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h3</span><span class="o">.</span><span class="n">fill_w</span><span class="p">(</span><span class="n">valX</span><span class="p">,</span> <span class="n">valY</span><span class="p">,</span> <span class="n">valZ</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>ND histogram<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>When going above 3 dimensions one must use an n-dimensional histogram: <a class="reference internal" href="reference_hist.html#rootplots.hist.HistND" title="rootplots.hist.HistND"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistND</span></code></a>.</p>
+<p>By now, you should noticed that for the above examples we filled the histogram’s cells using positions and the arguments are simple variables. When we go to the general case (n-dimensional histogram) this is not enough. We must use arrays/lists as arguments to the fill methods and explicitly specify the meaning of the argument. So, there is <strong>no fill method for the ND histograms</strong>, instead there is <a class="reference internal" href="reference_hist.html#rootplots.hist.HistND.fill_pos" title="rootplots.hist.HistND.fill_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_pos</span></code></a> which has the same meaning:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.46</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.33</span><span class="p">,</span> <span class="mf">7.1</span><span class="p">,</span> <span class="mf">2.28</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="n">h5</span><span class="o">.</span><span class="n">fill_pos</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or, <a class="reference internal" href="reference_hist.html#rootplots.hist.HistND.fill_pos_w" title="rootplots.hist.HistND.fill_pos_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_pos_w</span></code></a> fills with weights:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h5</span><span class="o">.</span><span class="n">fill_pos_w</span><span class="p">([</span><span class="mf">3.46</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.33</span><span class="p">,</span> <span class="mf">7.1</span><span class="p">,</span> <span class="mf">2.28</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The fill_pos method fills the bins (or the cell) that can contain the point defined at position p.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">fill_pos does the same thing as the fill method and is available to all histograms. The fundamental difference is that fill is available only to histograms lower then 3D. Another difference is that fill_pos accepts only an array-like variable.</p>
+</div>
+</div>
+<div class="section" id="advanced-filling-methods">
+<h3>Advanced Filling Methods<a class="headerlink" href="#advanced-filling-methods" title="Permalink to this headline">¶</a></h3>
+<p>Untill now, we have seen histogram can use filling methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li>2 for that histograms lower then 3D (fill &amp; fill_pos)</li>
+<li>1 for histograms higher then 3D (fill_pos)</li>
+</ul>
+</div></blockquote>
+<p>These methods fill the histogram according to a position of a point that falls inside a bin. But, there are more ways to fill.</p>
+<p>Use <a class="reference internal" href="reference_hist.html#rootplots.hist.HistND.fill_bins" title="rootplots.hist.HistND.fill_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_bins</span></code></a> when you know the bins on each axe:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mbins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">47</span><span class="p">]</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">fill_bins</span><span class="p">(</span><span class="n">mbins</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and <a class="reference internal" href="reference_hist.html#rootplots.hist.HistND.fill_bins_w" title="rootplots.hist.HistND.fill_bins_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_bins_w</span></code></a> with weight:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mbins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">47</span><span class="p">]</span>
+<span class="n">w</span> <span class="o">=</span> <span class="mf">34.2</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">fill_bins_w</span><span class="p">(</span><span class="n">mbins</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The argument is a list of bin indexes. The dimension of the list must be the same as the dimension of the histogram.
+The bin indexes start from 0 to MaxBinIndex-1. MaxBinIndex is known when creating the histogram.</p>
+</div>
+<p>Use <a class="reference internal" href="reference_hist.html#rootplots.hist.HistND.fill_cell" title="rootplots.hist.HistND.fill_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_cell</span></code></a> when you know the cell index:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">icell</span> <span class="o">=</span> <span class="mi">34</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">fill_bins</span><span class="p">(</span><span class="n">icell</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and <a class="reference internal" href="reference_hist.html#rootplots.hist.HistND.fill_cell_w" title="rootplots.hist.HistND.fill_cell_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_cell_w</span></code></a> with weight:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">icell</span> <span class="o">=</span> <span class="mi">34</span>
+<span class="n">w</span> <span class="o">=</span> <span class="mf">2.2</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">fill_cell_w</span><span class="p">(</span><span class="n">icell</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The cell index starts from 0 to MAX_CELL_IDX, where MAX_CELL_IDX is the product of all the bin counters from all dimensions.
+Meaning for a 5D histogram that contains <cite>nbins=[5,6,8,10,10]</cite> the <cite>MAX_CELL_IDX=5*6*8*10*10</cite></p>
+</div>
+</div>
+</div>
+<div class="section" id="operations">
+<h2>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="projections">
+<h2>Projections<a class="headerlink" href="#projections" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="drawing">
+<h2>Drawing<a class="headerlink" href="#drawing" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference_hist.html">Reference for Histogram Module</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reference_hist.html" title="Reference for Histogram Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to rootplots’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">rootplots 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mihai Niculescu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>
