@@ -18,7 +18,7 @@ setup(
     url='',
     license='GPL',
     packages=['rootplots', 'rootplots.tests'],
-    install_requires=['math','numpy','typing','bisect'],
+    install_requires=['numpy','typing'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -26,7 +26,7 @@ setup(
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: GPL License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.3',
         'Topic :: Scientific/Engineering :: Physics'
     ]
 )

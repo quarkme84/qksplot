@@ -17,9 +17,9 @@ Note:
 """
 
 import math
-from numpy import linspace
+import numpy as np
 from typing import List, Dict
-from bisect import bisect
+from bisect import bisect_left
 
 __all__ = 'HistAxis', 'HistND', 'Hist1D', 'Hist2D', 'Hist3D'
 
@@ -42,13 +42,13 @@ class HistAxis:
 
     @property
     def maxBin(self) -> float:
-        """ returns the maximum upper edge of the last bin """
+        """ returns the maximum right edge of the last bin """
         return self._bins[-1]
 
     @property
     def nbins(self) -> int:
         """ returns the total number of the bins"""
-        return len(self._bins)
+        return len(self._bins) - 1
 
     @property
     def title(self) -> str:
@@ -78,7 +78,7 @@ class HistAxis:
         if x < self.minBin or x > self.maxBin:  # sane check
             return -1
 
-        return bisect(self._bins, x)
+        return bisect_left(self._bins, x) - 1
 
     def get_bins(self) -> List[float]:
         """ Returns all bins lower edges of the axis.
@@ -120,9 +120,9 @@ class HistND:
         Args:
             dim (int): the number of dimensions of the histogram
 
-            minBin (array like): an array containing the minimum value of lower edge of bins for each dimension.
+            minBin (array like): an array containing the minimum value of lower (leftmost) edge of bins for each dimension.
 
-            maxBin (array like): an array containing the maximum value of upper edge of bins for each dimension.
+            maxBin (array like): an array containing the maximum value of upper (rightmost) edge of bins for each dimension.
 
             nBins (array like):  an array containing the number of bins for each dimension.
 
@@ -145,7 +145,9 @@ class HistND:
         self._sizeOverDims = []  # an array of sizes useful for converting to coordinates of linear array of cells
         n_cells = 1
         for i in range(dim):
-            self._axes.append(HistAxis(linspace(minBin[i], maxBin[i], nBins[i])))
+            binsLeftEdges = np.linspace(minBin[i], maxBin[i], nBins[i], endpoint=False)
+            x = np.append(binsLeftEdges, maxBin[i])
+            self._axes.append(HistAxis(x))
             self._sumWeightsX.append(.0)
             self._sumWeightsX2.append(.0)
             self._sizeOverDims.append(n_cells)
@@ -727,17 +729,21 @@ class HistND:
         Returns:
             none.
         """
-        for i_cell in range(self.cells):
-            self._binSumWeightsVals2[i_cell] += factor * self._binSumWeightsVals2[i_cell]
-            self._binsEntries[i_cell] += factor * self._binsEntries[i_cell]
+        scaledHist = self
 
-            self._sumWeights += factor * self._sumWeights
-            self._sumWeights2 += factor * factor * self._sumWeights2
+        for i_cell in range(scaledHist.cells):
+            scaledHist._binSumWeightsVals2[i_cell] = factor * scaledHist._binSumWeightsVals2[i_cell]
+            scaledHist._binsEntries[i_cell] = factor * scaledHist._binsEntries[i_cell]
+
+            scaledHist._sumWeights = factor * scaledHist._sumWeights
+            scaledHist._sumWeights2 = factor * factor * scaledHist._sumWeights2
 
         if scale_errors:
-            for d in range(self.dimension):
-                self._sumWeightsX[d] += factor * self._sumWeightsX[d]
-                self._sumWeightsX2[d] += factor * self._sumWeightsX2[d]
+            for d in range(scaledHist.dimension):
+                scaledHist._sumWeightsX[d]  = factor * scaledHist._sumWeightsX[d]
+                scaledHist._sumWeightsX2[d] = factor * scaledHist._sumWeightsX2[d]
+        
+        return self
 
     def __add__(self, other):
         """Adds 2 histograms

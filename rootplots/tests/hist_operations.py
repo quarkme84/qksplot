@@ -38,5 +38,13 @@ h3.title = "H1+H2"
 plt.subplot(grid[1, 1])
 mpl.plot_hist(h3)
 
+print(h1.get_axis(0).__dict__)
+print(h2.get_axis(0).__dict__)
+print(h3.get_axis(0).__dict__)
 
+print("-"*50)
+
+print(h1.__dict__)
+print(h2.__dict__)
+print(h3.__dict__)
 mpl.show()

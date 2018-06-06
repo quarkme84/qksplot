@@ -185,14 +185,14 @@ The fill_pos method fills the bins (or the cell) that can contain the point defi
 Advanced Filling Methods
 ------------------------
 
-Untill now, we have seen histogram can use filling methods:
+Untill now, we have seen some methods that histograms can use for filling:
 
- 	- 2 for that histograms lower then 3D (fill & fill_pos) 
- 	- 1 for histograms higher then 3D (fill_pos)
+ 	- 2 methods for that histograms lower then 3D (fill & fill_pos) 
+ 	- 1 method for histograms higher then 3D (fill_pos)
 
 These methods fill the histogram according to a position of a point that falls inside a bin. But, there are more ways to fill.
 
-Use :py:meth:`fill_bins <rootplots.hist.HistND.fill_bins>` when you know the bins on each axe::
+Use :py:meth:`fill_bins <rootplots.hist.HistND.fill_bins>` when you know the bins ids on each axis::
 
 	mbins = [1,0,100,2,86,47]
 	hist.fill_bins(mbins)
@@ -225,6 +225,9 @@ and :py:meth:`fill_cell_w <rootplots.hist.HistND.fill_cell_w>` with weight::
 
 Operations
 ==========
+
+
+
 
 Projections
 ===========
