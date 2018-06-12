@@ -13,7 +13,7 @@ This package is structured in 3 modules: a module for histograms, another for pr
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Modules:
 
    hist
    profile

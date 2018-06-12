@@ -18,9 +18,6 @@ __all__ = 'ProfileND', 'Profile1D', 'Profile2D', 'Profile3D'
 class ProfileND(h.HistND):
     """ Profile histograms are used to compute the mean value of Y and its error for each bin in X.
 
-    This class does not provide drawing posibilities, so there is no draw() method. Use other libraries,like matplotlib,
-    to rootplots the data, see example below.
-
     For each bin we have::
 
     - The mean of Y is the sum of all values in that bin divided by the number of entries per bin.

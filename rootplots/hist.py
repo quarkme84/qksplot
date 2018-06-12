@@ -749,7 +749,7 @@ class HistND:
         """Adds 2 histograms
 
         Args:
-            other (HistND): a histogram of the same dimension.
+            other (HistND): another histogram, not necessary of the same dimension.
 
         Returns:
             HistND. The sum of the 2 histograms
@@ -791,7 +791,7 @@ class HistND:
         """Substract 2 histograms
 
         Args:
-            other (HistND): a histogram of the same dimension.
+            other (HistND): another histogram, not necessary of the same dimension.
 
         Returns:
             HistND. The difference of the 2 histograms

@@ -7,8 +7,8 @@ from rootplots.hist import Hist1D
 from rootplots import mpl
 
 # create histograms
-h1 = Hist1D(10, -1, 1, title="Basic H1")
-h2 = Hist1D(10, -1, 1, title="Basic H2")
+h1 = Hist1D(10, -1, 1, title="H1")
+h2 = Hist1D(10, -1, 1, title="H2")
 
 for x in range(100):
 	r = random.uniform(-1,1)
@@ -18,6 +18,9 @@ for x in range(100):
 	h2.fill(random.uniform(-1,1))
 
 h3 = h1 + h2
+h4 = h3 - h2
+h5 = h1 * h2
+h6 = h1 / h2
 
 grid = plt.GridSpec(4, 2, wspace=0.2, hspace=0.4)
 plt.subplot(grid[0, 0])
@@ -38,13 +41,16 @@ h3.title = "H1+H2"
 plt.subplot(grid[1, 1])
 mpl.plot_hist(h3)
 
-print(h1.get_axis(0).__dict__)
-print(h2.get_axis(0).__dict__)
-print(h3.get_axis(0).__dict__)
+h4.title = "(H1+H2) - H2"
+plt.subplot(grid[2, 0])
+mpl.plot_hist(h4)
 
-print("-"*50)
+h5.title = "H1*H2"
+plt.subplot(grid[2, 1])
+mpl.plot_hist(h5)
 
-print(h1.__dict__)
-print(h2.__dict__)
-print(h3.__dict__)
+h6.title = "H1/H2"
+plt.subplot(grid[3, 0])
+mpl.plot_hist(h6)
+
 mpl.show()

@@ -1,5 +1,5 @@
-Reference for Histogram Module
-==============================
+API Reference for Profile Module
+==================================
 
-.. automodule:: rootplots.hist
+.. automodule:: rootplots.profile
    :members:

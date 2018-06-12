@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Reference for Histogram Module &#8212; rootplots 1.0 documentation</title>
+    <title>API Reference for Profile Module &#8212; rootplots 1.0 documentation</title>
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -15,8 +15,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="The Profilling Module" href="profile.html" />
-    <link rel="prev" title="The Histogramming Module" href="hist.html" /> 
+    <link rel="next" title="The Profile Histogram Module" href="profile.html" />
+    <link rel="prev" title="How to Project histograms" href="examples/hist/hist_proj.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="profile.html" title="The Profilling Module"
+          <a href="profile.html" title="The Profile Histogram Module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="hist.html" title="The Histogramming Module"
+          <a href="examples/hist/hist_proj.html" title="How to Project histograms"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">rootplots 1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="hist.html" accesskey="U">The Histogramming Module</a> &#187;</li> 
@@ -40,11 +40,11 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="hist.html"
-                        title="previous chapter">The Histogramming Module</a></p>
+  <p class="topless"><a href="examples/hist/hist_proj.html"
+                        title="previous chapter">How to Project histograms</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="profile.html"
-                        title="next chapter">The Profilling Module</a></p>
+                        title="next chapter">The Profile Histogram Module</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -72,16 +72,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-rootplots.hist">
-<span id="reference-for-histogram-module"></span><h1>Reference for Histogram Module<a class="headerlink" href="#module-rootplots.hist" title="Permalink to this headline">¶</a></h1>
-<dl class="docutils">
-<dt>This module defines classes required for histogramming:</dt>
-<dd><p class="first"><a class="reference internal" href="#rootplots.hist.Hist1D" title="rootplots.hist.Hist1D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hist1D</span></code></a> - A 1D histogram</p>
-<p><a class="reference internal" href="#rootplots.hist.Hist2D" title="rootplots.hist.Hist2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hist2D</span></code></a> - A 2D histogram</p>
-<p><a class="reference internal" href="#rootplots.hist.Hist3D" title="rootplots.hist.Hist3D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hist3D</span></code></a> - A 3D histogram</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND" title="rootplots.hist.HistND"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistND</span></code></a> - An N-Dimensional histogram</p>
-</dd>
-</dl>
+  <div class="section" id="module-rootplots.profile">
+<span id="api-reference-for-profile-module"></span><h1>API Reference for Profile Module<a class="headerlink" href="#module-rootplots.profile" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The classes defined in this module do <strong>NOT</strong> provide drawing capabilities, so there is <strong>NO</strong> draw() nor paint()
@@ -89,390 +81,122 @@ method. Use other libraries like matplotlib to plot the data. But for your conve
 module for easy plotting using matplotlib. See, <a class="reference internal" href="mpl.html#module-rootplots.mpl" title="rootplots.mpl"><code class="xref py py-mod docutils literal notranslate"><span class="pre">rootplots.mpl</span></code></a></p>
 </div>
 <dl class="class">
-<dt id="rootplots.hist.HistAxis">
-<em class="property">class </em><code class="descclassname">rootplots.hist.</code><code class="descname">HistAxis</code><span class="sig-paren">(</span><em>bins</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#HistAxis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistAxis" title="Permalink to this definition">¶</a></dt>
-<dd><p>An axis for use in constructing histograms</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bins</strong> (<em>array-like</em>) – an ordered (ascending order) array of floats containing the lower edges of the bins</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="rootplots.hist.HistAxis.density">
-<code class="descname">density</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/hist.html#HistAxis.density"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistAxis.density" title="Permalink to this definition">¶</a></dt>
-<dd><p>the density of the bins = number of bins over the length (maxBin - minBin)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistAxis.get_bin">
-<code class="descname">get_bin</code><span class="sig-paren">(</span><em>x: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#HistAxis.get_bin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistAxis.get_bin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the bin index that contains ‘x’ value, such that for that bin <code class="docutils literal notranslate"><span class="pre">minBin</span> <span class="pre">&lt;=</span> <span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">maxBin</span></code></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>float</em>) – a valid value on the axis</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">int. Or, -1 is returned if there is no such bin.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistAxis.get_bin_center">
-<code class="descname">get_bin_center</code><span class="sig-paren">(</span><em>i: int</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/hist.html#HistAxis.get_bin_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistAxis.get_bin_center" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the value of the center in bin ‘i’</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistAxis.get_bins">
-<code class="descname">get_bins</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[float]<a class="reference internal" href="_modules/rootplots/hist.html#HistAxis.get_bins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistAxis.get_bins" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns all bins lower edges of the axis.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List[float]. A list with lower edges of each bin</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistAxis.get_bins_centers">
-<code class="descname">get_bins_centers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#HistAxis.get_bins_centers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistAxis.get_bins_centers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the a list containing the centers of all bins.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistAxis.maxBin">
-<code class="descname">maxBin</code><a class="headerlink" href="#rootplots.hist.HistAxis.maxBin" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the maximum upper edge of the last bin</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistAxis.minBin">
-<code class="descname">minBin</code><a class="headerlink" href="#rootplots.hist.HistAxis.minBin" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the minimum low edge of first bin</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistAxis.nbins">
-<code class="descname">nbins</code><a class="headerlink" href="#rootplots.hist.HistAxis.nbins" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the total number of the bins</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="rootplots.hist.HistND">
-<em class="property">class </em><code class="descclassname">rootplots.hist.</code><code class="descname">HistND</code><span class="sig-paren">(</span><em>dim: int</em>, <em>minBin</em>, <em>maxBin</em>, <em>nBins</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#HistND"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND" title="Permalink to this definition">¶</a></dt>
-<dd><p>An N-Dimensional Histogram.</p>
+<dt id="rootplots.profile.ProfileND">
+<em class="property">class </em><code class="descclassname">rootplots.profile.</code><code class="descname">ProfileND</code><span class="sig-paren">(</span><em>dim: int</em>, <em>minBin</em>, <em>maxBin</em>, <em>nBins</em>, <em>minValue=None</em>, <em>maxValue=None</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/profile.html#ProfileND"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND" title="Permalink to this definition">¶</a></dt>
+<dd><p>Profile histograms are used to compute the mean value of Y and its error for each bin in X.</p>
+<p>For each bin we have:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">The</span> <span class="n">mean</span> <span class="n">of</span> <span class="n">Y</span> <span class="ow">is</span> <span class="n">the</span> <span class="nb">sum</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">that</span> <span class="nb">bin</span> <span class="n">divided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">entries</span> <span class="n">per</span> <span class="nb">bin</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">The</span> <span class="n">error</span> <span class="n">on</span> <span class="n">X</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">width</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">bin</span> <span class="n">divided</span> <span class="n">by</span> <span class="mf">2.</span>
+<span class="o">-</span> <span class="n">The</span> <span class="n">error</span> <span class="n">on</span> <span class="n">Y</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">standard</span> <span class="n">deviation</span> <span class="n">divided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">number_of_entries_per_bin</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dim</strong> (<em>int</em>) – the number of dimensions of the histogram</li>
+<li><strong>dim</strong> (<em>int</em>) – the number of dimensions of the profile</li>
 <li><strong>minBin</strong> (<em>array like</em>) – an array containing the minimum value of lower edge of bins for each dimension.</li>
 <li><strong>maxBin</strong> (<em>array like</em>) – an array containing the maximum value of upper edge of bins for each dimension.</li>
 <li><strong>nBins</strong> (<em>array like</em>) – an array containing the number of bins for each dimension.</li>
-<li><strong>title</strong> (<em>string</em>) – the title of the histogram.</li>
+<li><strong>title</strong> (<em>string</em>) – the title of the profile.</li>
+<li><strong>minValue</strong> (<em>float</em>) – the minimum value accepted to fill a bin.
+the lowest value accepted on Y (vertical axis).
+This filter is not used when minValue is None</li>
+<li><strong>maxValue</strong> (<em>float</em>) – the maximum value accepted to fill a bin.
+the highest value accepted on Y (vertical axis).
+This filter is not used when maxValue is None</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="rootplots.hist.HistND.bins_to_cell">
-<code class="descname">bins_to_cell</code><span class="sig-paren">(</span><em>idxBins</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#HistND.bins_to_cell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.bins_to_cell" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts bin indexes to global linear bin (cell) index.</p>
-<p>Returns the index of the cell that is located by the bin indexes on the axes</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>idxBins</strong> (<em>array-like</em>) – the bin indexes of the axis. Its length must be the same as the histogram dimension</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">int. The cell index (global linear bin index)</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.cell_to_bins" title="rootplots.hist.HistND.cell_to_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cell_to_bins()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.pos_to_cell" title="rootplots.hist.HistND.pos_to_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pos_to_cell()</span></code></a></p>
+<p>A simple profile bins start from <cite>0.1</cite> to <cite>5.1</cite> and contains <cite>10 bins</cite>, without limits on Y</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prof</span> <span class="o">=</span> <span class="n">ProfileND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.1</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
 </div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.cell_to_bins">
-<code class="descname">cell_to_bins</code><span class="sig-paren">(</span><em>idx_cell: int</em><span class="sig-paren">)</span> &#x2192; List[int]<a class="reference internal" href="_modules/rootplots/hist.html#HistND.cell_to_bins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.cell_to_bins" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts cell index to indexes of bins.</p>
-<p>returns a list of bin indexes on the axes that refer to this cell “idx_cell”</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>idx_cell</strong> (<em>int</em>) – the cell indexes.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List[int]. A length of the same as the histogram dimension</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.bins_to_cell" title="rootplots.hist.HistND.bins_to_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bins_to_cell()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.pos_to_cell" title="rootplots.hist.HistND.pos_to_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pos_to_cell()</span></code></a></p>
+<p>If you want limits on Y, let say discard those values that are not within
+[-1,1] use as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prof</span> <span class="o">=</span> <span class="n">ProfileND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.1</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
 </div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistND.cells">
-<code class="descname">cells</code><a class="headerlink" href="#rootplots.hist.HistND.cells" title="Permalink to this definition">¶</a></dt>
-<dd><p>total number of cells (global linear bins)</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistND.dimension">
-<code class="descname">dimension</code><a class="headerlink" href="#rootplots.hist.HistND.dimension" title="Permalink to this definition">¶</a></dt>
-<dd><p>number of dimensions</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistND.entries">
-<code class="descname">entries</code><a class="headerlink" href="#rootplots.hist.HistND.entries" title="Permalink to this definition">¶</a></dt>
-<dd><p>total number of entries</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.fill_bins">
-<code class="descname">fill_bins</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#HistND.fill_bins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.fill_bins" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill the histogram no weight.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> (<em>array-like</em>) – the bin indexes for each dimension. The size of the array is the same as the number of dimensions</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">b contains indexes of the bins on each axis, not the positions on axis</p>
+<p>Fill the profilehist</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prof</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="mf">2.3</span><span class="p">],</span> <span class="mf">10.</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_pos" title="rootplots.hist.HistND.fill_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_pos()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_cell" title="rootplots.hist.HistND.fill_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_cell()</span></code></a></p>
-</div>
-</dd></dl>
+<p>Full example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rootplots.profile</span> <span class="k">as</span> <span class="nn">pr</span>
+<span class="kn">import</span> <span class="nn">rootplots.mpl</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
+<span class="n">hprof</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">ProfileND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">],[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2500</span><span class="p">):</span>
+    <span class="n">px</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">py</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pz</span> <span class="o">=</span> <span class="n">px</span><span class="o">*</span><span class="n">px</span> <span class="o">+</span> <span class="n">py</span><span class="o">*</span><span class="n">py</span>
+
+    <span class="n">hprof</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="n">px</span><span class="p">],</span><span class="n">pz</span><span class="p">)</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">plot_profile</span><span class="p">(</span><span class="n">hprof</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="method">
-<dt id="rootplots.hist.HistND.fill_bins_w">
-<code class="descname">fill_bins_w</code><span class="sig-paren">(</span><em>b</em>, <em>w: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#HistND.fill_bins_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.fill_bins_w" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill the histogram with weight.</p>
+<dt id="rootplots.profile.ProfileND.fill_profile">
+<code class="descname">fill_profile</code><span class="sig-paren">(</span><em>x</em>, <em>val: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.fill_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.fill_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the profile (without weights). Use this and not the fill*() methods of the parent histogram.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>b</strong> (<em>array-like</em>) – the bin indexes for each dimension. The size of the array is the same as the number of dimensions</li>
-<li><strong>w</strong> (<em>float</em>) – the weight to fill in</li>
+<li><strong>x</strong> (<em>array-like</em>) – the coordinates on the axis of a cell.</li>
+<li><strong>size of the array is the same as the number of dimensions</strong> (<em>The</em>) – </li>
+<li><strong>- x contains coordinates not indexes of the bins</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or -1</strong> if no bin
+was found or the input values are not valid</p>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">b contains indexes of the bins on each axis, not the positions on axis</p>
-</div>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_pos" title="rootplots.hist.HistND.fill_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_pos()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_cell" title="rootplots.hist.HistND.fill_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_cell()</span></code></a></p>
-</div>
 </dd></dl>
 
 <dl class="method">
-<dt id="rootplots.hist.HistND.fill_cell">
-<code class="descname">fill_cell</code><span class="sig-paren">(</span><em>i_cell: int</em>, <em>do_error_per_bin=True</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#HistND.fill_cell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.fill_cell" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill the histogram (no weight).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>i_cell</strong> (<em>int</em>) – the global bin index (cell index).</li>
-<li><strong>do_error_per_bin</strong> (<em>bool</em>) – whether to compute weights per bins.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This is expensive operation because it computes the bins indexes (it decomposes cell index) and positions per axis before filling weights per bin.
-Its Recommended to use other fill_* methods</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_pos" title="rootplots.hist.HistND.fill_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_pos()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_bins" title="rootplots.hist.HistND.fill_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_bins()</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.fill_cell_w">
-<code class="descname">fill_cell_w</code><span class="sig-paren">(</span><em>i_cell: int</em>, <em>w: float</em>, <em>do_error_per_bin=True</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#HistND.fill_cell_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.fill_cell_w" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill the histogram with weight.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>i_cell</strong> (<em>int</em>) – the global bin index (cell index).</li>
-<li><strong>w</strong> (<em>float</em>) – the weight to fill in</li>
-<li><strong>do_error_per_bin</strong> (<em>bool</em>) – whether to compute weights per bins.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This is expensive operation because it computes the bins indexes (it decomposes cell index) and positions per axis before filling weights per bin.
-Its Recommended to use other fill_* methods.</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_pos_w" title="rootplots.hist.HistND.fill_pos_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_pos_w()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_bins_w" title="rootplots.hist.HistND.fill_bins_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_bins_w()</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.fill_pos">
-<code class="descname">fill_pos</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#HistND.fill_pos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.fill_pos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill the histogram (no weights).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>array-like</em>) – the coordinates on the axis of a cell. The size of the array is the same as the number of dimensions</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">x contains coordinates not indexes of the bins</p>
-</div>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_cell" title="rootplots.hist.HistND.fill_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_cell()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_bins" title="rootplots.hist.HistND.fill_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_bins()</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.fill_pos_w">
-<code class="descname">fill_pos_w</code><span class="sig-paren">(</span><em>x</em>, <em>w: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#HistND.fill_pos_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.fill_pos_w" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill the histogram with weight.</p>
+<dt id="rootplots.profile.ProfileND.fill_profile_w">
+<code class="descname">fill_profile_w</code><span class="sig-paren">(</span><em>x</em>, <em>val: float</em>, <em>w: float = 1</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.fill_profile_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.fill_profile_w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the profile with weights. Use this and not the fill*() methods of the parent histogram.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x</strong> (<em>array-like</em>) – the position for each dimension. The size of the array is the same as the number of dimensions</li>
-<li><strong>w</strong> (<em>float</em>) – the weight to fill in</li>
+<li><strong>x</strong> (<em>array-like</em>) – the coordinates on the axis of a cell.</li>
+<li><strong>size of the array is the same as the number of dimensions</strong> (<em>The</em>) – </li>
+<li><strong>- x contains coordinates not indexes of the bins</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+<li><strong>w</strong> (<em>float</em>) – a weight associated with Y value</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or 0</strong> if no bin
+was found or the input values are not valid</p>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">x contains coordinates not indexes of the bins</p>
-</div>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_cell_w" title="rootplots.hist.HistND.fill_cell_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_cell_w()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_bins_w" title="rootplots.hist.HistND.fill_bins_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_bins_w()</span></code></a></p>
-</div>
 </dd></dl>
 
 <dl class="method">
-<dt id="rootplots.hist.HistND.get_axes_list">
-<code class="descname">get_axes_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[rootplots.hist.HistAxis]<a class="reference internal" href="_modules/rootplots/hist.html#HistND.get_axes_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.get_axes_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>a list of axes</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.get_axis">
-<code class="descname">get_axis</code><span class="sig-paren">(</span><em>i: int</em><span class="sig-paren">)</span> &#x2192; rootplots.hist.HistAxis<a class="reference internal" href="_modules/rootplots/hist.html#HistND.get_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.get_axis" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the axis for dimension ‘i’</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.get_bins_centers">
-<code class="descname">get_bins_centers</code><span class="sig-paren">(</span><em>includeEmptyBins: bool = False</em><span class="sig-paren">)</span> &#x2192; List[List[float]]<a class="reference internal" href="_modules/rootplots/hist.html#HistND.get_bins_centers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.get_bins_centers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the positions of the centers of all bins per each dimension (axis).
-By default it <strong>does not</strong> include empty cells.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>includeEmptyBins</strong> (<em>bool</em>) – if empty bins are included in the list. If True then empty bins are included, otherwise they are NOT included</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of list.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.get_bins_edges">
-<code class="descname">get_bins_edges</code><span class="sig-paren">(</span><em>includeEmptyBins: bool = False</em><span class="sig-paren">)</span> &#x2192; List[List[float]]<a class="reference internal" href="_modules/rootplots/hist.html#HistND.get_bins_edges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.get_bins_edges" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns all bins per each dimension (axis).  By default it <strong>does not</strong> include empty cells.</p>
-<p>The list contains for each dimension the list of minimum edges for each cell (global linear bin)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>includeEmptyBins</strong> (<em>bool</em>) – if empty bins are included in the list. If True then empty bins are included, otherwise they are NOT included</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of list.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.get_cell_content">
-<code class="descname">get_cell_content</code><span class="sig-paren">(</span><em>i: int</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/hist.html#HistND.get_cell_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.get_cell_content" title="Permalink to this definition">¶</a></dt>
+<dt id="rootplots.profile.ProfileND.get_cell_content">
+<code class="descname">get_cell_content</code><span class="sig-paren">(</span><em>i: int</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.get_cell_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.get_cell_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the content of the cell ‘i’</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -487,44 +211,35 @@ By default it <strong>does not</strong> include empty cells.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rootplots.hist.HistND.get_cell_content_error">
-<code class="descname">get_cell_content_error</code><span class="sig-paren">(</span><em>i: int</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/hist.html#HistND.get_cell_content_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.get_cell_content_error" title="Permalink to this definition">¶</a></dt>
+<dt id="rootplots.profile.ProfileND.get_cell_content_error">
+<code class="descname">get_cell_content_error</code><span class="sig-paren">(</span><em>i: int</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.get_cell_content_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.get_cell_content_error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the error value associated with cell ‘i’</p>
+<p>The error on per cell is the standard deviation (in that cell) divided by the sqrt(number_of_entries_per_cell).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> (<em>int</em>) – a valid cell index (aka global linear bin)</td>
 </tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>The error is computed as follows:</dt>
-<dd><ul class="first last simple">
-<li>sqrt(Sum of squared weights): If weights were used during fill</li>
-<li>sqrt(bin content): If weights were NOT used during fill</li>
-</ul>
-</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">float.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="rootplots.hist.HistND.get_cells_contents">
-<code class="descname">get_cells_contents</code><span class="sig-paren">(</span><em>includeEmptyBins=False</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="reference internal" href="_modules/rootplots/hist.html#HistND.get_cells_contents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.get_cells_contents" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the contents of all bins (cells) per each dimension.  By default it <strong>does not</strong> include empty cells.</p>
+<dt id="rootplots.profile.ProfileND.get_cells_contents">
+<code class="descname">get_cells_contents</code><span class="sig-paren">(</span><em>includeEmptyBins=False</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.get_cells_contents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.get_cells_contents" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns the contents of all bins (cells) per each dimension.</dt>
+<dd>By default it <strong>does not</strong> include empty cells.</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>includeEmptyBins</strong> (<em>bool</em>) – if empty bins are included in the list. If True then empty bins are included, otherwise they are NOT included</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>includeEmptyBins</strong> (<em>bool</em>) – if empty bins are included in the list.
+If True then empty bins are included, otherwise they are NOT included</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of list.</td>
 </tr>
@@ -533,15 +248,17 @@ By default it <strong>does not</strong> include empty cells.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rootplots.hist.HistND.get_cells_contents_errors">
-<code class="descname">get_cells_contents_errors</code><span class="sig-paren">(</span><em>includeEmptyBins=False</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="reference internal" href="_modules/rootplots/hist.html#HistND.get_cells_contents_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.get_cells_contents_errors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list containing the errors associated to each cell.
-By default it <strong>does not</strong> include empty cells.</p>
+<dt id="rootplots.profile.ProfileND.get_cells_contents_errors">
+<code class="descname">get_cells_contents_errors</code><span class="sig-paren">(</span><em>includeEmptyBins=False</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="reference internal" href="_modules/rootplots/profile.html#ProfileND.get_cells_contents_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.ProfileND.get_cells_contents_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list containing the errors on the Y axis associated to each bin.
+By default it <strong>does not</strong> include empty bins.</p>
+<p>The error on Y per bin is the standard deviation (in that bin) divided by the sqrt(number_of_entries_per_bin).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>includeEmptyBins</strong> (<em>bool</em>) – if empty cell are included in the list. If True then empty cell are included, otherwise they are NOT included</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>includeEmptyBins</strong> (<em>bool</em>) – if empty bins are included in the list.
+If True then empty bins are included, otherwise they are NOT included</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list.</td>
 </tr>
@@ -549,230 +266,12 @@ By default it <strong>does not</strong> include empty cells.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="rootplots.hist.HistND.get_pos_content">
-<code class="descname">get_pos_content</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/hist.html#HistND.get_pos_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.get_pos_content" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the content of the cell located at position x</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>array-like</em>) – a position array</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">float or 0.0 if the position is outside bin ranges</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.get_stats">
-<code class="descname">get_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict[str, float]<a class="reference internal" href="_modules/rootplots/hist.html#HistND.get_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.get_stats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns general statistics about the histogram.</p>
-<blockquote>
-<div>A dictionary with the keys: “Entries”, “SumWeights”, “SumWeights2”, “SumWeightsX”, “SumWeightsX2”</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Dict{str,Any}.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.integral">
-<code class="descname">integral</code><span class="sig-paren">(</span><em>minCellId: int = 0</em>, <em>maxCellId: int = None</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/hist.html#HistND.integral"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.integral" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes integral over cells range ‘[minCellId, maxCellId]’</p>
-<dl class="docutils">
-<dt>The integral is the sum over all cells of the product of cell’s content and the volume described by its bins:</dt>
-<dd>I = Sum_i CELL_CONTENT dx * dy * dz * … dXn</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>minCellId</strong> (<em>int</em>) – minimum cell id.
-Default it is 0 (zero).</li>
-<li><strong>maxCellId</strong> (<em>int</em>) – maximum cell id.
-default is None, meaning all cells</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">float.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.integral_over_bins" title="rootplots.hist.HistND.integral_over_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">integral_over_bins()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.integral_over_pos" title="rootplots.hist.HistND.integral_over_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">integral_over_pos()</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.integral_over_bins">
-<code class="descname">integral_over_bins</code><span class="sig-paren">(</span><em>minBinsIds</em>, <em>maxBinsIds</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/hist.html#HistND.integral_over_bins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.integral_over_bins" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes integral over bins range</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>minBinsIds</strong> (<em>array-like</em>) – an array of ints containing the minimum bins over each dimension</li>
-<li><strong>maxBinsIds</strong> (<em>array-like</em>) – an array of ints containing the maximum bins over each dimension</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">float.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.integral" title="rootplots.hist.HistND.integral"><code class="xref py py-meth docutils literal notranslate"><span class="pre">integral()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.integral_over_pos" title="rootplots.hist.HistND.integral_over_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">integral_over_pos()</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.integral_over_pos">
-<code class="descname">integral_over_pos</code><span class="sig-paren">(</span><em>minPos</em>, <em>maxPos</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/rootplots/hist.html#HistND.integral_over_pos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.integral_over_pos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes integral between 2 positions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>minPos</strong> (<em>array-like</em>) – an array of floats containing the minimum position on each dimension</li>
-<li><strong>maxPos</strong> (<em>array-like</em>) – an array of floats containing the maximum position on each dimension</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">float.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.integral" title="rootplots.hist.HistND.integral"><code class="xref py py-meth docutils literal notranslate"><span class="pre">integral()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.integral_over_pos" title="rootplots.hist.HistND.integral_over_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">integral_over_pos()</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.intersect">
-<code class="descname">intersect</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#HistND.intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.intersect" title="Permalink to this definition">¶</a></dt>
-<dd><p>intersection of 2 histograms</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> – another histogram</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">another histogram that represent the reunion of these 2 histograms</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.pos_to_cell">
-<code class="descname">pos_to_cell</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#HistND.pos_to_cell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.pos_to_cell" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts coordinate positions to global linear bin (cell) index.</p>
-<p>Returns the cell index (global linear bin) that contains the point at position ‘x’. Where ‘x’ are the coordinates of a point in <a class="reference internal" href="#rootplots.hist.HistND.dimension" title="rootplots.hist.HistND.dimension"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dimension()</span></code></a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>array-like</em>) – a valid point in the space of histogram</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">int. If there is no such bin a -1 is returned.</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.bins_to_cell" title="rootplots.hist.HistND.bins_to_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bins_to_cell()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.cell_to_bins" title="rootplots.hist.HistND.cell_to_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cell_to_bins()</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.projection">
-<code class="descname">projection</code><span class="sig-paren">(</span><em>keepDims</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#HistND.projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.projection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Project this Histogram to another Histogram keeping the axis defined in <cite>keepDims</cite></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keepDims</strong> (<em>array-like</em>) – an array that contains the id’s of the dimensions to keep when projecting.  The number of dimensions of the projected histogram is the length of <cite>keepDims</cite></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">HistND. The projected histogram.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.HistND.scale">
-<code class="descname">scale</code><span class="sig-paren">(</span><em>factor: float</em>, <em>scale_errors: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#HistND.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.HistND.scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scales the histograms.</p>
-<p>The values of all cells are multiplied by ‘factor’</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>factor</strong> (<em>float</em>) – the value to scale the histogram</li>
-<li><strong>scale_errors</strong> (<em>bool</em>) – if true then it also scales the errors per dimension</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">none.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistND.sum_of_weights">
-<code class="descname">sum_of_weights</code><a class="headerlink" href="#rootplots.hist.HistND.sum_of_weights" title="Permalink to this definition">¶</a></dt>
-<dd><p>Total Sum of weights</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistND.sum_of_weights2">
-<code class="descname">sum_of_weights2</code><a class="headerlink" href="#rootplots.hist.HistND.sum_of_weights2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Total Sum of weights squared</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistND.sum_of_weightsX">
-<code class="descname">sum_of_weightsX</code><a class="headerlink" href="#rootplots.hist.HistND.sum_of_weightsX" title="Permalink to this definition">¶</a></dt>
-<dd><p>a list of total sum of weights*X for each dimension</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistND.sum_of_weightsX2">
-<code class="descname">sum_of_weightsX2</code><a class="headerlink" href="#rootplots.hist.HistND.sum_of_weightsX2" title="Permalink to this definition">¶</a></dt>
-<dd><p>a list of total sum of weights*X*X for each dimension</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rootplots.hist.HistND.title">
-<code class="descname">title</code><a class="headerlink" href="#rootplots.hist.HistND.title" title="Permalink to this definition">¶</a></dt>
-<dd><p>the title of the histogram</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="class">
-<dt id="rootplots.hist.Hist1D">
-<em class="property">class </em><code class="descclassname">rootplots.hist.</code><code class="descname">Hist1D</code><span class="sig-paren">(</span><em>nBins: int</em>, <em>minBin: float</em>, <em>maxBin: float</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist1D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist1D" title="Permalink to this definition">¶</a></dt>
-<dd><p>A 1-Dimensional Histogram</p>
+<dt id="rootplots.profile.Profile1D">
+<em class="property">class </em><code class="descclassname">rootplots.profile.</code><code class="descname">Profile1D</code><span class="sig-paren">(</span><em>nBins: int</em>, <em>minBin: float</em>, <em>maxBin: float</em>, <em>minValue=None</em>, <em>maxValue=None</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/profile.html#Profile1D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile1D" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 1-Dimensional Profile</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -788,75 +287,62 @@ default is None, meaning all cells</li>
 </tbody>
 </table>
 <dl class="method">
-<dt id="rootplots.hist.Hist1D.fill">
-<code class="descname">fill</code><span class="sig-paren">(</span><em>x: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#Hist1D.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist1D.fill" title="Permalink to this definition">¶</a></dt>
+<dt id="rootplots.profile.Profile1D.fill">
+<code class="descname">fill</code><span class="sig-paren">(</span><em>x: float</em>, <em>val: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile1D.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile1D.fill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill the histogram (no weights).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>float</em>) – the coordinates on the axis of a bin.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>- x contains coordinates not indexes of the bins</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or -1</strong> if no bin
+was found or the input values are not valid</p>
+</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">x is coordinate not index of the bins</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell  was found or the input values are not valid</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_cell" title="rootplots.hist.HistND.fill_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_cell()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_bins" title="rootplots.hist.HistND.fill_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_bins()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_pos" title="rootplots.hist.HistND.fill_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_pos()</span></code></a></p>
-</div>
 </dd></dl>
 
 <dl class="method">
-<dt id="rootplots.hist.Hist1D.fill_w">
-<code class="descname">fill_w</code><span class="sig-paren">(</span><em>x: float</em>, <em>w: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#Hist1D.fill_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist1D.fill_w" title="Permalink to this definition">¶</a></dt>
+<dt id="rootplots.profile.Profile1D.fill_w">
+<code class="descname">fill_w</code><span class="sig-paren">(</span><em>x: float</em>, <em>val: float</em>, <em>w: float = 1</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile1D.fill_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile1D.fill_w" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill the histogram with weights.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>x</strong> (<em>float</em>) – the coordinates on the axis of a bin.</li>
-<li><strong>w</strong> (<em>float</em>) – the weight to fill in</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>- x contains coordinates not indexes of the bins</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+<li><strong>w</strong> (<em>float</em>) – a weight associated with Y value</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or 0</strong> if no bin
+was found or the input values are not valid</p>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">x is coordinate not index of the bins</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_cell_w" title="rootplots.hist.HistND.fill_cell_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_cell_w()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_bins_w" title="rootplots.hist.HistND.fill_bins_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_bins_w()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_pos_w" title="rootplots.hist.HistND.fill_pos_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_pos_w()</span></code></a></p>
-</div>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="rootplots.hist.Hist2D">
-<em class="property">class </em><code class="descclassname">rootplots.hist.</code><code class="descname">Hist2D</code><span class="sig-paren">(</span><em>nBinsX</em>, <em>minBinX</em>, <em>maxBinX</em>, <em>nBinsY</em>, <em>minBinY</em>, <em>maxBinY</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>A 2-Dimensional Histogram</p>
+<dt id="rootplots.profile.Profile2D">
+<em class="property">class </em><code class="descclassname">rootplots.profile.</code><code class="descname">Profile2D</code><span class="sig-paren">(</span><em>nBinsX: int</em>, <em>minBinX: float</em>, <em>maxBinX: float</em>, <em>nBinsY: int</em>, <em>minBinY: float</em>, <em>maxBinY: float</em>, <em>minValue=None</em>, <em>maxValue=None</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/profile.html#Profile2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 2-Dimensional Profile</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -875,97 +361,53 @@ default is None, meaning all cells</li>
 </tbody>
 </table>
 <dl class="method">
-<dt id="rootplots.hist.Hist2D.fill">
-<code class="descname">fill</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#Hist2D.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist2D.fill" title="Permalink to this definition">¶</a></dt>
+<dt id="rootplots.profile.Profile2D.fill">
+<code class="descname">fill</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>val: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile2D.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile2D.fill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill the histogram (no weights).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>x</strong> (<em>float</em>) – the coordinates of a bin on the X-axis.</li>
-<li><strong>y</strong> (<em>float</em>) – the coordinates of a bin on the Y-axis.</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>y</strong> (<em>float</em>) – the coordinates on the Y-axis of a bin.</li>
+<li><strong>- x</strong><strong>, </strong><strong>y are coordinates inside a valid bin and not bin indexes</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or -1</strong> if no bin
+was found or the input values are not valid</p>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">x, y are coordinates not indexes of the bins</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_cell" title="rootplots.hist.HistND.fill_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_cell()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_bins" title="rootplots.hist.HistND.fill_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_bins()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_pos" title="rootplots.hist.HistND.fill_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_pos()</span></code></a></p>
-</div>
 </dd></dl>
 
 <dl class="method">
-<dt id="rootplots.hist.Hist2D.fill_w">
-<code class="descname">fill_w</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>w: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#Hist2D.fill_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist2D.fill_w" title="Permalink to this definition">¶</a></dt>
+<dt id="rootplots.profile.Profile2D.fill_w">
+<code class="descname">fill_w</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>val: float</em>, <em>w: float = 1</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile2D.fill_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile2D.fill_w" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill the histogram with weights.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>x</strong> (<em>float</em>) – the coordinates of a bin on the X-axis.</li>
-<li><strong>y</strong> (<em>float</em>) – the coordinates of a bin on the Y-axis.</li>
-<li><strong>w</strong> (<em>float</em>) – the weight to fill in</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>y</strong> (<em>float</em>) – the coordinates on the Y-axis of a bin.</li>
+<li><strong>- x</strong><strong>, </strong><strong>y are coordinates inside a valid bin and not bin indexes</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+<li><strong>w</strong> (<em>float</em>) – a weight associated with Y value</li>
 </ul>
 </td>
 </tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">x, y are coordinates not indexes of the bins</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_cell_w" title="rootplots.hist.HistND.fill_cell_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_cell_w()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_bins_w" title="rootplots.hist.HistND.fill_bins_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_bins_w()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_pos_w" title="rootplots.hist.HistND.fill_pos_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_pos_w()</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.Hist2D.projectionX">
-<code class="descname">projectionX</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist2D.projectionX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist2D.projectionX" title="Permalink to this definition">¶</a></dt>
-<dd><p>Project this histogram on the X-axis</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HistND. The projected histogram has dimension 1.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.Hist2D.projectionY">
-<code class="descname">projectionY</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist2D.projectionY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist2D.projectionY" title="Permalink to this definition">¶</a></dt>
-<dd><p>Project this histogram on the Y-axis</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HistND. The projected histogram has dimension 1.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or 0</strong> if no bin
+was found or the input values are not valid</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -974,179 +416,67 @@ default is None, meaning all cells</li>
 </dd></dl>
 
 <dl class="class">
-<dt id="rootplots.hist.Hist3D">
-<em class="property">class </em><code class="descclassname">rootplots.hist.</code><code class="descname">Hist3D</code><span class="sig-paren">(</span><em>nBinsX</em>, <em>minBinX</em>, <em>maxBinX</em>, <em>nBinsY</em>, <em>minBinY</em>, <em>maxBinY</em>, <em>nBinsZ</em>, <em>minBinZ</em>, <em>maxBinZ</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist3D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist3D" title="Permalink to this definition">¶</a></dt>
-<dd><p>A 3-Dimensional Histogram</p>
+<dt id="rootplots.profile.Profile3D">
+<em class="property">class </em><code class="descclassname">rootplots.profile.</code><code class="descname">Profile3D</code><span class="sig-paren">(</span><em>nBinsX: int</em>, <em>minBinX: float</em>, <em>maxBinX: float</em>, <em>nBinsY: int</em>, <em>minBinY: float</em>, <em>maxBinY: float</em>, <em>nBinsZ: int</em>, <em>minBinZ: float</em>, <em>maxBinZ: float</em>, <em>minValue=None</em>, <em>maxValue=None</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/profile.html#Profile3D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 3-Dimensional Profile</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>nBinsX</strong> (<em>integer</em>) – the number of bins on the X-axis</li>
-<li><strong>minBinX</strong> (<em>float</em>) – the minimum value of lower edge of bins on the X-axis</li>
-<li><strong>maxBinX</strong> (<em>float</em>) – the maximum value of upper edge of bins on the X-axis</li>
-<li><strong>nBinsY</strong> (<em>integer</em>) – the number of bins on the Y-axis</li>
-<li><strong>minBinY</strong> (<em>float</em>) – the minimum value of lower edge of bins on the Y-axis</li>
-<li><strong>maxBinY</strong> (<em>float</em>) – the maximum value of upper edge of bins on the Y-axis</li>
-<li><strong>nBinsZ</strong> (<em>integer</em>) – the number of bins on the Z-axis</li>
-<li><strong>minBinZ</strong> (<em>float</em>) – the minimum value of lower edge of bins on the Z-axis</li>
-<li><strong>maxBinZ</strong> (<em>float</em>) – the maximum value of upper edge of bins on the Z-axis</li>
-<li><strong>title</strong> (<em>string</em>) – the title of the histogram</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>nBinsX</strong> – the number of bins on the X-axis</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="rootplots.hist.Hist3D.fill">
-<code class="descname">fill</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>z: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#Hist3D.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist3D.fill" title="Permalink to this definition">¶</a></dt>
+<dt id="rootplots.profile.Profile3D.fill">
+<code class="descname">fill</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>z: float</em>, <em>val: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile3D.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile3D.fill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill the histogram (no weights).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>x</strong> (<em>float</em>) – the coordinates of a bin on the X-axis.</li>
-<li><strong>y</strong> (<em>float</em>) – the coordinates of a bin on the Y-axis.</li>
-<li><strong>z</strong> (<em>float</em>) – the coordinates of a bin on the Z-axis.</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>y</strong> (<em>float</em>) – the coordinates on the Y-axis of a bin.</li>
+<li><strong>z</strong> (<em>float</em>) – the coordinates on the Z-axis of a bin.</li>
+<li><strong>- x</strong><strong>, </strong><strong>y</strong><strong>, </strong><strong>z are coordinates inside a valid bin and not bin indexes</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or -1</strong> if no bin
+was found or the input values are not valid</p>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">x, y, z are coordinates not indexes of the bins</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_cell" title="rootplots.hist.HistND.fill_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_cell()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_bins" title="rootplots.hist.HistND.fill_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_bins()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_pos" title="rootplots.hist.HistND.fill_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_pos()</span></code></a></p>
-</div>
 </dd></dl>
 
 <dl class="method">
-<dt id="rootplots.hist.Hist3D.fill_w">
-<code class="descname">fill_w</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>z: float</em>, <em>w: float</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/hist.html#Hist3D.fill_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist3D.fill_w" title="Permalink to this definition">¶</a></dt>
+<dt id="rootplots.profile.Profile3D.fill_w">
+<code class="descname">fill_w</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em>, <em>z: float</em>, <em>val: float</em>, <em>w: float = 1</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rootplots/profile.html#Profile3D.fill_w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.profile.Profile3D.fill_w" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill the histogram with weights.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>x</strong> (<em>float</em>) – the coordinates of a bin on the X-axis.</li>
-<li><strong>y</strong> (<em>float</em>) – the coordinates of a bin on the Y-axis.</li>
-<li><strong>z</strong> (<em>float</em>) – the coordinates of a bin on the Z-axis.</li>
-<li><strong>w</strong> (<em>float</em>) – the weight to fill in</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – the coordinates on the X-axis of a bin.</li>
+<li><strong>y</strong> (<em>float</em>) – the coordinates on the Y-axis of a bin.</li>
+<li><strong>z</strong> (<em>float</em>) – the coordinates on the Z-axis of a bin.</li>
+<li><strong>- x</strong><strong>, </strong><strong>y</strong><strong>, </strong><strong>z are coordinates inside a valid bin and not bin indexes</strong> (<em>NOTE</em>) – </li>
+<li><strong>val</strong> (<em>float</em>) – a value in that global bin.
+If minValue or maxValue are set (different than None) then <cite>val</cite> is checked
+if its valid: <cite>minValue &lt;= val</cite> or <cite>val &lt;= maxValue</cite>.</li>
+<li><strong>w</strong> (<em>float</em>) – a weight associated with Y value</li>
 </ul>
 </td>
 </tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">x, y, z are coordinates not indexes of the bins</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int. The <strong>index of the affected cell (global linear bin) or -1</strong> if no cell was found or the input values are not valid</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#rootplots.hist.HistND.fill_cell_w" title="rootplots.hist.HistND.fill_cell_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_cell_w()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_bins_w" title="rootplots.hist.HistND.fill_bins_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_bins_w()</span></code></a>, <a class="reference internal" href="#rootplots.hist.HistND.fill_pos_w" title="rootplots.hist.HistND.fill_pos_w"><code class="xref py py-meth docutils literal notranslate"><span class="pre">HistND.fill_pos_w()</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.Hist3D.projectionX">
-<code class="descname">projectionX</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist3D.projectionX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist3D.projectionX" title="Permalink to this definition">¶</a></dt>
-<dd><p>Project this histogram on the X-axis</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HistND. The projected histogram has dimension 1.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.Hist3D.projectionXY">
-<code class="descname">projectionXY</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist3D.projectionXY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist3D.projectionXY" title="Permalink to this definition">¶</a></dt>
-<dd><p>Project this histogram on the X-axis and Y-axis</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HistND. The projected histogram has dimension 2.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.Hist3D.projectionXZ">
-<code class="descname">projectionXZ</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist3D.projectionXZ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist3D.projectionXZ" title="Permalink to this definition">¶</a></dt>
-<dd><p>Project this histogram on the X-axis and Z-axis</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HistND. The projected histogram has dimension 2.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.Hist3D.projectionY">
-<code class="descname">projectionY</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist3D.projectionY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist3D.projectionY" title="Permalink to this definition">¶</a></dt>
-<dd><p>Project this histogram on the Y-axis</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HistND. The projected histogram has dimension 1.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.Hist3D.projectionYZ">
-<code class="descname">projectionYZ</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist3D.projectionYZ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist3D.projectionYZ" title="Permalink to this definition">¶</a></dt>
-<dd><p>Project this histogram on the Y-axis and Z-axis</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HistND. The projected histogram has dimension 2.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rootplots.hist.Hist3D.projectionZ">
-<code class="descname">projectionZ</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rootplots/hist.html#Hist3D.projectionZ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rootplots.hist.Hist3D.projectionZ" title="Permalink to this definition">¶</a></dt>
-<dd><p>Project this histogram on the Z-axis</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HistND. The projected histogram has dimension 1.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int. The <strong>index of the affected bin or 0</strong> if no bin
+was found or the input values are not valid</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1172,10 +502,10 @@ default is None, meaning all cells</li>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="profile.html" title="The Profilling Module"
+          <a href="profile.html" title="The Profile Histogram Module"
              >next</a> |</li>
         <li class="right" >
-          <a href="hist.html" title="The Histogramming Module"
+          <a href="examples/hist/hist_proj.html" title="How to Project histograms"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">rootplots 1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="hist.html" >The Histogramming Module</a> &#187;</li> 

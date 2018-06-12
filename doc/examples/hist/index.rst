@@ -13,3 +13,4 @@ Some of these examples are used through the documentation.
    hist_diff
    hist_mult
    hist_div
+   hist_proj

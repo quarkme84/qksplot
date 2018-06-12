@@ -71,9 +71,9 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">linspace</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
-<span class="kn">from</span> <span class="nn">bisect</span> <span class="k">import</span> <span class="n">bisect</span>
+<span class="kn">from</span> <span class="nn">bisect</span> <span class="k">import</span> <span class="n">bisect_left</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="s1">&#39;HistAxis&#39;</span><span class="p">,</span> <span class="s1">&#39;HistND&#39;</span><span class="p">,</span> <span class="s1">&#39;Hist1D&#39;</span><span class="p">,</span> <span class="s1">&#39;Hist2D&#39;</span><span class="p">,</span> <span class="s1">&#39;Hist3D&#39;</span>
 
@@ -96,13 +96,13 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">maxBin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; returns the maximum upper edge of the last bin &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; returns the maximum right edge of the last bin &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">nbins</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; returns the total number of the bins&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">title</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -132,7 +132,7 @@
         <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">minBin</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxBin</span><span class="p">:</span>  <span class="c1"># sane check</span>
             <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 
-        <span class="k">return</span> <span class="n">bisect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">bisect_left</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></div>
 
 <div class="viewcode-block" id="HistAxis.get_bins"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistAxis.get_bins">[docs]</a>    <span class="k">def</span> <span class="nf">get_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot; Returns all bins lower edges of the axis.</span>
@@ -174,9 +174,9 @@
 <span class="sd">        Args:</span>
 <span class="sd">            dim (int): the number of dimensions of the histogram</span>
 
-<span class="sd">            minBin (array like): an array containing the minimum value of lower edge of bins for each dimension.</span>
+<span class="sd">            minBin (array like): an array containing the minimum value of lower (leftmost) edge of bins for each dimension.</span>
 
-<span class="sd">            maxBin (array like): an array containing the maximum value of upper edge of bins for each dimension.</span>
+<span class="sd">            maxBin (array like): an array containing the maximum value of upper (rightmost) edge of bins for each dimension.</span>
 
 <span class="sd">            nBins (array like):  an array containing the number of bins for each dimension.</span>
 
@@ -199,7 +199,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_sizeOverDims</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># an array of sizes useful for converting to coordinates of linear array of cells</span>
         <span class="n">n_cells</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HistAxis</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="n">minBin</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">maxBin</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nBins</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
+            <span class="n">binsLeftEdges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">minBin</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">maxBin</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nBins</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">binsLeftEdges</span><span class="p">,</span> <span class="n">maxBin</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HistAxis</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightsX</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightsX2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_sizeOverDims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n_cells</span><span class="p">)</span>
@@ -781,23 +783,27 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            none.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">i_cell</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_binSumWeightsVals2</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">+=</span> <span class="n">factor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binSumWeightsVals2</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">+=</span> <span class="n">factor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span>
+        <span class="n">scaledHist</span> <span class="o">=</span> <span class="bp">self</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeights</span> <span class="o">+=</span> <span class="n">factor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeights</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeights2</span> <span class="o">+=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">factor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeights2</span>
+        <span class="k">for</span> <span class="n">i_cell</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">scaledHist</span><span class="o">.</span><span class="n">cells</span><span class="p">):</span>
+            <span class="n">scaledHist</span><span class="o">.</span><span class="n">_binSumWeightsVals2</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">scaledHist</span><span class="o">.</span><span class="n">_binSumWeightsVals2</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span>
+            <span class="n">scaledHist</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">scaledHist</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span>
+
+            <span class="n">scaledHist</span><span class="o">.</span><span class="n">_sumWeights</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">scaledHist</span><span class="o">.</span><span class="n">_sumWeights</span>
+            <span class="n">scaledHist</span><span class="o">.</span><span class="n">_sumWeights2</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">scaledHist</span><span class="o">.</span><span class="n">_sumWeights2</span>
 
         <span class="k">if</span> <span class="n">scale_errors</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightsX</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="n">factor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightsX</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightsX2</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="n">factor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightsX2</span><span class="p">[</span><span class="n">d</span><span class="p">]</span></div>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">scaledHist</span><span class="o">.</span><span class="n">dimension</span><span class="p">):</span>
+                <span class="n">scaledHist</span><span class="o">.</span><span class="n">_sumWeightsX</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>  <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">scaledHist</span><span class="o">.</span><span class="n">_sumWeightsX</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+                <span class="n">scaledHist</span><span class="o">.</span><span class="n">_sumWeightsX2</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">scaledHist</span><span class="o">.</span><span class="n">_sumWeightsX2</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="bp">self</span></div>
 
     <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds 2 histograms</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            other (HistND): a histogram of the same dimension.</span>
+<span class="sd">            other (HistND): another histogram, not necessary of the same dimension.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            HistND. The sum of the 2 histograms</span>
@@ -839,7 +845,7 @@
         <span class="sd">&quot;&quot;&quot;Substract 2 histograms</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            other (HistND): a histogram of the same dimension.</span>
+<span class="sd">            other (HistND): another histogram, not necessary of the same dimension.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            HistND. The difference of the 2 histograms</span>
