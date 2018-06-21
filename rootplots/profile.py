@@ -178,11 +178,11 @@ class ProfileND(h.HistND):
 
         Warning:
             This is expensive operation because it computes the bins indexes (it decomposes cell index) and positions
-        per axis before filling weights per bin. Its Recommended to use other fill_* methods
+            per axis before filling weights per bin. Its Recommended to use other fill_* methods
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-        are not valid (underflow or overflow)
+            are not valid (underflow or overflow)
 
         See Also:
             :py:meth:`fill_pos`, :py:meth:`fill_bins`
@@ -251,7 +251,7 @@ class ProfileND(h.HistND):
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-        are not valid
+            are not valid
 
         NOTE:
             x contains coordinates not indexes of the bins
@@ -287,8 +287,8 @@ class ProfileND(h.HistND):
             z (float): the coordinate on the third axis of the histogram. Used only 3D profiles.
 
             arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-            If using arr the function will ignore the arguments x,y,z. This argument is used when having
-            profiles higher then 3D. Its length **must be** the same as the profiles dimension.
+                If using arr the function will ignore the arguments x,y,z. This argument is used when having
+                profiles higher then 3D. Its length **must be** the same as the profiles dimension.
 
             value (float): a value to fill in the cell. This argument must not be None.
 
@@ -342,8 +342,8 @@ class Profile1D(ProfileND):
             z (float): the coordinate on the third axis of the histogram. Used only 3D profiles.
 
             arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-            If using arr the function will ignore the arguments x,y,z. This argument is used when having
-            histograms higher then 3D. Its length **must be** the same as the profile dimension, it is not checked.
+                If using arr the function will ignore the arguments x,y,z. This argument is used when having
+                histograms higher then 3D. Its length **must be** the same as the profile dimension, it is not checked.
 
             value (float): a value to fill in the cell. This argument must not be None.
 
@@ -400,8 +400,8 @@ class Profile2D(ProfileND):
             z (float): the coordinate on the third axis of the histogram. Used only 3D profiles.
 
             arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-            If using arr the function will ignore the arguments x,y,z. This argument is used when having
-            histograms higher then 3D. Its length **must be** the same as the profile dimension, it is not checked.
+                If using arr the function will ignore the arguments x,y,z. This argument is used when having
+                histograms higher then 3D. Its length **must be** the same as the profile dimension, it is not checked.
 
             value (float): a value to fill in the cell. This argument must not be None.
 
@@ -468,8 +468,8 @@ class Profile3D(ProfileND):
             z (float): the coordinate on the third axis of the histogram. Used only 3D profiles.
 
             arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-            If using arr the function will ignore the arguments x,y,z. This argument is used when having
-            histograms higher then 3D. Its length **must be** the same as the profile dimension, it is not checked.
+                If using arr the function will ignore the arguments x,y,z. This argument is used when having
+                histograms higher then 3D. Its length **must be** the same as the profile dimension, it is not checked.
 
             value (float): a value to fill in the cell. This argument must not be None.
 
@@ -477,7 +477,7 @@ class Profile3D(ProfileND):
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-        are not valid
+            are not valid
         """
         if arr is not None:
             return super(Profile3D, self).fill(arr=arr, value=value, weight=weight)

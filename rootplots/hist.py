@@ -291,7 +291,7 @@ class HistND:
 
         Args:
             includeEmptyBins (bool): if empty bins are included in the list. If True then empty bins are included,
-        otherwise they are NOT included
+                otherwise they are NOT included
 
         Returns:
             list of list.
@@ -318,7 +318,8 @@ class HistND:
         By default it **does not** include empty cells.
 
         Args:
-            includeEmptyBins (bool): if empty bins are included in the list. If True then empty bins are included, otherwise they are NOT included
+            includeEmptyBins (bool): if empty bins are included in the list. If True then empty bins are included,
+                otherwise they are NOT included
 
         Returns:
             list of list.
@@ -361,7 +362,8 @@ class HistND:
         """ Returns the contents of all bins (cells) per each dimension.  By default it **does not** include empty cells.
 
        Args:
-           includeEmptyBins (bool): if empty bins are included in the list. If True then empty bins are included, otherwise they are NOT included
+           includeEmptyBins (bool): if empty bins are included in the list. If True then empty bins are included,
+                otherwise they are NOT included
 
        Returns:
            list of list.
@@ -413,7 +415,8 @@ class HistND:
         By default it **does not** include empty cells.
 
         Args:
-            includeEmptyBins (bool): if empty cell are included in the list. If True then empty cell are included, otherwise they are NOT included
+            includeEmptyBins (bool): if empty cell are included in the list. If True then empty cell are included,
+                otherwise they are NOT included
 
         Returns:
             list.
@@ -452,7 +455,8 @@ class HistND:
         """ Project this Histogram to another Histogram keeping the axis defined in `keepDims`
 
         Args:
-            keepDims (Sequence): an array that contains the id's of the dimensions to keep when projecting.  The number of dimensions of the projected histogram is the length of `keepDims`
+            keepDims (Sequence): an array that contains the id's of the dimensions to keep when projecting.
+                The number of dimensions of the projected histogram is the length of `keepDims`
 
         Returns:
             HistND. The projected histogram.
@@ -494,11 +498,11 @@ class HistND:
         
         Warning: 
             This is expensive operation because it computes the bins indexes (it decomposes cell index) and positions
-        per axis before filling weights per bin. Its Recommended to use other fill_* methods
+            per axis before filling weights per bin. Its Recommended to use other fill_* methods
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-        are not valid (underflow or overflow)
+            are not valid (underflow or overflow)
 
         See Also:
             :py:meth:`fill_pos`, :py:meth:`fill_bins`
@@ -534,14 +538,16 @@ class HistND:
         """ Fill the histogram using bin indexes.
 
         Args:
-            arr (Sequence): the bin indexes for each dimension. The size of the array is the same as the number of dimensions
+            arr (Sequence): the bin indexes for each dimension. The size of the array is the same as the number of
+                dimensions
 
             weight (float): the weight to fill in
 
             value (float): a value to fill in the cell. This argument is used in Profiles, ignore it for Histograms.
 
         Returns:
-            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values are not valid
+            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
+                are not valid
 
         NOTE:
             b contains indexes of the bins on each axis, not the positions on axis
@@ -565,7 +571,8 @@ class HistND:
         """ Fill the histogram using a position.
 
         Args:
-            x (Sequence): the coordinates on the axis of a cell. The size of the array is the same as the number of dimensions
+            x (Sequence): the coordinates on the axis of a cell. The size of the array is the same as the number of
+                dimensions
 
             weight (float): the weight to fill in. Defaults to 1.0
 
@@ -604,21 +611,21 @@ class HistND:
             z (float): the coordinate on the third axis of the histogram. Used only 3D histograms.
 
             arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-            If using arr the function will ignore the arguments x,y,z. This argument is used when having
-            histograms higher then 3D. Its length must be the same as the histogram dimension.
+                If using arr the function will ignore the arguments x,y,z. This argument is used when having
+                histograms higher then 3D. Its length must be the same as the histogram dimension.
 
             value (float): a value to fill in the cell. This argument is only used by Profiles, ignore it when filling
-            histograms.
+                histograms.
 
             weight (float): the weight to fill in. Defaults to 1.0
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-        are not valid
+            are not valid
 
         NOTE:
-           Use the position **arr** OR the coordinates x,y,z. If arr is not None, then the function uses it. Otherwise
-        it uses the coordinates x, y, z.
+            Use the position **arr** OR the coordinates x,y,z. If arr is not None, then the function uses it. Otherwise
+            it uses the coordinates x, y, z.
 
         See Also:
             :py:meth:`fill_cell`, :py:meth:`fill_bins`
@@ -985,21 +992,21 @@ class Hist1D(HistND):
             z (float): the coordinate on the third axis of the histogram. Used only 3D histograms.
 
             arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-            If using arr the function will ignore the arguments x,y,z. This argument is used when having
-            histograms higher then 3D. Its length **must be** the same as the histogram dimension, it is not checked.
+                If using arr the function will ignore the arguments x,y,z. This argument is used when having
+                histograms higher then 3D. Its length **must be** the same as the histogram dimension, it is not checked
 
             value (float): a value to fill in the cell. This argument is only used by Profiles, ignore it when filling
-            histograms.
+                histograms.
 
             weight (float): the weight to fill in. Defaults to 1.0
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-        are not valid
+            are not valid
 
         NOTE:
            This overridden method use arr if it is not None. Otherwise it only uses argument x and the rest arguments
-        are ignored.
+            are ignored.
 
         See Also:
             :py:meth:`HistND.fill_cell`, :py:meth:`HistND.fill_bins`, :py:meth:`HistND.fill_pos`
@@ -1050,21 +1057,21 @@ class Hist2D(HistND):
             z (float): the coordinate on the third axis of the histogram. Used only 3D histograms.
 
             arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-            If using arr the function will ignore the arguments x,y,z. This argument is used when having
-            histograms higher then 3D. Its length **must be** the same as the histogram dimension.
+                If using arr the function will ignore the arguments x,y,z. This argument is used when having
+                histograms higher then 3D. Its length **must be** the same as the histogram dimension.
 
             value (float): a value to fill in the cell. This argument is only used by Profiles, ignore it when filling
-            histograms.
+                histograms.
 
             weight (float): the weight to fill in. Defaults to 1.0
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-        are not valid
+            are not valid
 
         NOTE:
             This overridden method use arr if it is not None. Otherwise it only uses arguments x and y. The rest arguments
-        are ignored.
+            are ignored.
 
         See Also:
             :py:meth:`HistND.fill_cell`, :py:meth:`HistND.fill_bins`, :py:meth:`HistND.fill_pos`
@@ -1141,21 +1148,21 @@ class Hist3D(HistND):
             z (float): the coordinate on the third axis of the histogram. Used only 3D histograms.
 
             arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-            If using arr the function will ignore the arguments x,y,z. This argument is used when having
-            histograms higher then 3D. Its length **must be** the same as the histogram dimension.
+                If using arr the function will ignore the arguments x,y,z. This argument is used when having
+                histograms higher then 3D. Its length **must be** the same as the histogram dimension.
 
             value (float): a value to fill in the cell. This argument is only used by Profiles, ignore it when filling
-            histograms.
+                histograms.
 
             weight (float): the weight to fill in. Defaults to 1.0
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-        are not valid
+            are not valid
 
         NOTE:
             This overridden method use arr if it is not None. Otherwise it only uses arguments x and y. The rest arguments
-        are ignored.
+            are ignored.
 
         See Also:
             :py:meth:`HistND.fill_cell`, :py:meth:`HistND.fill_bins`, :py:meth:`HistND.fill_pos`
