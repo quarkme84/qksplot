@@ -10,9 +10,9 @@ myhist = Hist1D(10, 0, 10)
 
 # fill the histogram
 for x in range(100):
-	r = random.uniform(0,10)
+    r = random.uniform(0, 10)
 
-	myhist.fill(r)
+    myhist.fill(r)
 
 # make a copy before scalling
 histBeforeScaling = copy.deepcopy(myhist)

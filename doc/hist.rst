@@ -125,9 +125,9 @@ One can fill a 1-dimensional histogram by simply calling the :py:meth:`fill <roo
 
 This methods automatically searches the bin that can contain the value *val* and adds 1 to the counter of the bin. 
 
-You can specify a weight using the :py:meth:`fill_w <rootplots.hist.Hist1D.fill_w>` method::
+You can specify a weight using the named argument *weight*::
 
-	h.fill_w(val, w)
+	h.fill(val, weight=w)
 
 Which automatically searches the bin that can contain the value *val* and adds the weight *w* to the counter of the bin.
 
@@ -137,7 +137,7 @@ Which automatically searches the bin that can contain the value *val* and adds t
 2D histogram
 ------------
 
-The 2D histograms are filled similary to 1D case, with the exception  this time we must take care of 2 axis::
+The 2D histograms are filled similarly to 1D case, with the exception this time we must take care of 2 axis::
 
 	h2.fill(valX, valY)
 
@@ -146,62 +146,64 @@ Now, the :py:meth:`fill <rootplots.hist.Hist2D.fill>` method automatically searc
 .. note::
 	You may wonder: since there are bins on X-axis and bins on Y-axis which bin its actually filled?
 
-	The answear: None of those. Because those bins don't exists for the reason that internally, the histogram classes contain **N-dimensional cells** also known as **global linear bins** as you may find it in other parts of the documentation. These cells represent the intersection of the bins from all axis.
+	The answer: None of those. Because those bins don't exists for the reason that internally, the histogram classes contain **N-dimensional cells** also known as **global linear bins** as you may find it in other parts of the documentation. These cells represent the intersection of the bins from all axis.
 
-Respectively, there is a :py:meth:`fill_w <rootplots.hist.Hist2D.fill_w>` method for which you can specify a weight::
+Respectively, you can specify a weight::
 
-	h2.fill_w(valX, valY, w)
+	h2.fill_w(valX, valY, weight=w)
 
 3D histogram
 ------------
 
-Its obvious by now, the fill methods for the 3D histogram are::
+Its obvious by now, the :py:meth:`fill <rootplots.hist.Hist3D.fill>` method for the 3D histogram is::
 
 	h3.fill(valX, valY, valZ)
 
-respectively::
+and with a weight::
 
-	h3.fill_w(valX, valY, valZ, w)
+	h3.fill_w(valX, valY, valZ, weight=w)
 
 ND histogram
 ------------
 
 When going above 3 dimensions one must use an n-dimensional histogram: :py:class:`HistND <rootplots.hist.HistND>`.
 
-By now, you should noticed that for the above examples we filled the histogram's cells using positions and the arguments are simple variables. When we go to the general case (n-dimensional histogram) this is not enough. We must use arrays/lists as arguments to the fill methods and explicitly specify the meaning of the argument. So, there is **no fill method for the ND histograms**, instead there is :py:meth:`fill_pos <rootplots.hist.HistND.fill_pos>` which has the same meaning::
+By now, you should noticed that for the above examples we filled the histogram's cells using positions and the arguments are simple variables.
+When we go to the general case (n-dimensional histogram) this is not enough. We must provide N arguments, each for a
+coordinate on each axis. Thus, we use a Sequence (arrays or lists) as arguments to the :py:meth:`fill <rootplots.hist.HistND.fill>` method::
 
-	p = [3.46, -0.33, 7.1, 2.28, 9]
-	h5.fill_pos(p)
+   p = [3.46, -0.33, 7.1, 2.28, 9]
+   h5.fill(arr=p)
 
-or, :py:meth:`fill_pos_w <rootplots.hist.HistND.fill_pos_w>` fills with weights::
+   # or, with a weight
+   h5.fill(arr=p, weight=2.33)
 
-	h5.fill_pos_w([3.46, -0.33, 7.1, 2.28, 9], 8)
 
-The fill_pos method fills the bins (or the cell) that can contain the point defined at position p.
-
-.. note::
-	fill_pos does the same thing as the fill method and is available to all histograms. The fundamental difference is that fill is available only to histograms lower then 3D. Another difference is that fill_pos accepts only an array-like variable.
 
 Advanced Filling Methods
 ------------------------
 
-Untill now, we have seen some methods that histograms can use for filling:
+There are more ways to fill histograms. The methods below are available to all histograms, regardless of its dimension.
 
- 	- 2 methods for that histograms lower then 3D (fill & fill_pos) 
- 	- 1 method for histograms higher then 3D (fill_pos)
+Use :py:meth:`fill_pos <rootplots.hist.HistND.fill_pos>` when you know the a position on each axis::
 
-These methods fill the histogram according to a position of a point that falls inside a bin. But, there are more ways to fill.
+	p = [1,0,100,2,86,47]
+	hist.fill_pos(p)
+
+	# with weight:
+	w = 34.2
+	hist.fill_pos(p, weight=w)
+
+The methods :py:meth:`fill_pos <rootplots.hist.HistND.fill_pos>` is actually the same as the method :py:meth:`fill <rootplots.hist.HistND.fill>`, except it accepts only 2 arguments.
 
 Use :py:meth:`fill_bins <rootplots.hist.HistND.fill_bins>` when you know the bins ids on each axis::
 
 	mbins = [1,0,100,2,86,47]
 	hist.fill_bins(mbins)
 
-and :py:meth:`fill_bins_w <rootplots.hist.HistND.fill_bins_w>` with weight::
-
-	mbins = [1,0,100,2,86,47]
+	# with weight:
 	w = 34.2
-	hist.fill_bins_w(mbins, w)
+	hist.fill_bins(mbins, weight=w)
 
 .. note::
 	The argument is a list of bin indexes. The dimension of the list must be the same as the dimension of the histogram.
@@ -212,11 +214,9 @@ Use :py:meth:`fill_cell <rootplots.hist.HistND.fill_cell>` when you know the cel
 	icell = 34
 	hist.fill_bins(icell)
 
-and :py:meth:`fill_cell_w <rootplots.hist.HistND.fill_cell_w>` with weight::
-
-	icell = 34
+	# with a weight:
 	w = 2.2
-	hist.fill_cell_w(icell, w)
+	hist.fill_cell(icell, w)
 
 .. note::
 	The cell index starts from 0 to MAX_CELL_IDX, where MAX_CELL_IDX is the product of all the bin counters from all dimensions.

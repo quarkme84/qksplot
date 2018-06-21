@@ -18,7 +18,7 @@ setup(
     url='',
     license='GPL',
     packages=['rootplots', 'rootplots.tests'],
-    install_requires=['numpy','typing'],
+    install_requires=['numpy', 'typing', 'matplotlib'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
