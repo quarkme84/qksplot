@@ -8,6 +8,7 @@ def plot_h1(h):
     x = h.get_bins_centers()
     w = h.get_cells_contents()
 
+    plt.figure()
     plt.xlabel(h.get_axis(0).title)
     plt.title(h.title)
     plt.hist(x[0], bins=xbins[0], weights=w)
@@ -56,22 +57,22 @@ h2.get_axis(1).title = 'y'
 #     h1.fill_bin([x])
 
 x, y = 0, 0
-for i in range(500000):
+for i in range(50000):
     x = rnd.gauss(0,2)
     y = 10 - rnd.expovariate(1./4.)
-    h2.fill_pos_w([x, y], 1)
+    h2.fill(x, y)
 
 # test_plotting(h1)
-test_plotting(h2)
+# test_plotting(h2)
 # test_plotting(h3)
 
-projX = h2.projection([0])
+projX = h2.projection(0)
 projX.title = "Projection on X"
 
-projY = h2.projection([1])
+projY = h2.projection(1)
 projY.title = "Projection on Y"
 
-projXY = h2.projection([0,1])
+projXY = h2.projection(0,1)
 projXY.title = "Projection on XY"
 
 test_plotting(projX)

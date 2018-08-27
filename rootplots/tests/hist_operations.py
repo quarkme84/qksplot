@@ -12,7 +12,6 @@ h2 = Hist1D(10, -1, 1, title="H2")
 
 for x in range(100):
 	r = random.uniform(-1,1)
-	#print("r=", r)
 
 	h1.fill(r)
 	h2.fill(random.uniform(-1,1))
@@ -21,6 +20,8 @@ h3 = h1 + h2
 h4 = h3 - h2
 h5 = h1 * h2
 h6 = h1 / h2
+
+h7 = h1 + h2 + (h3-h2)*h2
 
 grid = plt.GridSpec(4, 2, wspace=0.2, hspace=0.4)
 plt.subplot(grid[0, 0])
@@ -52,5 +53,9 @@ mpl.plot_hist(h5)
 h6.title = "H1/H2"
 plt.subplot(grid[3, 0])
 mpl.plot_hist(h6)
+
+h7.title = "h1 + h2 + (h3-h2)*h2"
+plt.subplot(grid[3, 1])
+mpl.plot_hist(h7)
 
 mpl.show()

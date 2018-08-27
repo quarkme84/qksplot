@@ -9,15 +9,15 @@ h = Hist2D(30, -5, 5, 30, 0, 10, title="H2")
 
 # fill the histogram
 x, y = 0, 0
-for i in range(500000):
+for i in range(50000):
     x = rnd.gauss(0, 2)
     y = 10 - rnd.expovariate(1./4.)
     h.fill(x, y)
 
-projX = h.projectionX()
+projX = h.projection_x()
 projX.title = "Projection on X"
 
-projY = h.projectionY()
+projY = h.projection_y()
 projY.title = "Projection on Y"
 
 # create a grid where to rest the plots

@@ -11,6 +11,7 @@ from . import profile as prof
 
 
 def show():
+    """ Force showing the figure"""
     plt.show(block=True)
 
 
@@ -42,6 +43,7 @@ def plot_h2(h: hist.HistND):
 
 
 def plot_hist(h: hist.HistND):
+    """ Plot a Histogram"""
     if h.dimension == 1:
         plot_h1(h)
     elif h.dimension == 2:
@@ -71,9 +73,23 @@ def plot_prof2(p: hist.HistND):
 
 
 def plot_profile(p: prof.ProfileND):
+    """ Plot a Profile"""
     if p.dimension == 1:
         plot_prof1(p)
     elif p.dimension == 2:
         plot_prof2(p)
     else:
         print("unable to plot beyond 2 dimensions")
+
+
+def plot(p):
+    """ Plot a Histogram or a Profile"""
+    if type(p) is hist.HistND or type(p) is hist.Hist1D or type(p) is hist.Hist2D or type(p) is hist.Hist3D:
+        plot_hist(p)
+        return
+
+    if type(p) is prof.ProfileND or type(p) is prof.Profile1D or type(p) is prof.Profile2D or type(p) is prof.Profile3D:
+        plot_profile(p)
+        return
+
+

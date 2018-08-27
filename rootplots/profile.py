@@ -9,7 +9,7 @@ Note:
 
 import math
 import warnings
-from typing import List, Sequence
+from typing import List, Sequence, Optional
 
 from . import hist as h
 
@@ -82,7 +82,11 @@ class ProfileND(h.HistND):
         H = self._binsValues[j]
         L = self._binsEntries[j]
         E = self._binSumWeightsValues2[j]
-        return math.sqrt(E * L - H * H)/L  # std deviation = sqrt(rms**2 - mean**2)
+        q = E*L - H*H
+        if L == 0:
+            return 0
+        else:
+            return math.sqrt(E * L - H * H)/L  # std deviation = sqrt(rms**2 - mean**2)
 
     def get_cell_content(self, i: int) -> float:
         """ Returns the content of the cell 'i'
@@ -164,17 +168,16 @@ class ProfileND(h.HistND):
                 result.append(self._get_std_deviation(iBin) / math.sqrt(self._binsEntries[iBin]))
         return result
 
-    def fill_cell(self, i_cell: int, value: float = None, weight: float = 1.0, error_per_bin=True) -> int:
+    def fill_cell(self, i_cell: int, **kwargs) -> int:
         """ Fill the profile using global cell index.
 
         Args:
             i_cell (int): the global bin index (cell index).
 
-            weight (float): the weight to fill in. Defaults to 1.0
-
-            value (float): a value to fill in the cell. This argument must not be None.
-
-            error_per_bin (bool): whether to compute weights per bins.
+            kwargs (Dict): currently this dict can accept 3 keys:
+                weight (float) - the weight to fill in. Defaults to 1.0
+                error_per_bin(bool) - whether to compute weights per bins. Default is True
+                value (float) - to specify the value to fill the cell. (**Mandatory**)
 
         Warning:
             This is expensive operation because it computes the bins indexes (it decomposes cell index) and positions
@@ -188,41 +191,53 @@ class ProfileND(h.HistND):
             :py:meth:`fill_pos`, :py:meth:`fill_bins`
 
         """
+        value = kwargs.get("value", None)
         if value is None:
-            raise ValueError("Argument 'value' can not be None")
+            raise ValueError("Need a 'value' argument")
 
         if self._minValue is not None and value < self._minValue:  # ignore filtered data
             return -1
         if self._maxValue is not None and value > self._maxValue:  # ignore filtered data
             return -1
 
-        i_cell = super(ProfileND, self).fill_cell(i_cell, value=value, weight=weight, error_per_bin=error_per_bin)
-        if i_cell >= 0:
+        i_cell = super(ProfileND, self).fill_cell(i_cell, **kwargs)
+
+        weight = kwargs.get("weight", 1.0)
+        error_per_bin = kwargs.get("error_per_bin", True)
+        # we consider error_per_bin as false when fill_cell() is called indirectly, either from overridden methods of
+        # this class or from methods in HistND: HistND.fill_pos() or HistND.fill_bins()..
+        #
+        # consequently, we consider error_per_bin is true (the default value) when fill_cell() is called directly by
+        # the user and we must do these computations..
+        #
+        # NB: otherwise the fill() will contain illegal data and fail when computing standard_deviation()
+        if i_cell >= 0 and error_per_bin:
             self._binsValues[i_cell] += weight * value
             self._binSumWeightsValues2[i_cell] += weight * value * value
             self._sumWeightedValues += weight * value
             self._sumWeightedValues2 += weight * value * value
         return i_cell
 
-    def fill_bins(self, arr: Sequence, value: float=None, weight: float=1.0) -> int:
+    def fill_bins(self, *args, **kwargs) -> int:
         """ Fill the histogram using bin indexes.
 
         Args:
-            arr (Sequence): the bin indexes for each dimension. The size of the array is the same as the number of dimensions
+            args (a list of parameters): the bin indexes for each dimension. The number of arguments must be the same as
+                the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).
 
-            weight (float): the weight to fill in
-
-            value (float): a value to fill in the cell. This argument must not be None.
+             kwargs : this dict can accept 2 key:
+                weight (float) - the weight to fill in. Defaults to 1.0
+                value (float) - to specify the value to fill the cell. (**Mandatory**)
 
         Returns:
-            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values are not valid
-
-        NOTE:
-            arr contains indexes of the bins on each axis, not the positions on axis
+            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
+                -are not valid
 
         See Also:
             :py:meth:`fill_pos`, :py:meth:`fill_cell`
         """
+        value: Optional[float] = kwargs.get("value", None)
+
         if value is None:
             raise ValueError("Argument 'value' can not be None")
 
@@ -231,7 +246,9 @@ class ProfileND(h.HistND):
         if self._maxValue is not None and value > self._maxValue:  # ignore filtered data
             return -1
 
-        i_cell = super(ProfileND, self).fill_bins(arr, value=value, weight=weight)
+        i_cell = super(ProfileND, self).fill_bins(*args, **kwargs)
+
+        weight = kwargs.get("weight", 1.0)
         if i_cell >= 0:
             self._binsValues[i_cell] += weight * value
             self._binSumWeightsValues2[i_cell] += weight * value * value
@@ -239,26 +256,26 @@ class ProfileND(h.HistND):
             self._sumWeightedValues2 += weight * value * value
         return i_cell
 
-    def fill_pos(self, x: Sequence, value: float=None, weight: float=1.0) -> int:
+    def fill_pos(self, *args, **kwargs) -> int:
         """ Fill the profile using a position.
 
         Args:
-            x (Sequence): the coordinates on the axis of a cell. The size of the array is the same as the number of dimensions
+            args (a list of parameters): the positions on each dimension. The number of arguments must be the same as
+                the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).
 
-            weight (float): the weight to fill in. Defaults to 1.0
-
-            value (float): a value to fill in the cell. This argument must not be None.
+            kwargs : this dict can accept 2 key:
+                weight (float) - the weight to fill in. Defaults to 1.0
+                value (float) - to specify the value to fill the cell. (**Mandatory**)
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
             are not valid
 
-        NOTE:
-            x contains coordinates not indexes of the bins
-
         See Also:
             :py:meth:`fill_cell`, :py:meth:`fill_bins`
         """
+        value: Optional[float] = kwargs.get("value", None)
+
         if value is None:
             raise ValueError("Argument 'value' can not be None")
 
@@ -267,7 +284,9 @@ class ProfileND(h.HistND):
         if self._maxValue is not None and value > self._maxValue:  # ignore filtered data
             return -1
 
-        i_cell = super(ProfileND, self).fill_pos(x, value, weight=weight)
+        i_cell = super(ProfileND, self).fill_pos(*args, **kwargs)
+
+        weight = kwargs.get("weight", 1.0)
         if i_cell >= 0:
             self._binsValues[i_cell] += weight * value
             self._binSumWeightsValues2[i_cell] += weight * value * value
@@ -275,44 +294,22 @@ class ProfileND(h.HistND):
             self._sumWeightedValues2 += weight * value * value
         return i_cell
 
-    def fill(self, x: float = None, y: float = None, z: float = None, arr: Sequence = None, value: float = None,
-             weight: float = 1.0) -> int:
-        """ Fill the profile (using coordinate positions). Use this and not other fill*() methods of the parent histogram.
+    def fill(self, *args, **kwargs) -> int:
+        """ Fill the profile (using coordinate positions).
 
         Args:
-            x (float): the coordinate on the first axis of the histogram. Used by 1D, 2D and 3D profiles.
+            args (a list of parameters): a list of positions on each dimension. The number of arguments must be the same
+                as the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).
 
-            y (float): the coordinate on the second axis of the histogram. Used by 2D and 3D profiles.
-
-            z (float): the coordinate on the third axis of the histogram. Used only 3D profiles.
-
-            arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-                If using arr the function will ignore the arguments x,y,z. This argument is used when having
-                profiles higher then 3D. Its length **must be** the same as the profiles dimension.
-
-            value (float): a value to fill in the cell. This argument must not be None.
-
-            weight (float): the weight to fill in. Defaults to 1.0
+            kwargs : this dict can accept 2 key:
+                weight (float) - the weight to fill in. Defaults to 1.0
+                value (float) - to specify the value to fill the cell. (**Mandatory**)
 
         Returns:
             int. The **index of the affected bin or -1** if no bin
             was found or the input values are not valid
         """
-        if value is None:
-            raise ValueError("Argument 'value' can not be None")
-
-        if self._minValue is not None and value < self._minValue:  # ignore filtered data
-            return -1
-        if self._maxValue is not None and value > self._maxValue:  # ignore filtered data
-            return -1
-
-        i_cell = super(ProfileND, self).fill(x, y, z, arr, value, weight)
-        if i_cell >= 0:
-            self._binsValues[i_cell] += weight * value
-            self._binSumWeightsValues2[i_cell] += weight * value * value
-            self._sumWeightedValues += weight * value
-            self._sumWeightedValues2 += weight * value * value
-        return i_cell
+        return self.fill_pos(*args, **kwargs)
 
 
 class Profile1D(ProfileND):
@@ -329,41 +326,6 @@ class Profile1D(ProfileND):
     """
     def __init__(self, nBins: int, minBin: float, maxBin: float, minValue=None, maxValue=None, title=str()):
         ProfileND.__init__(self, 1, [minBin], [maxBin], [nBins], minValue, maxValue, title)
-
-    def fill(self, x: float=None, y: float=None, z: float=None, arr: Sequence=None, value: float=None,
-             weight: float=1.0) -> int:
-        """ Fill the profile.
-
-        Args:
-            x (float): the coordinate on the first axis of the histogram. Used by 1D, 2D and 3D profiles.
-
-            y (float): the coordinate on the second axis of the histogram. Used by 2D and 3D profiles.
-
-            z (float): the coordinate on the third axis of the histogram. Used only 3D profiles.
-
-            arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-                If using arr the function will ignore the arguments x,y,z. This argument is used when having
-                histograms higher then 3D. Its length **must be** the same as the profile dimension, it is not checked.
-
-            value (float): a value to fill in the cell. This argument must not be None.
-
-            weight (float): the weight to fill in. Defaults to 1.0
-
-        Returns:
-            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-        are not valid
-        """
-        if arr is not None:
-            return super(Profile1D, self).fill(arr=arr, value=value, weight=weight)
-
-        # arr is None
-        if x is None:
-            raise ValueError("Argument x cannot be None")
-
-        if y is not None or z is not None:
-            warnings.warn("Second and third arguments are not supported for 1D profiles. Ignoring arguments y and z..")
-
-        return super(Profile1D, self).fill(x, value=value, weight=weight)
 
 
 class Profile2D(ProfileND):
@@ -387,44 +349,6 @@ class Profile2D(ProfileND):
     def __init__(self, nBinsX: int, minBinX: float, maxBinX: float, nBinsY: int, minBinY: float, maxBinY: float,
                  minValue=None, maxValue=None, title=str()):
         ProfileND.__init__(self, 2, [minBinX, minBinY], [maxBinX, maxBinY], [nBinsX, nBinsY], minValue, maxValue, title)
-
-    def fill(self, x: float=None, y: float=None, z: float=None, arr: Sequence=None, value: float=None,
-             weight: float=1.0) -> int:
-        """ Fill the profile.
-
-        Args:
-            x (float): the coordinate on the first axis of the histogram. Used by 1D, 2D and 3D profiles.
-
-            y (float): the coordinate on the second axis of the histogram. Used by 2D and 3D profiles.
-
-            z (float): the coordinate on the third axis of the histogram. Used only 3D profiles.
-
-            arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-                If using arr the function will ignore the arguments x,y,z. This argument is used when having
-                histograms higher then 3D. Its length **must be** the same as the profile dimension, it is not checked.
-
-            value (float): a value to fill in the cell. This argument must not be None.
-
-            weight (float): the weight to fill in. Defaults to 1.0
-
-        Returns:
-            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-        are not valid
-        """
-        if arr is not None:
-            return super(Profile2D, self).fill(arr=arr, value=value, weight=weight)
-
-        # arr is None
-        if x is None:
-            raise ValueError("Argument x cannot be None")
-
-        if y is None:
-            raise ValueError("Argument y cannot be None")
-
-        if z is not None:
-            warnings.warn("Third argument is not supported for 2D profiles. Ignoring argument 'z'..")
-
-        return super(Profile2D, self).fill(x, y, value=value, weight=weight)
 
 
 class Profile3D(ProfileND):
@@ -455,41 +379,3 @@ class Profile3D(ProfileND):
                  nBinsZ: int, minBinZ: float, maxBinZ: float, minValue=None, maxValue=None, title=str()):
         ProfileND.__init__(self, 3, [minBinX, minBinY, minBinZ], [maxBinX, maxBinY, maxBinZ], [nBinsX, nBinsY, nBinsZ],
                            minValue, maxValue, title)
-
-    def fill(self, x: float=None, y: float=None, z: float=None, arr: Sequence=None, value: float=None,
-             weight: float=1.0) -> int:
-        """ Fill the profile.
-
-        Args:
-            x (float): the coordinate on the first axis of the histogram. Used by 1D, 2D and 3D profiles.
-
-            y (float): the coordinate on the second axis of the histogram. Used by 2D and 3D profiles.
-
-            z (float): the coordinate on the third axis of the histogram. Used only 3D profiles.
-
-            arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-                If using arr the function will ignore the arguments x,y,z. This argument is used when having
-                histograms higher then 3D. Its length **must be** the same as the profile dimension, it is not checked.
-
-            value (float): a value to fill in the cell. This argument must not be None.
-
-            weight (float): the weight to fill in. Defaults to 1.0
-
-        Returns:
-            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-            are not valid
-        """
-        if arr is not None:
-            return super(Profile3D, self).fill(arr=arr, value=value, weight=weight)
-
-        # arr is None
-        if x is None:
-            raise ValueError("Argument x cannot be None")
-
-        if y is None:
-            raise ValueError("Argument y cannot be None")
-
-        if z is None:
-            raise ValueError("Argument z cannot be None")
-
-        return super(Profile3D, self).fill(x, y, z, value=value, weight=weight)

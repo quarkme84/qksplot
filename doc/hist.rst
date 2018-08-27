@@ -119,7 +119,7 @@ First, we start with the simples methods. We kept the more advanced functionalit
 1D histogram
 ------------
 
-One can fill a 1-dimensional histogram by simply calling the :py:meth:`fill <rootplots.hist.Hist1D.fill>` method::
+One can fill a 1-dimensional histogram by simply calling the :py:meth:`fill <rootplots.hist.HistND.fill>` method::
 
 	h.fill(val)
 
@@ -141,7 +141,7 @@ The 2D histograms are filled similarly to 1D case, with the exception this time 
 
 	h2.fill(valX, valY)
 
-Now, the :py:meth:`fill <rootplots.hist.Hist2D.fill>` method automatically searches the bin on the first axis (alternatively called X-axis) that can contain the value *valX* and the bin on the second axis (aka called Y-axis) that can contain the value *valY* and adds 1 to the counter of the bin. 
+Now, the :py:meth:`fill <rootplots.hist.HistND.fill>` method automatically searches the bin on the first axis (alternatively called X-axis) that can contain the value *valX* and the bin on the second axis (aka called Y-axis) that can contain the value *valY* and adds 1 to the counter of the bin. 
 
 .. note::
 	You may wonder: since there are bins on X-axis and bins on Y-axis which bin its actually filled?
@@ -150,73 +150,80 @@ Now, the :py:meth:`fill <rootplots.hist.Hist2D.fill>` method automatically searc
 
 Respectively, you can specify a weight::
 
-	h2.fill_w(valX, valY, weight=w)
+	h2.fill(valX, valY, weight=w)
 
 3D histogram
 ------------
 
-Its obvious by now, the :py:meth:`fill <rootplots.hist.Hist3D.fill>` method for the 3D histogram is::
+Its obvious by now, the :py:meth:`fill <rootplots.hist.HistND.fill>` method for the 3D histogram is::
 
 	h3.fill(valX, valY, valZ)
 
 and with a weight::
 
-	h3.fill_w(valX, valY, valZ, weight=w)
+	h3.fill(valX, valY, valZ, weight=w)
 
 ND histogram
 ------------
 
-When going above 3 dimensions one must use an n-dimensional histogram: :py:class:`HistND <rootplots.hist.HistND>`.
+An ND histogram a.k.a "N dimensional" histogram can be filled just like any other lower dimensional histogram: list "n" arguments to fill method, 
+where **n** is the number of dimensions of the histogram ::
+	
+	# fill a 5 dimensional histogram
+	h.fill(3.46, -0.33, 7.1, 2.28, 9)  # 5D means listing 5 arguments
 
-By now, you should noticed that for the above examples we filled the histogram's cells using positions and the arguments are simple variables.
-When we go to the general case (n-dimensional histogram) this is not enough. We must provide N arguments, each for a
-coordinate on each axis. Thus, we use a Sequence (arrays or lists) as arguments to the :py:meth:`fill <rootplots.hist.HistND.fill>` method::
+	# fill a 7 dimensional histogram
+	h.fill(3.46, -0.33, 7.1, 2.28, 9, 2.76, 3.1415)  # 7D means listing 7 arguments
 
-   p = [3.46, -0.33, 7.1, 2.28, 9]
-   h5.fill(arr=p)
+	# fill a 11 dimensional histogram
+	h.fill(3.46, -0.33, 7.1, 2.28, 9, 2.76, 3.1415, 6.67, 2.998, 0.0, 1.0)   # 11D means listing 1 arguments
 
-   # or, with a weight
-   h5.fill(arr=p, weight=2.33)
+	# or, fill 5D hist with a weight
+	h.fill(3.46, -0.33, 7.1, 2.28, 9, weight=2.33)   # 5D means listing 5 arguments and weight as keyword argument
+
+Since the :py:meth:`fill <rootplots.hist.HistND.fill>` method accepts arbitrary argument list, we can also use tuples or lists but care must be taken to first unpack them::
+
+	d = [3.46, -0.33, 7.1, 2.28, 9, 2.76, 3.1415, 6.67, 2.998, 0.0, 1.0] # d has 11 values since a 11D hist needs 11 values
+	h11.fill(*d) # use * to unpack a list or tuple
 
 
 
-Advanced Filling Methods
+Other Filling Methods
 ------------------------
 
 There are more ways to fill histograms. The methods below are available to all histograms, regardless of its dimension.
 
-Use :py:meth:`fill_pos <rootplots.hist.HistND.fill_pos>` when you know the a position on each axis::
+Use :py:meth:`fill_pos <rootplots.hist.HistND.fill_pos>` when you know the position on each axis::
 
 	p = [1,0,100,2,86,47]
-	hist.fill_pos(p)
+	hist.fill_pos(*p)
 
 	# with weight:
 	w = 34.2
-	hist.fill_pos(p, weight=w)
+	hist.fill_pos(*p, weight=w)
 
-The methods :py:meth:`fill_pos <rootplots.hist.HistND.fill_pos>` is actually the same as the method :py:meth:`fill <rootplots.hist.HistND.fill>`, except it accepts only 2 arguments.
 
 Use :py:meth:`fill_bins <rootplots.hist.HistND.fill_bins>` when you know the bins ids on each axis::
 
 	mbins = [1,0,100,2,86,47]
-	hist.fill_bins(mbins)
+	hist.fill_bins(*mbins)
 
 	# with weight:
 	w = 34.2
-	hist.fill_bins(mbins, weight=w)
+	hist.fill_bins(*mbins, weight=w)
 
 .. note::
 	The argument is a list of bin indexes. The dimension of the list must be the same as the dimension of the histogram.
 	The bin indexes start from 0 to MaxBinIndex-1. MaxBinIndex is known when creating the histogram.
 
-Use :py:meth:`fill_cell <rootplots.hist.HistND.fill_cell>` when you know the cell index::
+Use :py:meth:`fill_cell <rootplots.hist.HistND.fill_cell>` when you know the cell index (global bin idex)::
 
 	icell = 34
-	hist.fill_bins(icell)
+	hist.fill_cell(icell)
 
 	# with a weight:
 	w = 2.2
-	hist.fill_cell(icell, w)
+	hist.fill_cell(icell, weight=w)
 
 .. note::
 	The cell index starts from 0 to MAX_CELL_IDX, where MAX_CELL_IDX is the product of all the bin counters from all dimensions.
@@ -333,7 +340,7 @@ Use :py:meth:`integral <rootplots.hist.HistND.integral>` when you know the two c
 
 	c1 = 34
 	c2 = 90
-	h.integral_over_bins(c1, c2)
+	h.integral(c1, c2)
 
 here *h* can be any dimensional histogram. The arguments *c1* and *c2* are cell indexes (integers) and c1 < c2.
 
@@ -349,13 +356,13 @@ Projecting 2D histograms
 
 Projecting 2D histograms is easy::
 
-	hproj = h2D.projectionX()
+	hproj = h2D.projection_x()
 
-This projects a 2D histogram to its first axe (named X). The result *hproj* is a 1D histogram.
+This projects a 2D histogram to its first axe (named x). The result *hproj* is a 1D histogram.
 
 You can also project it on the second axe, called Y::
 
-	hproj = h2D.projectionY()
+	hproj = h2D.projection_y()
 
 .. figure:: examples/hist/images/h2D_proj.png
 	:alt: projections of 2D histograms
@@ -365,19 +372,19 @@ You can also project it on the second axe, called Y::
 Projecting 3D histograms
 ------------------------
 
-Besides the usual projecting methods as seen for 2D histograms (:py:meth:`projectionX <rootplots.hist.Hist3D.projectionX>`, :py:meth:`projectionY <rootplots.hist.Hist3D.projectionY>`) we get specific methods for 3D such as :py:meth:`projectionZ <rootplots.hist.Hist3D.projectionZ>`. Also, we can make projections on multiple planes defined by different combinations of axis.
+Besides the usual projecting methods as seen for 2D histograms (:py:meth:`projection_x <rootplots.hist.Hist3D.projection_x>`, :py:meth:`projection_y <rootplots.hist.Hist3D.projection_y>`) we get specific methods for 3D such as :py:meth:`projection_z <rootplots.hist.Hist3D.projection_z>`. Also, we can make projections on multiple planes defined by different combinations of axis.
 
 Thus, we get a projection on XY plane::
 
-	hXYproj = h3D.projectionXY()
+	hXYproj = h3D.projection_xy()
 
 Or a projection on XZ plane::
 
-	hXZproj = h3D.projectionXZ()
+	hXZproj = h3D.projection_xz()
 
 Or a projection on YZ plane::
 
-	hYZproj = h3D.projectionYZ()
+	hYZproj = h3D.projection_yz()
 
 
 Projecting ND histograms
@@ -385,9 +392,9 @@ Projecting ND histograms
 
 We've seen how easy is to do projections for lower dimensional histograms.
 
-When projecting higher dimensional histograms (HistND) we must be more explicit and specify which dimensions we keep while projecting. For example, when we used :py:meth:`projectionX <rootplots.hist.Hist3D.projectionX>` to project a 2D or 3D histogram on the X axis, the projection operation does this: **keep X axis** and all the rest axis are projected. When we used :py:meth:`projectionYZ <rootplots.hist.Hist3D.projectionYZ>` the projection operation **keeps Y & Z axis** and projects the rest (only X axis in this case). 
+When projecting higher dimensional histograms (HistND) we must be more explicit and specify which dimensions we keep while projecting. For example, when we used :py:meth:`projection_x <rootplots.hist.Hist3D.projection_x>` to project a 2D or 3D histogram on the X axis, the projection operation does this: **keep X axis** and all the rest axis are projected. When we used :py:meth:`projection_yz <rootplots.hist.Hist3D.projection_yz>` the projection operation **keeps Y & Z axis** and projects the rest (only X axis in this case). 
 
-We must recognize a general projection algorithm can not contain the letters for N-dimensional histograms, we do not have that many letters. For this reason, we must specify an **array of axis indexes** the ones we want to keep. The first axis (called X) has index 0, Y is 1 and Z is 2.
+We must recognize a general projection algorithm can not contain the letters for N-dimensional histograms, we do not have that many letters. For this reason, we must specify an **variadic argument list** as *axis indexes* the ones we want to keep. Axis indexis are just numbered as the first axis (called X) has index 0, Y is 1 and Z is 2, and so on.
 
 Lets see some examples on how to project a 7 dimensional histogram::
 	
@@ -400,25 +407,25 @@ Lets see some examples on how to project a 7 dimensional histogram::
 	# ...
 
 	# create a projection on the first axis (aka X)
-	hXproj = h.projection([0])
+	hXproj = h.projection(0)
 
 	# create a projection on the second axis (aka Y)
-	hYproj = h.projection([1])
+	hYproj = h.projection(1)
 
 	# create a projection on the 7th axis
-	hproj = h.projection([6])
+	hproj = h.projection(6)
 
 	# create a projection on XY
-	hXYproj = h.projection([0,1])
+	hXYproj = h.projection(0,1)
 
 	# create a projection on X and the 5th axis
-	hX5proj = h.projection([0,4])
+	hX5proj = h.projection(0,4)
 
 	# create a projection on XYZ
-	hXYZproj = h.projection([0,1,2])
+	hXYZproj = h.projection(0,1,2)
 
 	# create a projection on XYZ and the 5th & 7th axis
-	hproj = h.projection([0,1,2,4,6])
+	hproj = h.projection(0,1,2,4,6)
 
 
 Drawing

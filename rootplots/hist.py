@@ -155,7 +155,7 @@ class HistND:
             n_cells = n_cells * nBins[i]
 
         self._nCells = n_cells  # total number of cells (global linear bins)
-        self._binsEntries = []  # contains the values/entries per cell (global linear bins)
+        self._binsEntries = []  # contains the number of entries per cell (global linear bins)
         self._binSumWeightsValues2 = []  # array of sum of squared weights per cell (global linear bins)
         for i in range(n_cells):
             self._binsEntries.append(.0)
@@ -235,13 +235,14 @@ class HistND:
 
         return idxBins
 
-    def bins_to_cell(self, idxBins: Sequence) -> int:
+    def bins_to_cell(self, *args) -> int:
         """ Converts bin indexes to global linear bin (cell) index.
 
         Returns the index of the cell that is located by the bin indexes on the axes
 
         Args:
-            idxBins (Sequence): the bin indexes of the axis. Its length must be the same as the histogram dimension
+            args (a list of parameters): bin index on each dimension. The number of arguments must be the same as
+                the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).
 
         Returns:
             int. The cell index (global linear bin index)
@@ -251,18 +252,19 @@ class HistND:
         """
         idx_cell = 0
         for i in range(self.dimension):
-            idx_cell += self._sizeOverDims[i] * idxBins[i]
+            idx_cell += self._sizeOverDims[i] * args[i]
 
         return idx_cell
 
-    def pos_to_cell(self, x: Sequence) -> int:
+    def pos_to_cell(self, *args) -> int:
         """ Converts coordinate positions to global linear bin (cell) index.
 
         Returns the cell index (global linear bin) that contains the point at position 'x'. Where 'x' are the
         coordinates of a point in :py:meth:`dimension`.
 
         Args:
-            x (Sequence): a valid point in the space of histogram
+            args (a list of parameters): positions on each dimension. The number of arguments must be the same as
+                the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).
 
         Returns:
             int. If there is no such bin a -1 is returned.
@@ -271,18 +273,18 @@ class HistND:
             :py:meth:`bins_to_cell`, :py:meth:`cell_to_bins`
         """
         bin_coords = []
-        xL = len(x)
+        xL = len(args)
         for d in range(self.dimension):
             if d >= xL:
                 bin_coords.append(0)
             else:
-                bin_idx = self.get_axis(d).get_bin(x[d])
+                bin_idx = self.get_axis(d).get_bin(args[d])
                 if bin_idx == -1:
                     return -1
                 else:
                     bin_coords.append(bin_idx)
 
-        return self.bins_to_cell(bin_coords)
+        return self.bins_to_cell(*bin_coords)
 
     def get_bins_edges(self, includeEmptyBins: bool=False) -> List[List[float]]:
         """ Returns all bins per each dimension (axis).  By default it **does not** include empty cells.
@@ -379,16 +381,17 @@ class HistND:
 
         return result
 
-    def get_pos_content(self, x: Sequence) -> float:
+    def get_pos_content(self, *args) -> float:
         """Returns the content of the cell located at position x
 
         Args:
-            x (Sequence): a position array
+            args (a list of parameters): the bin indexes for each dimension. The number of arguments must be the same as
+                the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).
 
         Returns:
             float or 0.0 if the position is outside bin ranges
         """
-        return self.get_cell_content(self.pos_to_cell(x))
+        return self.get_cell_content(self.pos_to_cell(*args))
 
     def get_cell_content_error(self, i: int) -> float:
         """Returns the error value associated with cell 'i'
@@ -451,50 +454,46 @@ class HistND:
                 "SumWeightsX2": self._sumWeightsX2
                 }
 
-    def projection(self, keepDims: Sequence):
+    def projection(self, *keepDims):
         """ Project this Histogram to another Histogram keeping the axis defined in `keepDims`
 
         Args:
-            keepDims (Sequence): an array that contains the id's of the dimensions to keep when projecting.
-                The number of dimensions of the projected histogram is the length of `keepDims`
+            keepDims (variadic argument list): a variadic arguments list of the id's of the dimensions to keep when
+                projecting. The number of dimensions of the projected histogram is the length of `keepDims`
 
         Returns:
             HistND. The projected histogram.
         """
         # keep_dims = sorted(keepDims)
-        keep_dims = keepDims
-
         minBins = []
         maxBins = []
         nBins = []
-        for kdim in keep_dims:
+        for kdim in keepDims:
             minBins.append(self.get_axis(kdim).minBin)
             maxBins.append(self.get_axis(kdim).maxBin)
             nBins.append(self.get_axis(kdim).nbins)
 
-        result = HistND(len(keep_dims), minBins, maxBins, nBins, title="Projection of " + self.title)
+        result = HistND(len(keepDims), minBins, maxBins, nBins, title="Projection of " + self.title)
 
         for i_cell in range(self.cells):
             value = self.get_cell_content(i_cell)
             idx_bins = self.cell_to_bins(i_cell)  # has length 'self.dimension'
             bins = []
-            for kdim in keep_dims:
+            for kdim in keepDims:
                     bins.append(idx_bins[kdim])
-            result.fill_bins(bins, weight=value)
+            result.fill_bins(*bins, weight=value)
 
         return result
 
-    def fill_cell(self, i_cell: int, value: float=None, weight: float=1.0, error_per_bin=True) -> int:
+    def fill_cell(self, i_cell: int, **kwargs) -> int:
         """ Fill the histogram using global cell index.
 
         Args:
             i_cell (int): the global bin index (cell index).
 
-            weight (float): the weight to fill in. Defaults to 1.0
-
-            value (float): a value to fill in the cell. This argument is used in Profiles, ignore it for Histograms.
-
-            error_per_bin (bool): whether to compute weights per bins.
+            kwargs (Dict): currently this dict can accept 2 keys:
+                weight (float) - the weight to fill in. Defaults to 1.0
+                error_per_bin(bool) - whether to compute weights per bins. Default is True
         
         Warning: 
             This is expensive operation because it computes the bins indexes (it decomposes cell index) and positions
@@ -517,6 +516,9 @@ class HistND:
             self._entriesOverflow += 1
             return -1
 
+        weight = kwargs.get("weight", 1.0)
+        error_per_bin = kwargs.get("error_per_bin", True)
+
         # we got a valid bin
         self._binSumWeightsValues2[i_cell] += weight * weight
         self._binsEntries[i_cell] += weight
@@ -525,25 +527,30 @@ class HistND:
         self._sumWeights += weight
         self._sumWeights2 += weight * weight
 
+        # we consider use error_per_bin as false when fill_cell() is called indirectly, either from overridden methods
+        # of this class or from methods derived classes..
+        #
+        # consequently, we consider error_per_bin is true (the default value) when fill_cell() is called directly by
+        # the user and we must do these computations..
+        #
+        # NB: otherwise the fill() will contain illegal data and fail when computing standard_deviation()
         if error_per_bin:  # expensive operations. use other fill_* methods
             idx_bins = self.cell_to_bins(i_cell)
             for d, id_bin in enumerate(idx_bins):
                 x = self.get_axis(d).get_bin_center(id_bin)
                 self._sumWeightsX[d] += weight * x
                 self._sumWeightsX2[d] += weight * x * x
-
         return i_cell
 
-    def fill_bins(self, arr: Sequence, value: float=None, weight: float=1.0) -> int:
+    def fill_bins(self, *args, **kwargs) -> int:
         """ Fill the histogram using bin indexes.
 
         Args:
-            arr (Sequence): the bin indexes for each dimension. The size of the array is the same as the number of
-                dimensions
+            args (a list of parameters): the bin indexes for each dimension. The number of arguments must be the same as
+                the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).
 
-            weight (float): the weight to fill in
-
-            value (float): a value to fill in the cell. This argument is used in Profiles, ignore it for Histograms.
+            kwargs (Dict): this dict can accept 1 key:
+                weight (float) - the weight to fill in. Defaults to 1.0
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
@@ -555,28 +562,37 @@ class HistND:
         See Also:
             :py:meth:`fill_pos`, :py:meth:`fill_cell`
         """
-        i_cell = self.bins_to_cell(arr)
+        if len(args) == self.dimension:
+            # args has the same number of arguments as the number of histogram's dimension
+            i_cell = self.bins_to_cell(*args)
+        elif len(args) == 1:  # user probably provided an array/sequence
+            return self.fill_bins(*args[0], **kwargs)
+        else:
+            raise BufferError("args must have the same size as the histogram's dimension. Provided: " + str(len(args)))
 
-        if self.fill_cell(i_cell, weight=weight, error_per_bin=False) != i_cell:  # we got underflow or overflow
+        # we must call using error_per_bin=False, because we are doing it here below.see also big comment in fill_cell()
+        kwargs["error_per_bin"] = False
+        if self.fill_cell(i_cell, **kwargs) != i_cell:  # underflow or overflow
             return -1
 
-        for d, id_bin in enumerate(arr):
+        weight = kwargs.get("weight", 1.0)
+
+        for d, id_bin in enumerate(args):
             x = self.get_axis(d).get_bin_center(id_bin)
             self._sumWeightsX[d] += weight * x
             self._sumWeightsX2[d] += weight * x * x
 
         return i_cell
 
-    def fill_pos(self, x: Sequence, value: float=None, weight: float=1.0) -> int:
+    def fill_pos(self, *args, **kwargs) -> int:
         """ Fill the histogram using a position.
 
         Args:
-            x (Sequence): the coordinates on the axis of a cell. The size of the array is the same as the number of
-                dimensions
+            args (a list of parameters): ta list of positions on each dimension. The number of arguments must be the same as
+                the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).
 
-            weight (float): the weight to fill in. Defaults to 1.0
-
-            value (float): a value to fill in the cell. This argument is used in Profiles, ignore it for Histograms.
+            kwargs (Dict): this dict can accept 1 key:
+                weight (float) - the weight to fill in. Defaults to 1.0
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
@@ -588,61 +604,46 @@ class HistND:
         See Also:
             :py:meth:`fill_cell`, :py:meth:`fill_bins`
         """
-        i_cell = self.pos_to_cell(x)
+        if len(args) == self.dimension:
+            # args has the same number of arguments as the number of histogram's dimension
+            i_cell = self.pos_to_cell(*args)
+        elif len(args) == 1:  # user probably provided an array/sequence as first argument
+            return self.fill_pos(*args[0], **kwargs)
+        else:
+            raise BufferError("args must have the same size as the histogram's dimension. Provided: " + str(len(args)))
 
-        if self.fill_cell(i_cell, weight=weight, error_per_bin=False) != i_cell:   # we got underflow or overflow
+        # we must call using error_per_bin=False, otherwise see big comment in fill_cell()
+        kwargs["error_per_bin"] = False
+        if self.fill_cell(i_cell, **kwargs) != i_cell:  # underflow or overflow
             return -1
 
+        weight = kwargs.get("weight", 1.0)
         for d in range(self.dimension):
-            self._sumWeightsX[d] += weight * x[d]
-            self._sumWeightsX2[d] += weight * x[d] * x[d]
+            self._sumWeightsX[d] += weight * args[d]
+            self._sumWeightsX2[d] += weight * args[d] * args[d]
 
         return i_cell
 
-    def fill(self, x: float=None, y: float=None, z: float=None, arr: Sequence=None, value: float=None,
-             weight: float=1.0) -> int:
+    def fill(self, *args, **kwargs) -> int:
         """ Fill the histogram.
 
         Args:
-            x (float): the coordinate on the first axis of the histogram. Used by 1D, 2D and 3D histograms.
-
-            y (float): the coordinate on the second axis of the histogram. Used by 2D and 3D histograms.
-
-            z (float): the coordinate on the third axis of the histogram. Used only 3D histograms.
-
-            arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-                If using arr the function will ignore the arguments x,y,z. This argument is used when having
-                histograms higher then 3D. Its length must be the same as the histogram dimension.
-
-            value (float): a value to fill in the cell. This argument is only used by Profiles, ignore it when filling
-                histograms.
+            args (a list of parameters): a list of positions on each dimension. The number of arguments must be the same
+                as the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).
 
             weight (float): the weight to fill in. Defaults to 1.0
+
+            kwargs (Dict): currently this parameter is not used for histograms
 
         Returns:
             int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
             are not valid
 
-        NOTE:
-            Use the position **arr** OR the coordinates x,y,z. If arr is not None, then the function uses it. Otherwise
-            it uses the coordinates x, y, z.
-
         See Also:
             :py:meth:`fill_cell`, :py:meth:`fill_bins`
         """
-        if arr is not None:
-            return self.fill_pos(arr, weight=weight)
 
-        else:  # arr is None
-            switcher = {
-                1: [x],
-                2: [x, y],
-                3: [x, y, z]
-            }
-
-            pos = switcher.get(self.dimension)
-
-            return self.fill_pos(pos, weight=weight)
+        return self.fill_pos(*args, **kwargs)
 
     def intersect(self, other):
         """ intersection of 2 histograms
@@ -678,8 +679,8 @@ class HistND:
             for d, id_bin in enumerate(idx_bins):
                 pos.append(result.get_axis(d).get_bin_center(id_bin))
 
-            val1 = self.get_pos_content(pos)
-            val2 = other.get_pos_content(pos)
+            val1 = self.get_pos_content(*pos)
+            val2 = other.get_pos_content(*pos)
 
             result.fill_cell(i_cell, weight=val1 + val2)
 
@@ -749,10 +750,10 @@ class HistND:
             for d, id_bin in enumerate(idx_bins):
                 pos.append(result.get_axis(d).get_bin_center(id_bin))
 
-            val1 = self.get_pos_content(pos)
-            val2 = other.get_pos_content(pos)
+            val1 = self.get_pos_content(*pos)
+            val2 = other.get_pos_content(*pos)
 
-            result.fill_cell(i_cell, val1 + val2)
+            result.fill_cell(i_cell, weight=val1 + val2)
 
         return result
 
@@ -790,8 +791,8 @@ class HistND:
             for d, id_bin in enumerate(idx_bins):
                 pos.append(result.get_axis(d).get_bin_center(id_bin))
 
-            val1 = self.get_pos_content(pos)
-            val2 = other.get_pos_content(pos)
+            val1 = self.get_pos_content(*pos)
+            val2 = other.get_pos_content(*pos)
 
             result.fill_cell(i_cell, weight=val1 - val2)
 
@@ -831,8 +832,8 @@ class HistND:
             for d, id_bin in enumerate(idx_bins):
                 pos.append(result.get_axis(d).get_bin_center(id_bin))
 
-            val1 = self.get_pos_content(pos)
-            val2 = other.get_pos_content(pos)
+            val1 = self.get_pos_content(*pos)
+            val2 = other.get_pos_content(*pos)
 
             result.fill_cell(i_cell, weight=val1 * val2)
 
@@ -872,8 +873,8 @@ class HistND:
             for d, id_bin in enumerate(idx_bins):
                 pos.append(result.get_axis(d).get_bin_center(id_bin))
 
-            val1 = self.get_pos_content(pos)
-            val2 = other.get_pos_content(pos)
+            val1 = self.get_pos_content(*pos)
+            val2 = other.get_pos_content(*pos)
             if val2 == 0:
                 result.fill_cell(i_cell, weight=0)
             else:
@@ -940,8 +941,8 @@ class HistND:
         See Also:
             :py:meth:`integral`, :py:meth:`integral_over_pos`
         """
-        min_cell_id = self.bins_to_cell(minBinsIds)
-        max_cell_id = self.bins_to_cell(maxBinsIds)
+        min_cell_id = self.bins_to_cell(*minBinsIds)
+        max_cell_id = self.bins_to_cell(*maxBinsIds)
 
         return self.integral(min_cell_id, max_cell_id)
 
@@ -959,8 +960,8 @@ class HistND:
         See Also:
             :py:meth:`integral`, :py:meth:`integral_over_pos`
         """
-        min_cell_id = self.pos_to_cell(minPos)
-        max_cell_id = self.pos_to_cell(maxPos)
+        min_cell_id = self.pos_to_cell(*minPos)
+        max_cell_id = self.pos_to_cell(*maxPos)
 
         return self.integral(min_cell_id, max_cell_id)
 
@@ -979,49 +980,6 @@ class Hist1D(HistND):
     """
     def __init__(self, nBins: int, minBin: float, maxBin: float, title=str()):
         HistND.__init__(self, 1, [minBin], [maxBin], [nBins], title)
-
-    def fill(self, x: float=None, y: float=None, z: float=None, arr: Sequence=None, value: float=None,
-             weight: float=1.0) -> int:
-        """ Fill the histogram.
-
-        Args:
-            x (float): the coordinate on the first axis of the histogram. Used by 1D, 2D and 3D histograms.
-
-            y (float): the coordinate on the second axis of the histogram. Used by 2D and 3D histograms.
-
-            z (float): the coordinate on the third axis of the histogram. Used only 3D histograms.
-
-            arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-                If using arr the function will ignore the arguments x,y,z. This argument is used when having
-                histograms higher then 3D. Its length **must be** the same as the histogram dimension, it is not checked
-
-            value (float): a value to fill in the cell. This argument is only used by Profiles, ignore it when filling
-                histograms.
-
-            weight (float): the weight to fill in. Defaults to 1.0
-
-        Returns:
-            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-            are not valid
-
-        NOTE:
-           This overridden method use arr if it is not None. Otherwise it only uses argument x and the rest arguments
-            are ignored.
-
-        See Also:
-            :py:meth:`HistND.fill_cell`, :py:meth:`HistND.fill_bins`, :py:meth:`HistND.fill_pos`
-        """
-        if arr is not None:
-            return super(Hist1D, self).fill(arr=arr, weight=weight)
-
-        # arr is None
-        if x is None:
-            raise ValueError("Requires a valid value for x different then None")
-
-        if y is not None or z is not None:
-            warnings.warn("Second and third arguments are not supported for 1D histograms. Ignoring arguments y and z..")
-
-        return super(Hist1D, self).fill(x, weight=weight)
 
 
 class Hist2D(HistND):
@@ -1045,67 +1003,21 @@ class Hist2D(HistND):
     def __init__(self, nBinsX, minBinX, maxBinX, nBinsY, minBinY, maxBinY, title=str()):
         HistND.__init__(self, 2, [minBinX, minBinY], [maxBinX, maxBinY], [nBinsX, nBinsY], title)
 
-    def fill(self, x: float=None, y: float=None, z: float=None, arr: Sequence=None, value: float=None,
-             weight: float=1.0) -> int:
-        """ Fill the histogram.
-
-        Args:
-            x (float): the coordinate on the first axis of the histogram. Used by 1D, 2D and 3D histograms.
-
-            y (float): the coordinate on the second axis of the histogram. Used by 2D and 3D histograms.
-
-            z (float): the coordinate on the third axis of the histogram. Used only 3D histograms.
-
-            arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-                If using arr the function will ignore the arguments x,y,z. This argument is used when having
-                histograms higher then 3D. Its length **must be** the same as the histogram dimension.
-
-            value (float): a value to fill in the cell. This argument is only used by Profiles, ignore it when filling
-                histograms.
-
-            weight (float): the weight to fill in. Defaults to 1.0
-
-        Returns:
-            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-            are not valid
-
-        NOTE:
-            This overridden method use arr if it is not None. Otherwise it only uses arguments x and y. The rest arguments
-            are ignored.
-
-        See Also:
-            :py:meth:`HistND.fill_cell`, :py:meth:`HistND.fill_bins`, :py:meth:`HistND.fill_pos`
-        """
-        if arr is not None:
-            return super(Hist2D, self).fill(arr=arr, weight=weight)
-
-        # arr is None
-        if x is None:
-            raise ValueError("Requires a valid value for x different then None")
-
-        if y is None:
-            raise ValueError("Requires a valid value for y different then None")
-
-        if z is not None:
-            warnings.warn("Third argument is not supported for 2D histograms. Ignoring arguments 'z'..")
-
-        return super(Hist2D, self).fill(x, y, weight=weight)
-
-    def projectionX(self):
+    def projection_x(self):
         """ Project this histogram on the X-axis
 
         Returns:
             HistND. The projected histogram has dimension 1.
         """
-        return self.projection([0])
+        return self.projection(0)
 
-    def projectionY(self):
+    def projection_y(self):
         """ Project this histogram on the Y-axis
 
          Returns:
             HistND. The projected histogram has dimension 1.
         """
-        return self.projection([1])
+        return self.projection(1)
 
 
 class Hist3D(HistND):
@@ -1136,96 +1048,50 @@ class Hist3D(HistND):
         HistND.__init__(self, 3, [minBinX, minBinY, minBinZ], [maxBinX, maxBinY, maxBinZ], [nBinsX, nBinsY, nBinsZ],
                         title)
 
-    def fill(self, x: float = None, y: float = None, z: float = None, arr: Sequence = None, value: float = None,
-             weight: float = 1.0) -> int:
-        """ Fill the histogram.
-
-        Args:
-            x (float): the coordinate on the first axis of the histogram. Used by 1D, 2D and 3D histograms.
-
-            y (float): the coordinate on the second axis of the histogram. Used by 2D and 3D histograms.
-
-            z (float): the coordinate on the third axis of the histogram. Used only 3D histograms.
-
-            arr (Sequence): an Sequence sequence of floats representing the N-dimensional coordinates of a point.
-                If using arr the function will ignore the arguments x,y,z. This argument is used when having
-                histograms higher then 3D. Its length **must be** the same as the histogram dimension.
-
-            value (float): a value to fill in the cell. This argument is only used by Profiles, ignore it when filling
-                histograms.
-
-            weight (float): the weight to fill in. Defaults to 1.0
-
-        Returns:
-            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values
-            are not valid
-
-        NOTE:
-            This overridden method use arr if it is not None. Otherwise it only uses arguments x and y. The rest arguments
-            are ignored.
-
-        See Also:
-            :py:meth:`HistND.fill_cell`, :py:meth:`HistND.fill_bins`, :py:meth:`HistND.fill_pos`
-        """
-        if arr is not None:
-            return super(Hist3D, self).fill(arr=arr, weight=weight)
-
-        # arr is None
-        if x is None:
-            raise ValueError("Requires a valid value for x different then None")
-
-        if y is None:
-            raise ValueError("Requires a valid value for y different then None")
-
-        if z is None:
-            raise ValueError("Requires a valid value for z different then None")
-
-        return super(Hist3D, self).fill(x, y, z, weight=weight)
-
-    def projectionX(self):
+    def projection_x(self):
         """ Project this histogram on the X-axis
 
         Returns:
             HistND. The projected histogram has dimension 1.
         """
-        return self.projection([0])
+        return self.projection(0)
 
-    def projectionY(self):
+    def projection_y(self):
         """ Project this histogram on the Y-axis
 
          Returns:
             HistND. The projected histogram has dimension 1.
         """
-        return self.projection([1])
+        return self.projection(1)
 
-    def projectionZ(self):
+    def projection_z(self):
         """ Project this histogram on the Z-axis
 
          Returns:
             HistND. The projected histogram has dimension 1.
         """
-        return self.projection([1])
+        return self.projection(1)
 
-    def projectionXY(self):
+    def projection_xy(self):
         """ Project this histogram on the X-axis and Y-axis
 
         Returns:
             HistND. The projected histogram has dimension 2.
         """
-        return self.projection([0, 1])
+        return self.projection(0, 1)
 
-    def projectionXZ(self):
+    def projection_xz(self):
         """ Project this histogram on the X-axis and Z-axis
 
         Returns:
             HistND. The projected histogram has dimension 2.
         """
-        return self.projection([0, 2])
+        return self.projection(0, 2)
 
-    def projectionYZ(self):
+    def projection_yz(self):
         """ Project this histogram on the Y-axis and Z-axis
 
         Returns:
             HistND. The projected histogram has dimension 2.
         """
-        return self.projection([1, 2])
+        return self.projection(1, 2)

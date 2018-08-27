@@ -8,7 +8,7 @@ prof = Profile1D(100, -4, 4)
 
 # generate data...
 # and then fill the profile
-for x in range(25000):
+for x in range(2500):
     # generate random numbers to fill the hists
     px = random.gauss(0, 1)
     py = random.gauss(0, 1)
@@ -20,5 +20,5 @@ for x in range(25000):
 prof.title = "Profile of pz versus px"
 
 # plot the profile
-mpl.plot_profile(prof)
+mpl.plot(prof)
 mpl.show()

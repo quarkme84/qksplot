@@ -5,7 +5,7 @@ import pympler.asizeof as asizeof
 def test_composition(h, bins):
     print("-"*50)
     print("Testing histogram: ", h.title)
-    idx_cell = h.bins_to_cell(bins)
+    idx_cell = h.bins_to_cell(*bins)
     idx_bins = h.cell_to_bins(idx_cell)
 
     print("idx_cell:", idx_cell)

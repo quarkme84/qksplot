@@ -1,4 +1,4 @@
-API Reference for Profile Module
+API Reference for Histogram Module
 ==================================
 
 .. automodule:: rootplots.hist
