@@ -1,0 +1,461 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>rootplots.profile &#8212; rootplots 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">rootplots 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for rootplots.profile</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">Note:</span>
+<span class="sd">    The classes defined in this module do **NOT** provide drawing capabilities, so there is **NO** draw() nor paint()</span>
+<span class="sd">    method. Use other libraries like matplotlib to plot the data. But for your convenience, this package provides a </span>
+<span class="sd">    module for easy plotting using matplotlib. See, :py:mod:`rootplots.mpl`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">hist</span> <span class="k">as</span> <span class="n">h</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="s1">&#39;ProfileND&#39;</span><span class="p">,</span> <span class="s1">&#39;Profile1D&#39;</span><span class="p">,</span> <span class="s1">&#39;Profile2D&#39;</span><span class="p">,</span> <span class="s1">&#39;Profile3D&#39;</span>
+
+
+<div class="viewcode-block" id="ProfileND"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.ProfileND">[docs]</a><span class="k">class</span> <span class="nc">ProfileND</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">HistND</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Profile histograms are used to compute the mean value of Y and its error for each bin in X.</span>
+
+<span class="sd">    For each bin we have::</span>
+
+<span class="sd">    - The mean of Y is the sum of all values in that bin divided by the number of entries per bin.</span>
+<span class="sd">    - The error on X is the width of the bin divided by 2.</span>
+<span class="sd">    - The error on Y is the standard deviation divided by the sqrt(number_of_entries_per_bin).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dim (int):  the number of dimensions of the profile</span>
+
+<span class="sd">        minBin (array like): an array containing the minimum value of lower edge of bins for each dimension.</span>
+
+<span class="sd">        maxBin (array like): an array containing the maximum value of upper edge of bins for each dimension.</span>
+
+<span class="sd">        nBins (array like):  an array containing the number of bins for each dimension.</span>
+
+<span class="sd">        title (string): the title of the profile.</span>
+
+<span class="sd">        minValue (float): the minimum value accepted to fill a bin.</span>
+<span class="sd">            the lowest value accepted on Y (vertical axis).</span>
+<span class="sd">            This filter is not used when minValue is None</span>
+
+<span class="sd">        maxValue (float): the maximum value accepted to fill a bin.</span>
+<span class="sd">            the highest value accepted on Y (vertical axis).</span>
+<span class="sd">            This filter is not used when maxValue is None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_sumWeightedValues</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">_sumWeightedValues2</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">_binSumWeightsValues2</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">minBin</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">maxBin</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">nBins</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">minValue</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">maxValue</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="nb">str</span><span class="p">()):</span>
+        <span class="n">h</span><span class="o">.</span><span class="n">HistND</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">minBin</span><span class="p">,</span> <span class="n">maxBin</span><span class="p">,</span> <span class="n">nBins</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minValue</span> <span class="o">=</span> <span class="n">minValue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxValue</span> <span class="o">=</span> <span class="n">maxValue</span>
+
+        <span class="c1">############################################</span>
+        <span class="c1"># Values computed during each fill</span>
+
+        <span class="c1"># some stats</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightedValues</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Total Sum of weight*Y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightedValues2</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Total Sum of weight*Y*Y</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_binsValues</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># contains the values per cell (global linear bin)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_binSumWeightsValues2</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># array of sum of weighted squared values per cell</span>
+
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_binsValues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_binSumWeightsValues2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">minY</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minValue</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">maxY</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxValue</span>
+
+    <span class="k">def</span> <span class="nf">_get_std_deviation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binsValues</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">E</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binSumWeightsValues2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">E</span><span class="o">*</span><span class="n">L</span> <span class="o">-</span> <span class="n">H</span><span class="o">*</span><span class="n">H</span>
+        <span class="k">if</span> <span class="n">L</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">L</span> <span class="o">-</span> <span class="n">H</span> <span class="o">*</span> <span class="n">H</span><span class="p">)</span><span class="o">/</span><span class="n">L</span>  <span class="c1"># std deviation = sqrt(rms**2 - mean**2)</span>
+
+<div class="viewcode-block" id="ProfileND.get_cell_content"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.ProfileND.get_cell_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Returns the content of the cell &#39;i&#39;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            i (int): a valid cell index (aka global linear bin)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float or 0.0 if the position is outside cells ranges</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">HistND</span><span class="o">.</span><span class="n">get_cell_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binsValues</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">n</span></div>
+
+<div class="viewcode-block" id="ProfileND.get_cells_contents"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.ProfileND.get_cells_contents">[docs]</a>    <span class="k">def</span> <span class="nf">get_cells_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">includeEmptyBins</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot; Returns the contents of all bins (cells) per each dimension.</span>
+<span class="sd">        By default it **does not** include empty cells.</span>
+
+<span class="sd">       Args:</span>
+<span class="sd">           includeEmptyBins (bool): if empty bins are included in the list.</span>
+<span class="sd">               If True then empty bins are included, otherwise they are NOT included</span>
+
+<span class="sd">       Returns:</span>
+<span class="sd">           list of list.</span>
+<span class="sd">       &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i_cell</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">):</span>
+            <span class="n">L</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">L</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">includeEmptyBins</span><span class="p">:</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_binsValues</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">/</span> <span class="n">L</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="ProfileND.get_cell_content_error"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.ProfileND.get_cell_content_error">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell_content_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the error value associated with cell &#39;i&#39;</span>
+
+<span class="sd">        The error on per cell is the standard deviation (in that cell) divided by the sqrt(number_of_entries_per_cell).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            i (int): a valid cell index (aka global linear bin)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">L</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_std_deviation</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="ProfileND.get_cells_contents_errors"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.ProfileND.get_cells_contents_errors">[docs]</a>    <span class="k">def</span> <span class="nf">get_cells_contents_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">includeEmptyBins</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot; Returns a list containing the errors on the Y axis associated to each bin.</span>
+<span class="sd">        By default it **does not** include empty bins.</span>
+
+<span class="sd">        The error on Y per bin is the standard deviation (in that bin) divided by the sqrt(number_of_entries_per_bin).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            includeEmptyBins (bool): if empty bins are included in the list.</span>
+<span class="sd">                If True then empty bins are included, otherwise they are NOT included</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">iBin</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">):</span>
+            <span class="n">L</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">iBin</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">L</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">includeEmptyBins</span><span class="p">:</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_std_deviation</span><span class="p">(</span><span class="n">iBin</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">iBin</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="ProfileND.fill_cell"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.ProfileND.fill_cell">[docs]</a>    <span class="k">def</span> <span class="nf">fill_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i_cell</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Fill the profile using global cell index.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            i_cell (int): the global bin index (cell index).</span>
+
+<span class="sd">            kwargs (Dict): currently this dict can accept 3 keys:</span>
+<span class="sd">                weight (float) - the weight to fill in. Defaults to 1.0</span>
+<span class="sd">                error_per_bin(bool) - whether to compute weights per bins. Default is True</span>
+<span class="sd">                value (float) - to specify the value to fill the cell. (**Mandatory**)</span>
+
+<span class="sd">        Warning:</span>
+<span class="sd">            This is expensive operation because it computes the bins indexes (it decomposes cell index) and positions</span>
+<span class="sd">            per axis before filling weights per bin. Its Recommended to use other fill_* methods</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values</span>
+<span class="sd">            are not valid (underflow or overflow)</span>
+
+<span class="sd">        See Also:</span>
+<span class="sd">            :py:meth:`fill_pos`, :py:meth:`fill_bins`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Need a &#39;value&#39; argument&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minValue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minValue</span><span class="p">:</span>  <span class="c1"># ignore filtered data</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxValue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxValue</span><span class="p">:</span>  <span class="c1"># ignore filtered data</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="n">i_cell</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProfileND</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">fill_cell</span><span class="p">(</span><span class="n">i_cell</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">error_per_bin</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_per_bin&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># we consider error_per_bin as false when fill_cell() is called indirectly, either from overridden methods of</span>
+        <span class="c1"># this class or from methods in HistND: HistND.fill_pos() or HistND.fill_bins()..</span>
+        <span class="c1">#</span>
+        <span class="c1"># consequently, we consider error_per_bin is true (the default value) when fill_cell() is called directly by</span>
+        <span class="c1"># the user and we must do these computations..</span>
+        <span class="c1">#</span>
+        <span class="c1"># NB: otherwise the fill() will contain illegal data and fail when computing standard_deviation()</span>
+        <span class="k">if</span> <span class="n">i_cell</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">error_per_bin</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_binsValues</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_binSumWeightsValues2</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span> <span class="o">*</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightedValues</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightedValues2</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span> <span class="o">*</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">i_cell</span></div>
+
+<div class="viewcode-block" id="ProfileND.fill_bins"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.ProfileND.fill_bins">[docs]</a>    <span class="k">def</span> <span class="nf">fill_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Fill the histogram using bin indexes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            args (a list of parameters): the bin indexes for each dimension. The number of arguments must be the same as</span>
+<span class="sd">                the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).</span>
+
+<span class="sd">             kwargs : this dict can accept 2 key:</span>
+<span class="sd">                weight (float) - the weight to fill in. Defaults to 1.0</span>
+<span class="sd">                value (float) - to specify the value to fill the cell. (**Mandatory**)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values</span>
+<span class="sd">                -are not valid</span>
+
+<span class="sd">        See Also:</span>
+<span class="sd">            :py:meth:`fill_pos`, :py:meth:`fill_cell`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Argument &#39;value&#39; can not be None&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minValue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minValue</span><span class="p">:</span>  <span class="c1"># ignore filtered data</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxValue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxValue</span><span class="p">:</span>  <span class="c1"># ignore filtered data</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="n">i_cell</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProfileND</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">fill_bins</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i_cell</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_binsValues</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_binSumWeightsValues2</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span> <span class="o">*</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightedValues</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightedValues2</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span> <span class="o">*</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">i_cell</span></div>
+
+<div class="viewcode-block" id="ProfileND.fill_pos"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.ProfileND.fill_pos">[docs]</a>    <span class="k">def</span> <span class="nf">fill_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Fill the profile using a position.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            args (a list of parameters): the positions on each dimension. The number of arguments must be the same as</span>
+<span class="sd">                the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).</span>
+
+<span class="sd">            kwargs : this dict can accept 2 key:</span>
+<span class="sd">                weight (float) - the weight to fill in. Defaults to 1.0</span>
+<span class="sd">                value (float) - to specify the value to fill the cell. (**Mandatory**)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int. The **index of the affected cell (global linear bin) or -1** if no cell was found or the input values</span>
+<span class="sd">            are not valid</span>
+
+<span class="sd">        See Also:</span>
+<span class="sd">            :py:meth:`fill_cell`, :py:meth:`fill_bins`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Argument &#39;value&#39; can not be None&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minValue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minValue</span><span class="p">:</span>  <span class="c1"># ignore filtered data</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxValue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxValue</span><span class="p">:</span>  <span class="c1"># ignore filtered data</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="n">i_cell</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProfileND</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">fill_pos</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i_cell</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_binsValues</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_binSumWeightsValues2</span><span class="p">[</span><span class="n">i_cell</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span> <span class="o">*</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightedValues</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightedValues2</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">value</span> <span class="o">*</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">i_cell</span></div>
+
+<div class="viewcode-block" id="ProfileND.fill"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.ProfileND.fill">[docs]</a>    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Fill the profile (using coordinate positions).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            args (a list of parameters): a list of positions on each dimension. The number of arguments must be the same</span>
+<span class="sd">                as the number of dimensions. Or pass one argument as a sequence (same size as number of dimensions).</span>
+
+<span class="sd">            kwargs : this dict can accept 2 key:</span>
+<span class="sd">                weight (float) - the weight to fill in. Defaults to 1.0</span>
+<span class="sd">                value (float) - to specify the value to fill the cell. (**Mandatory**)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int. The **index of the affected bin or -1** if no bin</span>
+<span class="sd">            was found or the input values are not valid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_pos</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Profile1D"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.Profile1D">[docs]</a><span class="k">class</span> <span class="nc">Profile1D</span><span class="p">(</span><span class="n">ProfileND</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A 1-Dimensional Profile</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        minBin (float): the minimum value of lower edge of bins</span>
+
+<span class="sd">        maxBin (float): the maximum value of upper edge of bins</span>
+
+<span class="sd">        nBins (integer): the number of bins</span>
+
+<span class="sd">        title (string): the title of the histogram</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nBins</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">minBin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">maxBin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">minValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="nb">str</span><span class="p">()):</span>
+        <span class="n">ProfileND</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">minBin</span><span class="p">],</span> <span class="p">[</span><span class="n">maxBin</span><span class="p">],</span> <span class="p">[</span><span class="n">nBins</span><span class="p">],</span> <span class="n">minValue</span><span class="p">,</span> <span class="n">maxValue</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Profile2D"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.Profile2D">[docs]</a><span class="k">class</span> <span class="nc">Profile2D</span><span class="p">(</span><span class="n">ProfileND</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A 2-Dimensional Profile</span>
+
+<span class="sd">     Args:</span>
+<span class="sd">        nBinsX (integer): the number of bins on the X-axis</span>
+
+<span class="sd">        minBinX (float): the minimum value of lower edge of bins on the X-axis</span>
+
+<span class="sd">        maxBinX (float): the maximum value of upper edge of bins on the X-axis</span>
+
+<span class="sd">        nBinsY (integer): the number of bins on the Y-axis</span>
+
+<span class="sd">        minBinY (float): the minimum value of lower edge of bins on the Y-axis</span>
+
+<span class="sd">        maxBinY (float): the maximum value of upper edge of bins on the Y-axis</span>
+
+<span class="sd">        title (string): the title of the histogram</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nBinsX</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">minBinX</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">maxBinX</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">nBinsY</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">minBinY</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">maxBinY</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                 <span class="n">minValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="nb">str</span><span class="p">()):</span>
+        <span class="n">ProfileND</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">minBinX</span><span class="p">,</span> <span class="n">minBinY</span><span class="p">],</span> <span class="p">[</span><span class="n">maxBinX</span><span class="p">,</span> <span class="n">maxBinY</span><span class="p">],</span> <span class="p">[</span><span class="n">nBinsX</span><span class="p">,</span> <span class="n">nBinsY</span><span class="p">],</span> <span class="n">minValue</span><span class="p">,</span> <span class="n">maxValue</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Profile3D"><a class="viewcode-back" href="../../reference_profile.html#rootplots.profile.Profile3D">[docs]</a><span class="k">class</span> <span class="nc">Profile3D</span><span class="p">(</span><span class="n">ProfileND</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A 3-Dimensional Profile</span>
+
+<span class="sd">     Args:</span>
+<span class="sd">         nBinsX (integer): the number of bins on the X-axis</span>
+
+<span class="sd">        minBinX (float): the minimum value of lower edge of bins on the X-axis</span>
+
+<span class="sd">        maxBinX (float): the maximum value of upper edge of bins on the X-axis</span>
+
+<span class="sd">        nBinsY (integer): the number of bins on the Y-axis</span>
+
+<span class="sd">        minBinY (float): the minimum value of lower edge of bins on the Y-axis</span>
+
+<span class="sd">        maxBinY (float): the maximum value of upper edge of bins on the Y-axis</span>
+
+<span class="sd">        nBinsZ (integer): the number of bins on the Z-axis</span>
+
+<span class="sd">        minBinZ (float): the minimum value of lower edge of bins on the Z-axis</span>
+
+<span class="sd">        maxBinZ (float): the maximum value of upper edge of bins on the Z-axis</span>
+
+<span class="sd">        title (string): the title of the histogram</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nBinsX</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">minBinX</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">maxBinX</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">nBinsY</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">minBinY</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">maxBinY</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                 <span class="n">nBinsZ</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">minBinZ</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">maxBinZ</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">minValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="nb">str</span><span class="p">()):</span>
+        <span class="n">ProfileND</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="n">minBinX</span><span class="p">,</span> <span class="n">minBinY</span><span class="p">,</span> <span class="n">minBinZ</span><span class="p">],</span> <span class="p">[</span><span class="n">maxBinX</span><span class="p">,</span> <span class="n">maxBinY</span><span class="p">,</span> <span class="n">maxBinZ</span><span class="p">],</span> <span class="p">[</span><span class="n">nBinsX</span><span class="p">,</span> <span class="n">nBinsY</span><span class="p">,</span> <span class="n">nBinsZ</span><span class="p">],</span>
+                           <span class="n">minValue</span><span class="p">,</span> <span class="n">maxValue</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">rootplots 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mihai Niculescu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>
