@@ -1,51 +1,75 @@
 rootplots
 =========
 
-.. image:: http://img.shields.io/travis/Duke-QCD/hic.svg?style=flat-square
-  :target: https://travis-ci.org/Duke-QCD/hic
+A python package to plot histograms, profile histograms using an interface similar to ROOT's plotting.
 
-Modules for N-dimensional histograms and profile plotting for data scientists - Inspired by ROOT project.
+This package was inspired by ROOT Project’s histogramming library but it has no connection to ROOT and such it doesn’t
+require ROOT, PyROOT, nor ROOTPy. Its also NOT compatible with ROOT’s libraries.
 
-Installation
+This package is structured in 3 modules:
+    - a module for histograms: hist
+    - another for profile histograms: prof
+    - another for plotting: mpl
+
+The modules **hist** and **prof** do not depend on any graphic/plotting library, even on mpl module. So, histograms and
+profiles can be created and use all functionality without any dependency of graphics. But, mpl module is here for your
+convenience to quickly make a plot.
+
+
+Requirements
 ------------
-Requirements: python 3.3+ with numpy_, random_.
+python 3.3+ with **numpy**. And if you require easy plotting of rootplots.mpl you need also **matplotlib**
 
-Install the latest release with pip_::
 
-   pip install rootplots
-
-To run the tests, install nose_ and run ::
-
-   nosetests -v hic
-
-Simple examples
----------------
+A simple Histogram example
+--------------------------
 Create a 1D histogram:
 
 .. code:: python
 
    import random
-   from rootplots import hist
+   from rootplots import hist  # hist module contains histograms
+   from rootplots import mpl  # mpl module helps to do plot
 
-   h1 = hist.Hist1D(100, -3, 3)
-   h1.fill(0.5)
+   # create a 1-Dimensional
+   h1 = hist.Hist1D(100, -3, 3)  # histogram of 100 bins, first bin starts at -3.0, last bin ends at 3.0
 
-Randomly sample events with specified flows:
+   for x in range(100):
+     # generate random numbers to fill the hist
+     r = random.uniform(-1, 1)
+     h1.fill(r)  # fill the histogram
+
+   mpl.plot(h1)  # plot the histogram
+
+
+
+A simple Profile
+----------------
+
+Filling a 1-D profile:
 
 .. code:: python
 
-   sampler = flow.Sampler(v2, v3)
-   phi = sampler.sample(mult)
+    import random
+    from rootplots.profile import Profile1D
+    from rootplots import mpl
 
-Calculate initial condition eccentricities:
+    # create profile
+    prof = Profile1D(100, -4, 4)  # 100 bins, first bin starts at -4.0 and last bin is at 4.0
 
-.. code:: python
+    # generate data...
+    # and then fill the profile
+    for x in range(2500):
+        # generate random numbers to fill the hists
+        px = random.gauss(0, 1)
+        py = random.gauss(0, 1)
 
-   from hic import initial
+        pz = px * px + py * py
 
-   ic = initial.IC(profile, dxy)
-   e2 = ic.ecc(2)
+        prof.fill(px, value=pz)  # fill the profile
 
-.. _numpy: http://www.numpy.org
-.. _pip: https://pip.pypa.io
-.. _nose: https://nose.readthedocs.org
+    prof.title = "Profile of pz versus px"
+
+    # plot the profile
+    mpl.plot(prof)
+    mpl.show()

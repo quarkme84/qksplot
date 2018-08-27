@@ -12,7 +12,7 @@ from . import profile as prof
 
 def show():
     """ Force showing the figure"""
-    plt.show(block=True)
+    plt.show()
 
 
 def plot_h1(h: hist.HistND):
