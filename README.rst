@@ -73,3 +73,5 @@ Filling a 1-D profile:
     # plot the profile
     mpl.plot(prof)
     mpl.show()
+
+For more see  `the documentation  <https://quarkme84.github.io/rootplots/>`_.
