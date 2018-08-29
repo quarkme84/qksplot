@@ -1,7 +1,7 @@
 import random
 
-from rootplots.profile import Profile1D
-from rootplots import mpl
+from qksplot.profile import Profile1D
+from qksplot import mpl
 
 # create profile
 prof = Profile1D(100, -4, 4)

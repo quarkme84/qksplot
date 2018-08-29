@@ -4,7 +4,7 @@
 Note:
     The classes defined in this module do **NOT** provide drawing capabilities, so there is **NO** draw() nor paint()
     method. Use other libraries like matplotlib to plot the data. But for your convenience, this package provides a 
-    module for easy plotting using matplotlib. See, :py:mod:`rootplots.mpl`
+    module for easy plotting using matplotlib. See, :py:mod:`qksplot.mpl`
 """
 
 import math

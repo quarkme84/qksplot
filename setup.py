@@ -3,21 +3,21 @@
 
 from setuptools import setup
 
-import rootplots
+import qksplot
 
 with open('README.rst') as f:
     long_description = f.read()
 
 setup(
-    name='rootplots',
-    version=rootplots.__version__,
+    name='qksplot',
+    version=qksplot.__version__,
     description='Helpful offline plotting modules for Scientists',
     long_description=long_description,
     author='Mihai Niculescu',
     author_email='mihai@spacescience.ro',
     url='',
     license='GPL',
-    packages=['rootplots', 'rootplots.tests'],
+    packages=['qksplot', 'qksplot.tests'],
     install_requires=['numpy', 'typing', 'matplotlib'],
     classifiers=[
         'Development Status :: 4 - Beta',

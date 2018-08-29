@@ -10,14 +10,14 @@ While histograms show the value filled in each their bin, profile histograms sho
 The Profile Histogram Classes
 =============================
 
-This package provides full support for N-Dimensional profile histograms: :py:class:`ProfileND <rootplots.profile.ProfileND>` a class is derived from :py:class:`HistND <rootplots.Profile.ProfileND>`. 
+This package provides full support for N-Dimensional profile histograms: :py:class:`ProfileND <qksplot.profile.ProfileND>` a class is derived from :py:class:`HistND <qksplot.Profile.ProfileND>`.
 
-But for your convenience, there are also classes derived from :py:class:`ProfileND <rootplots.profile.ProfileND>` 
+But for your convenience, there are also classes derived from :py:class:`ProfileND <qksplot.profile.ProfileND>`
 that are more convenient to use when you need lower dimensional profile histograms:
 
-	* :py:class:`Profile1D <rootplots.profile.Profile1D>` for 1D profile histograms
-	* :py:class:`Profile2D <rootplots.profile.Profile2D>` for 2D profile histograms
-	* :py:class:`Profile3D <rootplots.profile.Profile3D>` for 3D profile histograms
+	* :py:class:`Profile1D <qksplot.profile.Profile1D>` for 1D profile histograms
+	* :py:class:`Profile2D <qksplot.profile.Profile2D>` for 2D profile histograms
+	* :py:class:`Profile3D <qksplot.profile.Profile3D>` for 3D profile histograms
 
 
 Creating Profile Histograms
@@ -29,14 +29,14 @@ importing the library
 
 But first we must import the profile histogram module::
 
-	from rootplots.profile import *
+	from qksplot.profile import *
 
-This command imports all classes defined in rootplots.profile module, which includes classes for 1D, 2D, 3D and ND profile histograms.
+This command imports all classes defined in qksplot.profile module, which includes classes for 1D, 2D, 3D and ND profile histograms.
 
 1D Profile
 ----------
 
-The easiest profile histograms to create are **one dimensional** (:py:class:`Profile1D <rootplots.profile.Profile1D>`)::
+The easiest profile histograms to create are **one dimensional** (:py:class:`Profile1D <qksplot.profile.Profile1D>`)::
 
 	prof = Profile1D(100, -3.0, 3.0)
 
@@ -45,7 +45,7 @@ Above we created a 1D profile that contains *100 bins* starting from *-3.0* to *
 2D Profile
 ----------
 
-To create **two dimensional** profiles (:py:class:`Profile2D <rootplots.profile.Profile2D>`) it gets a bit complex, because we must explicitly say how the bins are distributed on 2 axis.::
+To create **two dimensional** profiles (:py:class:`Profile2D <qksplot.profile.Profile2D>`) it gets a bit complex, because we must explicitly say how the bins are distributed on 2 axis.::
 
 	prof2 = Profile2D(100, -3, 3, 60, 0, 1000)
 
@@ -55,7 +55,7 @@ Here, we recongnize the first 3 arguments as representing the bin distribution o
 3D Profile
 ----------
 
-A bit more complex is to create **three dimensional** profiles (:py:class:`Profile3D <rootplots.profile.Profile3D>`)::
+A bit more complex is to create **three dimensional** profiles (:py:class:`Profile3D <qksplot.profile.Profile3D>`)::
 
 	prof = Profile3D(100, -3, 3, 60, 0, 1000, 80, -5, 3)
 
@@ -64,7 +64,7 @@ To construct 3D profiles, we basically do the same as for 2D histograms with the
 
 ND Profiles
 -----------
-When we want to go to **higher dimensions** then 3 we must use the **N-Dimensional profile class** (:py:class:`ProfileND <rootplots.profile.ProfileND>`). Here, the interface is a bit different since we must deal 
+When we want to go to **higher dimensions** then 3 we must use the **N-Dimensional profile class** (:py:class:`ProfileND <qksplot.profile.ProfileND>`). Here, the interface is a bit different since we must deal
 with **N** values for each parameter from the bin distribution. For this reason we must use *arrays* or *lists*::
 
 	profN = ProfileND( N, minBins, maxBins, nBins)
@@ -115,7 +115,7 @@ First, we start with the simples methods. We kept the more advanced functionalit
 1D Profile
 ------------
 
-One can fill a 1-dimensional Profile by simply calling the :py:meth:`fill <rootplots.profile.Profile1D.fill>` method::
+One can fill a 1-dimensional Profile by simply calling the :py:meth:`fill <qksplot.profile.Profile1D.fill>` method::
 
 	prof.fill(x, value=val)
 
@@ -137,7 +137,7 @@ The 2D Profile are filled similarly to 1D case, with the exception this time we 
 
 	prof2.fill(X, Y, value=val)
 
-Now, the :py:meth:`fill <rootplots.profile.Profile2D.fill>` method automatically searches the bin on the first axis that can contains the position *X* and the bin on the second axis that can contains the position *Y*, fills it with **val** and increases the entries in the bin by 1. 
+Now, the :py:meth:`fill <qksplot.profile.Profile2D.fill>` method automatically searches the bin on the first axis that can contains the position *X* and the bin on the second axis that can contains the position *Y*, fills it with **val** and increases the entries in the bin by 1.
 
 .. note::
 	You may wonder: since there are bins on X-axis and bins on Y-axis which bin its actually filled?
@@ -176,7 +176,7 @@ Advanced Filling Methods
 ------------------------
 There are more ways to fill.
 
-Use :py:meth:`fill_pos <rootplots.profile.ProfileND.fill_pos>` when you know the a position on each axis::
+Use :py:meth:`fill_pos <qksplot.profile.ProfileND.fill_pos>` when you know the a position on each axis::
 
 	p = [1,0,100,2,86,47]
 	v = 56.4
@@ -186,7 +186,7 @@ Use :py:meth:`fill_pos <rootplots.profile.ProfileND.fill_pos>` when you know the
 	w = 34.2
 	prof.fill_pos(*p, value=v, weight=w)
 
-Use :py:meth:`fill_bins <rootplots.profile.ProfileND.fill_bins>` when you know the bins ids on each axis::
+Use :py:meth:`fill_bins <qksplot.profile.ProfileND.fill_bins>` when you know the bins ids on each axis::
 
 	mbins = [1,0,100,2,86,47]
 	v = 56.4
@@ -200,7 +200,7 @@ Use :py:meth:`fill_bins <rootplots.profile.ProfileND.fill_bins>` when you know t
 	The argument is a list of bin indexes. The dimension of the list must be the same as the dimension of the Profile.
 	The bin indexes start from 0 to MaxBinIndex-1. MaxBinIndex is known when creating the Profile.
 
-Use :py:meth:`fill_cell <rootplots.profile.ProfileND.fill_cell>` when you know the cell index::
+Use :py:meth:`fill_cell <qksplot.profile.ProfileND.fill_cell>` when you know the cell index::
 
 	icell = 34
 	v = 56.4
@@ -229,7 +229,7 @@ Since the profiles are derived from histograms they also support the same projec
 Drawing
 =======
 
-The Profile module's design is intended only for profilling in order to let the user decide which library they prefer for plotting. Hence, this module has no drawing/plotting capabilities. But, we recognized the need to plot easy and quickly and for this reason the rootplots package provides a separate module specifically created to quickly draw profile objects. Go read about it here.
+The Profile module's design is intended only for profilling in order to let the user decide which library they prefer for plotting. Hence, this module has no drawing/plotting capabilities. But, we recognized the need to plot easy and quickly and for this reason the qksplot package provides a separate module specifically created to quickly draw profile objects. Go read about it here.
 
 
 Reference Documentation

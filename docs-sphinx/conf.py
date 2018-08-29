@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'rootplots'
+project = 'qksplot'
 copyright = '2018, Mihai Niculescu'
 author = 'Mihai Niculescu'
 
@@ -105,7 +105,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'rootplotsdoc'
+htmlhelp_basename = 'qksplotdoc'
 
 # -- Options for LaTeX output ------------------------------------------------
 
@@ -131,7 +131,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'rootplots.tex', 'rootplots Documentation',
+    (master_doc, 'qksplot.tex', 'qksplot Documentation',
      'Mihai Niculescu', 'manual'),
 ]
 
@@ -140,7 +140,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'rootplots', 'rootplots Documentation',
+    (master_doc, 'qksplot', 'qksplot Documentation',
      [author], 1)
 ]
 
@@ -150,8 +150,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'rootplots', 'rootplots Documentation',
-     author, 'rootplots', 'One line description of project.',
+    (master_doc, 'qksplot', 'qksplot Documentation',
+     author, 'qksplot', 'One line description of project.',
      'Miscellaneous'),
 ]
 

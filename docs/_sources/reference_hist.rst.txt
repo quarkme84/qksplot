@@ -1,5 +1,5 @@
 API Reference for Histogram Module
 ==================================
 
-.. automodule:: rootplots.hist
+.. automodule:: qksplot.hist
    :members:

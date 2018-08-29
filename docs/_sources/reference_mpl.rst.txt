@@ -1,5 +1,5 @@
 API Reference for Easy plotting
 ===============================
 
-.. automodule:: rootplots.mpl
+.. automodule:: qksplot.mpl
     :members:

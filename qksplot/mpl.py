@@ -1,5 +1,5 @@
 """
-This module contains functions to make it easy to plot objects (Histograms, Profiles) from rootplots package using the
+This module contains functions to make it easy to plot objects (Histograms, Profiles) from qksplot package using the
 popular matplotlib library
 
 @author: Mihai Niculescu <mihai@spacescience.ro>

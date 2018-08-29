@@ -1,4 +1,4 @@
-rootplots
+qksplot
 =========
 
 A python package to plot histograms, profile histograms using an interface similar to ROOT's plotting.
@@ -18,7 +18,7 @@ convenience to quickly make a plot.
 
 Requirements
 ------------
-python 3.3+ with **numpy**. And if you require easy plotting of rootplots.mpl you need also **matplotlib**
+python 3.3+ with **numpy**. And if you require easy plotting of qksplot.mpl you need also **matplotlib**
 
 
 A simple Histogram example
@@ -28,8 +28,8 @@ Create a 1D histogram:
 .. code:: python
 
    import random
-   from rootplots import hist  # hist module contains histograms
-   from rootplots import mpl  # mpl module helps to do plot
+   from qksplot import hist  # hist module contains histograms
+   from qksplot import mpl  # mpl module helps to do plot
 
    # create a 1-Dimensional
    h1 = hist.Hist1D(100, -3, 3)  # histogram of 100 bins, first bin starts at -3.0, last bin ends at 3.0
@@ -51,8 +51,8 @@ Filling a 1-D profile:
 .. code:: python
 
     import random
-    from rootplots.profile import Profile1D
-    from rootplots import mpl
+    from qksplot.profile import Profile1D
+    from qksplot import mpl
 
     # create profile
     prof = Profile1D(100, -4, 4)  # 100 bins, first bin starts at -4.0 and last bin is at 4.0
@@ -74,4 +74,4 @@ Filling a 1-D profile:
     mpl.plot(prof)
     mpl.show()
 
-For more see  `the documentation  <https://quarkme84.github.io/rootplots/>`_.
+For more see  `the documentation  <https://quarkme84.github.io/qksplot/>`_.

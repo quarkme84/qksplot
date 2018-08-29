@@ -1,8 +1,8 @@
 import random as rnd
 import matplotlib.pyplot as plt
 
-from rootplots.hist import *
-from rootplots import mpl
+from qksplot.hist import *
+from qksplot import mpl
 
 # create histograms
 h = Hist2D(30, -5, 5, 30, 0, 10, title="H2")

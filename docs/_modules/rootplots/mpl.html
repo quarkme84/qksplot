@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>rootplots.mpl &#8212; rootplots 1.0 documentation</title>
+    <title>qksplot.mpl &#8212; qksplot 1.0 documentation</title>
     <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">rootplots 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">qksplot 1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>
@@ -51,9 +51,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for rootplots.mpl</h1><div class="highlight"><pre>
+  <h1>Source code for qksplot.mpl</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module contains functions to make it easy to plot objects (Histograms, Profiles) from rootplots package using the</span>
+<span class="sd">This module contains functions to make it easy to plot objects (Histograms, Profiles) from qksplot package using the</span>
 <span class="sd">popular matplotlib library</span>
 
 <span class="sd">@author: Mihai Niculescu &lt;mihai@spacescience.ro&gt;</span>
@@ -64,7 +64,7 @@
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">profile</span> <span class="k">as</span> <span class="n">prof</span>
 
 
-<div class="viewcode-block" id="show"><a class="viewcode-back" href="../../reference_mpl.html#rootplots.mpl.show">[docs]</a><span class="k">def</span> <span class="nf">show</span><span class="p">():</span>
+<div class="viewcode-block" id="show"><a class="viewcode-back" href="../../reference_mpl.html#qksplot.mpl.show">[docs]</a><span class="k">def</span> <span class="nf">show</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; Force showing the figure&quot;&quot;&quot;</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
@@ -96,7 +96,7 @@
     <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="plot_hist"><a class="viewcode-back" href="../../reference_mpl.html#rootplots.mpl.plot_hist">[docs]</a><span class="k">def</span> <span class="nf">plot_hist</span><span class="p">(</span><span class="n">h</span><span class="p">:</span> <span class="n">hist</span><span class="o">.</span><span class="n">HistND</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_hist"><a class="viewcode-back" href="../../reference_mpl.html#qksplot.mpl.plot_hist">[docs]</a><span class="k">def</span> <span class="nf">plot_hist</span><span class="p">(</span><span class="n">h</span><span class="p">:</span> <span class="n">hist</span><span class="o">.</span><span class="n">HistND</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Plot a Histogram&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">h</span><span class="o">.</span><span class="n">dimension</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">plot_h1</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
@@ -126,7 +126,7 @@
         <span class="k">return</span>
 
 
-<div class="viewcode-block" id="plot_profile"><a class="viewcode-back" href="../../reference_mpl.html#rootplots.mpl.plot_profile">[docs]</a><span class="k">def</span> <span class="nf">plot_profile</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">prof</span><span class="o">.</span><span class="n">ProfileND</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_profile"><a class="viewcode-back" href="../../reference_mpl.html#qksplot.mpl.plot_profile">[docs]</a><span class="k">def</span> <span class="nf">plot_profile</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">prof</span><span class="o">.</span><span class="n">ProfileND</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Plot a Profile&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">dimension</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">plot_prof1</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -136,7 +136,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unable to plot beyond 2 dimensions&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../reference_mpl.html#rootplots.mpl.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../reference_mpl.html#qksplot.mpl.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Plot a Histogram or a Profile&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="ow">is</span> <span class="n">hist</span><span class="o">.</span><span class="n">HistND</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="ow">is</span> <span class="n">hist</span><span class="o">.</span><span class="n">Hist1D</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="ow">is</span> <span class="n">hist</span><span class="o">.</span><span class="n">Hist2D</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="ow">is</span> <span class="n">hist</span><span class="o">.</span><span class="n">Hist3D</span><span class="p">:</span>
         <span class="n">plot_hist</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -163,7 +163,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">rootplots 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">qksplot 1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

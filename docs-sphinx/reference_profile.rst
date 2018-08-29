@@ -1,5 +1,5 @@
 API Reference for Profile Module
 ================================
 
-.. automodule:: rootplots.profile
+.. automodule:: qksplot.profile
    :members:

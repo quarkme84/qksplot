@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>rootplots.hist &#8212; rootplots 1.0 documentation</title>
+    <title>qksplot.hist &#8212; qksplot 1.0 documentation</title>
     <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">rootplots 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">qksplot 1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>
@@ -51,7 +51,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for rootplots.hist</h1><div class="highlight"><pre>
+  <h1>Source code for qksplot.hist</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This module defines classes required for histogramming:</span>
@@ -66,7 +66,7 @@
 <span class="sd">Note:</span>
 <span class="sd">    The classes defined in this module do **NOT** provide drawing capabilities, so there is **NO** draw() nor paint()</span>
 <span class="sd">    method. Use other libraries like matplotlib to plot the data. But for your convenience, this package provides a </span>
-<span class="sd">    module for easy plotting using matplotlib. See, :py:mod:`rootplots.mpl`</span>
+<span class="sd">    module for easy plotting using matplotlib. See, :py:mod:`qksplot.mpl`</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -79,7 +79,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="s1">&#39;HistAxis&#39;</span><span class="p">,</span> <span class="s1">&#39;HistND&#39;</span><span class="p">,</span> <span class="s1">&#39;Hist1D&#39;</span><span class="p">,</span> <span class="s1">&#39;Hist2D&#39;</span><span class="p">,</span> <span class="s1">&#39;Hist3D&#39;</span>
 
 
-<div class="viewcode-block" id="HistAxis"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistAxis">[docs]</a><span class="k">class</span> <span class="nc">HistAxis</span><span class="p">:</span>
+<div class="viewcode-block" id="HistAxis"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistAxis">[docs]</a><span class="k">class</span> <span class="nc">HistAxis</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; An axis for use in constructing histograms</span>
 
 <span class="sd">    Args:</span>
@@ -114,14 +114,14 @@
         <span class="sd">&quot;&quot;&quot; sets the label of the axis&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_label</span> <span class="o">=</span> <span class="n">label</span>
 
-<div class="viewcode-block" id="HistAxis.density"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistAxis.density">[docs]</a>    <span class="k">def</span> <span class="nf">density</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="HistAxis.density"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistAxis.density">[docs]</a>    <span class="k">def</span> <span class="nf">density</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; the density of the bins = number of bins over the length (maxBin - minBin)&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minBin</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxBin</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nbins</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxBin</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">minBin</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;MinBin can not be equalx to MaxBin.&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HistAxis.get_bin"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistAxis.get_bin">[docs]</a>    <span class="k">def</span> <span class="nf">get_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="HistAxis.get_bin"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistAxis.get_bin">[docs]</a>    <span class="k">def</span> <span class="nf">get_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Returns the bin index that contains &#39;x&#39; value, such that for that bin ``minBin &lt;= x &lt; maxBin``</span>
 
 <span class="sd">        Args:</span>
@@ -135,7 +135,7 @@
 
         <span class="k">return</span> <span class="n">bisect_left</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></div>
 
-<div class="viewcode-block" id="HistAxis.get_bins"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistAxis.get_bins">[docs]</a>    <span class="k">def</span> <span class="nf">get_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
+<div class="viewcode-block" id="HistAxis.get_bins"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistAxis.get_bins">[docs]</a>    <span class="k">def</span> <span class="nf">get_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Returns all bins lower edges of the axis.</span>
 
 <span class="sd">        Returns:</span>
@@ -143,11 +143,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bins</span></div>
 
-<div class="viewcode-block" id="HistAxis.get_bin_center"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistAxis.get_bin_center">[docs]</a>    <span class="k">def</span> <span class="nf">get_bin_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="HistAxis.get_bin_center"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistAxis.get_bin_center">[docs]</a>    <span class="k">def</span> <span class="nf">get_bin_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Returns the value of the center in bin &#39;i&#39; &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">get_bin_width</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HistAxis.get_bins_centers"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistAxis.get_bins_centers">[docs]</a>    <span class="k">def</span> <span class="nf">get_bins_centers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HistAxis.get_bins_centers"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistAxis.get_bins_centers">[docs]</a>    <span class="k">def</span> <span class="nf">get_bins_centers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns the a list containing the centers of all bins.&quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lowEdge</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">):</span>
@@ -169,7 +169,7 @@
             <span class="k">return</span> <span class="mf">0.0</span></div>
 
 
-<div class="viewcode-block" id="HistND"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND">[docs]</a><span class="k">class</span> <span class="nc">HistND</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND">[docs]</a><span class="k">class</span> <span class="nc">HistND</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; An N-Dimensional Histogram.</span>
 
 <span class="sd">        Args:</span>
@@ -260,15 +260,15 @@
         <span class="sd">&quot;&quot;&quot;a list of total sum of weights*X*X for each dimension&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightsX2</span>
 
-<div class="viewcode-block" id="HistND.get_axes_list"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.get_axes_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_axes_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">HistAxis</span><span class="p">]:</span>
+<div class="viewcode-block" id="HistND.get_axes_list"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.get_axes_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_axes_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">HistAxis</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot; a list of axes &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axes</span></div>
 
-<div class="viewcode-block" id="HistND.get_axis"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.get_axis">[docs]</a>    <span class="k">def</span> <span class="nf">get_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HistAxis</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.get_axis"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.get_axis">[docs]</a>    <span class="k">def</span> <span class="nf">get_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HistAxis</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;get the axis for dimension &#39;i&#39; &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="HistND.cell_to_bins"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.cell_to_bins">[docs]</a>    <span class="k">def</span> <span class="nf">cell_to_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx_cell</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="HistND.cell_to_bins"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.cell_to_bins">[docs]</a>    <span class="k">def</span> <span class="nf">cell_to_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx_cell</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot; Converts cell index to indexes of bins.</span>
 
 <span class="sd">        returns a list of bin indexes on the axes that refer to this cell &quot;idx_cell&quot;</span>
@@ -289,7 +289,7 @@
 
         <span class="k">return</span> <span class="n">idxBins</span></div>
 
-<div class="viewcode-block" id="HistND.bins_to_cell"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.bins_to_cell">[docs]</a>    <span class="k">def</span> <span class="nf">bins_to_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.bins_to_cell"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.bins_to_cell">[docs]</a>    <span class="k">def</span> <span class="nf">bins_to_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Converts bin indexes to global linear bin (cell) index.</span>
 
 <span class="sd">        Returns the index of the cell that is located by the bin indexes on the axes</span>
@@ -310,7 +310,7 @@
 
         <span class="k">return</span> <span class="n">idx_cell</span></div>
 
-<div class="viewcode-block" id="HistND.pos_to_cell"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.pos_to_cell">[docs]</a>    <span class="k">def</span> <span class="nf">pos_to_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.pos_to_cell"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.pos_to_cell">[docs]</a>    <span class="k">def</span> <span class="nf">pos_to_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Converts coordinate positions to global linear bin (cell) index.</span>
 
 <span class="sd">        Returns the cell index (global linear bin) that contains the point at position &#39;x&#39;. Where &#39;x&#39; are the</span>
@@ -340,7 +340,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins_to_cell</span><span class="p">(</span><span class="o">*</span><span class="n">bin_coords</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HistND.get_bins_edges"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.get_bins_edges">[docs]</a>    <span class="k">def</span> <span class="nf">get_bins_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">includeEmptyBins</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+<div class="viewcode-block" id="HistND.get_bins_edges"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.get_bins_edges">[docs]</a>    <span class="k">def</span> <span class="nf">get_bins_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">includeEmptyBins</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot; Returns all bins per each dimension (axis).  By default it **does not** include empty cells.</span>
 
 <span class="sd">        The list contains for each dimension the list of minimum edges for each cell (global linear bin)</span>
@@ -369,7 +369,7 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="HistND.get_bins_centers"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.get_bins_centers">[docs]</a>    <span class="k">def</span> <span class="nf">get_bins_centers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">includeEmptyBins</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+<div class="viewcode-block" id="HistND.get_bins_centers"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.get_bins_centers">[docs]</a>    <span class="k">def</span> <span class="nf">get_bins_centers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">includeEmptyBins</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot; Returns the positions of the centers of all bins per each dimension (axis).</span>
 <span class="sd">        By default it **does not** include empty cells.</span>
 
@@ -397,7 +397,7 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="HistND.get_cell_content"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.get_cell_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.get_cell_content"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.get_cell_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Returns the content of the cell &#39;i&#39; or the value of Underflow (if i&lt;0) or Overflow (if i&gt;= # of cells)</span>
 
 <span class="sd">        Args:</span>
@@ -414,7 +414,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="HistND.get_cells_contents"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.get_cells_contents">[docs]</a>    <span class="k">def</span> <span class="nf">get_cells_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">includeEmptyBins</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<div class="viewcode-block" id="HistND.get_cells_contents"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.get_cells_contents">[docs]</a>    <span class="k">def</span> <span class="nf">get_cells_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">includeEmptyBins</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot; Returns the contents of all bins (cells) per each dimension.  By default it **does not** include empty cells.</span>
 
 <span class="sd">       Args:</span>
@@ -435,7 +435,7 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="HistND.get_pos_content"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.get_pos_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_pos_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.get_pos_content"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.get_pos_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_pos_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Returns the content of the cell located at position x</span>
 
 <span class="sd">        Args:</span>
@@ -447,7 +447,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cell_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_to_cell</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="HistND.get_cell_content_error"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.get_cell_content_error">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell_content_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.get_cell_content_error"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.get_cell_content_error">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell_content_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Returns the error value associated with cell &#39;i&#39;</span>
 
 <span class="sd">        Args:</span>
@@ -467,7 +467,7 @@
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_binsEntries</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HistND.get_cells_contents_errors"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.get_cells_contents_errors">[docs]</a>    <span class="k">def</span> <span class="nf">get_cells_contents_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">includeEmptyBins</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<div class="viewcode-block" id="HistND.get_cells_contents_errors"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.get_cells_contents_errors">[docs]</a>    <span class="k">def</span> <span class="nf">get_cells_contents_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">includeEmptyBins</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot; Returns a list containing the errors associated to each cell.</span>
 <span class="sd">        By default it **does not** include empty cells.</span>
 
@@ -491,7 +491,7 @@
                     <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bin_err</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="HistND.get_stats"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.get_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<div class="viewcode-block" id="HistND.get_stats"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.get_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot; Returns general statistics about the histogram.</span>
 
 <span class="sd">            A dictionary with the keys: &quot;Entries&quot;, &quot;SumWeights&quot;, &quot;SumWeights2&quot;, &quot;SumWeightsX&quot;, &quot;SumWeightsX2&quot;</span>
@@ -508,7 +508,7 @@
                 <span class="s2">&quot;SumWeightsX2&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightsX2</span>
                 <span class="p">}</span></div>
 
-<div class="viewcode-block" id="HistND.projection"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.projection">[docs]</a>    <span class="k">def</span> <span class="nf">projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">keepDims</span><span class="p">):</span>
+<div class="viewcode-block" id="HistND.projection"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.projection">[docs]</a>    <span class="k">def</span> <span class="nf">projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">keepDims</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Project this Histogram to another Histogram keeping the axis defined in `keepDims`</span>
 
 <span class="sd">        Args:</span>
@@ -539,7 +539,7 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="HistND.fill_cell"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.fill_cell">[docs]</a>    <span class="k">def</span> <span class="nf">fill_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i_cell</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.fill_cell"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.fill_cell">[docs]</a>    <span class="k">def</span> <span class="nf">fill_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i_cell</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Fill the histogram using global cell index.</span>
 
 <span class="sd">        Args:</span>
@@ -596,7 +596,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_sumWeightsX2</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
         <span class="k">return</span> <span class="n">i_cell</span></div>
 
-<div class="viewcode-block" id="HistND.fill_bins"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.fill_bins">[docs]</a>    <span class="k">def</span> <span class="nf">fill_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.fill_bins"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.fill_bins">[docs]</a>    <span class="k">def</span> <span class="nf">fill_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Fill the histogram using bin indexes.</span>
 
 <span class="sd">        Args:</span>
@@ -638,7 +638,7 @@
 
         <span class="k">return</span> <span class="n">i_cell</span></div>
 
-<div class="viewcode-block" id="HistND.fill_pos"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.fill_pos">[docs]</a>    <span class="k">def</span> <span class="nf">fill_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.fill_pos"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.fill_pos">[docs]</a>    <span class="k">def</span> <span class="nf">fill_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Fill the histogram using a position.</span>
 
 <span class="sd">        Args:</span>
@@ -678,7 +678,7 @@
 
         <span class="k">return</span> <span class="n">i_cell</span></div>
 
-<div class="viewcode-block" id="HistND.fill"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.fill">[docs]</a>    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.fill"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.fill">[docs]</a>    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Fill the histogram.</span>
 
 <span class="sd">        Args:</span>
@@ -699,7 +699,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_pos</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HistND.intersect"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.intersect">[docs]</a>    <span class="k">def</span> <span class="nf">intersect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="HistND.intersect"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.intersect">[docs]</a>    <span class="k">def</span> <span class="nf">intersect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; intersection of 2 histograms</span>
 
 <span class="sd">        Args:</span>
@@ -740,7 +740,7 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="HistND.scale"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">scale_errors</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="HistND.scale"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">scale_errors</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Scales the histograms.</span>
 
 <span class="sd">        The values of all cells are multiplied by &#39;factor&#39;</span>
@@ -936,7 +936,7 @@
 
         <span class="k">return</span> <span class="n">result</span>
 
-<div class="viewcode-block" id="HistND.integral"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.integral">[docs]</a>    <span class="k">def</span> <span class="nf">integral</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minCellId</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maxCellId</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.integral"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.integral">[docs]</a>    <span class="k">def</span> <span class="nf">integral</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minCellId</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maxCellId</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Computes integral over cells range &#39;[minCellId, maxCellId]&#39;</span>
 
 <span class="sd">        The integral is the sum over all cells of the product of cell&#39;s content and the volume described by its bins:</span>
@@ -981,7 +981,7 @@
             <span class="n">result</span> <span class="o">+=</span> <span class="n">value</span> <span class="o">*</span> <span class="n">volume</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="HistND.integral_over_bins"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.integral_over_bins">[docs]</a>    <span class="k">def</span> <span class="nf">integral_over_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minBinsIds</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">maxBinsIds</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.integral_over_bins"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.integral_over_bins">[docs]</a>    <span class="k">def</span> <span class="nf">integral_over_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minBinsIds</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">maxBinsIds</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Computes integral over bins range</span>
 
 <span class="sd">        Args:</span>
@@ -1000,7 +1000,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">integral</span><span class="p">(</span><span class="n">min_cell_id</span><span class="p">,</span> <span class="n">max_cell_id</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HistND.integral_over_pos"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.HistND.integral_over_pos">[docs]</a>    <span class="k">def</span> <span class="nf">integral_over_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minPos</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">maxPos</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="HistND.integral_over_pos"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.HistND.integral_over_pos">[docs]</a>    <span class="k">def</span> <span class="nf">integral_over_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minPos</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">maxPos</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Computes integral between 2 positions.</span>
 
 <span class="sd">        Args:</span>
@@ -1020,7 +1020,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">integral</span><span class="p">(</span><span class="n">min_cell_id</span><span class="p">,</span> <span class="n">max_cell_id</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="Hist1D"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist1D">[docs]</a><span class="k">class</span> <span class="nc">Hist1D</span><span class="p">(</span><span class="n">HistND</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist1D"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist1D">[docs]</a><span class="k">class</span> <span class="nc">Hist1D</span><span class="p">(</span><span class="n">HistND</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; A 1-Dimensional Histogram</span>
 
 <span class="sd">    Args:</span>
@@ -1036,7 +1036,7 @@
         <span class="n">HistND</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">minBin</span><span class="p">],</span> <span class="p">[</span><span class="n">maxBin</span><span class="p">],</span> <span class="p">[</span><span class="n">nBins</span><span class="p">],</span> <span class="n">title</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Hist2D"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist2D">[docs]</a><span class="k">class</span> <span class="nc">Hist2D</span><span class="p">(</span><span class="n">HistND</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist2D"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist2D">[docs]</a><span class="k">class</span> <span class="nc">Hist2D</span><span class="p">(</span><span class="n">HistND</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; A 2-Dimensional Histogram</span>
 
 <span class="sd">    Args:</span>
@@ -1057,7 +1057,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nBinsX</span><span class="p">,</span> <span class="n">minBinX</span><span class="p">,</span> <span class="n">maxBinX</span><span class="p">,</span> <span class="n">nBinsY</span><span class="p">,</span> <span class="n">minBinY</span><span class="p">,</span> <span class="n">maxBinY</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="nb">str</span><span class="p">()):</span>
         <span class="n">HistND</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">minBinX</span><span class="p">,</span> <span class="n">minBinY</span><span class="p">],</span> <span class="p">[</span><span class="n">maxBinX</span><span class="p">,</span> <span class="n">maxBinY</span><span class="p">],</span> <span class="p">[</span><span class="n">nBinsX</span><span class="p">,</span> <span class="n">nBinsY</span><span class="p">],</span> <span class="n">title</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Hist2D.projection_x"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist2D.projection_x">[docs]</a>    <span class="k">def</span> <span class="nf">projection_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist2D.projection_x"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist2D.projection_x">[docs]</a>    <span class="k">def</span> <span class="nf">projection_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Project this histogram on the X-axis</span>
 
 <span class="sd">        Returns:</span>
@@ -1065,7 +1065,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Hist2D.projection_y"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist2D.projection_y">[docs]</a>    <span class="k">def</span> <span class="nf">projection_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist2D.projection_y"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist2D.projection_y">[docs]</a>    <span class="k">def</span> <span class="nf">projection_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Project this histogram on the Y-axis</span>
 
 <span class="sd">         Returns:</span>
@@ -1074,7 +1074,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="Hist3D"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist3D">[docs]</a><span class="k">class</span> <span class="nc">Hist3D</span><span class="p">(</span><span class="n">HistND</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist3D"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist3D">[docs]</a><span class="k">class</span> <span class="nc">Hist3D</span><span class="p">(</span><span class="n">HistND</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; A 3-Dimensional Histogram</span>
 
 <span class="sd">    Args:</span>
@@ -1102,7 +1102,7 @@
         <span class="n">HistND</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="n">minBinX</span><span class="p">,</span> <span class="n">minBinY</span><span class="p">,</span> <span class="n">minBinZ</span><span class="p">],</span> <span class="p">[</span><span class="n">maxBinX</span><span class="p">,</span> <span class="n">maxBinY</span><span class="p">,</span> <span class="n">maxBinZ</span><span class="p">],</span> <span class="p">[</span><span class="n">nBinsX</span><span class="p">,</span> <span class="n">nBinsY</span><span class="p">,</span> <span class="n">nBinsZ</span><span class="p">],</span>
                         <span class="n">title</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Hist3D.projection_x"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist3D.projection_x">[docs]</a>    <span class="k">def</span> <span class="nf">projection_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist3D.projection_x"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist3D.projection_x">[docs]</a>    <span class="k">def</span> <span class="nf">projection_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Project this histogram on the X-axis</span>
 
 <span class="sd">        Returns:</span>
@@ -1110,7 +1110,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Hist3D.projection_y"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist3D.projection_y">[docs]</a>    <span class="k">def</span> <span class="nf">projection_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist3D.projection_y"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist3D.projection_y">[docs]</a>    <span class="k">def</span> <span class="nf">projection_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Project this histogram on the Y-axis</span>
 
 <span class="sd">         Returns:</span>
@@ -1118,7 +1118,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Hist3D.projection_z"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist3D.projection_z">[docs]</a>    <span class="k">def</span> <span class="nf">projection_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist3D.projection_z"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist3D.projection_z">[docs]</a>    <span class="k">def</span> <span class="nf">projection_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Project this histogram on the Z-axis</span>
 
 <span class="sd">         Returns:</span>
@@ -1126,7 +1126,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Hist3D.projection_xy"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist3D.projection_xy">[docs]</a>    <span class="k">def</span> <span class="nf">projection_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist3D.projection_xy"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist3D.projection_xy">[docs]</a>    <span class="k">def</span> <span class="nf">projection_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Project this histogram on the X-axis and Y-axis</span>
 
 <span class="sd">        Returns:</span>
@@ -1134,7 +1134,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Hist3D.projection_xz"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist3D.projection_xz">[docs]</a>    <span class="k">def</span> <span class="nf">projection_xz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist3D.projection_xz"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist3D.projection_xz">[docs]</a>    <span class="k">def</span> <span class="nf">projection_xz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Project this histogram on the X-axis and Z-axis</span>
 
 <span class="sd">        Returns:</span>
@@ -1142,7 +1142,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Hist3D.projection_yz"><a class="viewcode-back" href="../../reference_hist.html#rootplots.hist.Hist3D.projection_yz">[docs]</a>    <span class="k">def</span> <span class="nf">projection_yz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Hist3D.projection_yz"><a class="viewcode-back" href="../../reference_hist.html#qksplot.hist.Hist3D.projection_yz">[docs]</a>    <span class="k">def</span> <span class="nf">projection_yz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Project this histogram on the Y-axis and Z-axis</span>
 
 <span class="sd">        Returns:</span>
@@ -1165,7 +1165,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">rootplots 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">qksplot 1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

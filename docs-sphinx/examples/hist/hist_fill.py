@@ -1,7 +1,7 @@
 import random
 
-from rootplots.hist import Hist1D
-from rootplots import mpl
+from qksplot.hist import Hist1D
+from qksplot import mpl
 
 # create profile
 h = Hist1D(100, -4, 4)

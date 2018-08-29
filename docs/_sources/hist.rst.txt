@@ -9,13 +9,13 @@ We'll cover the classes and their functionalities by directly using them in diff
 The Histogram Classes
 =====================
 
-This package provides full support for N-Dimensional histograms: :py:class:`HistND <rootplots.hist.HistND>`.
-But for your convenience, there are also classes derived from :py:class:`HistND <rootplots.hist.HistND>` 
+This package provides full support for N-Dimensional histograms: :py:class:`HistND <qksplot.hist.HistND>`.
+But for your convenience, there are also classes derived from :py:class:`HistND <qksplot.hist.HistND>`
 that are more convenient to use when you need lower dimensional histograms:
 
-	* :py:class:`Hist1D <rootplots.hist.Hist1D>` a 1D histogram
-	* :py:class:`Hist2D <rootplots.hist.Hist2D>` a 2D histogram
-	* :py:class:`Hist3D <rootplots.hist.Hist3D>` a 3D histogram
+	* :py:class:`Hist1D <qksplot.hist.Hist1D>` a 1D histogram
+	* :py:class:`Hist2D <qksplot.hist.Hist2D>` a 2D histogram
+	* :py:class:`Hist3D <qksplot.hist.Hist3D>` a 3D histogram
 
 
 Regardles of the histogram's dimension, the bins are all *floats* and *equal width* on the axis. As such, for the moment the histograms don't support
@@ -33,14 +33,14 @@ importing the library
 
 But first we must import the histogram module::
 
-	from rootplots.hist import *
+	from qksplot.hist import *
 
-This command imports all classes defined in rootplots.hist module, more precisly the classes for 1D, 2D, 3D and ND histograms.
+This command imports all classes defined in qksplot.hist module, more precisly the classes for 1D, 2D, 3D and ND histograms.
 
 1D histogram
 ------------
 
-The easiest histograms to create are **one dimensional** (:py:class:`Hist1D <rootplots.hist.Hist1D>`)::
+The easiest histograms to create are **one dimensional** (:py:class:`Hist1D <qksplot.hist.Hist1D>`)::
 
 	h = Hist1D(100, -3.0, 3.0)
 
@@ -49,7 +49,7 @@ Above we created a 1D histogram that contains *100 bins* starting from *-3.0* to
 2D histogram
 ------------
 
-To create **two dimensional** histograms (:py:class:`Hist2D <rootplots.hist.Hist2D>`) it gets a bit complex, because we must explicitly say how the bins are distributed on 2 axis.::
+To create **two dimensional** histograms (:py:class:`Hist2D <qksplot.hist.Hist2D>`) it gets a bit complex, because we must explicitly say how the bins are distributed on 2 axis.::
 
 	h2 = Hist2D(100, -3, 3, 60, 0, 1000)
 
@@ -59,7 +59,7 @@ Here, we recongnize the first 3 arguments as representing the bin distribution o
 3D histogram
 ------------
 
-A bit more complex is to create **three dimensional** histograms (:py:class:`Hist3D <rootplots.hist.Hist3D>`)::
+A bit more complex is to create **three dimensional** histograms (:py:class:`Hist3D <qksplot.hist.Hist3D>`)::
 
 	h3 = Hist3D(100, -3, 3, 60, 0, 1000, 80, -5, 3)
 
@@ -68,7 +68,7 @@ To construct 3D histograms is basically the same as for 2D histograms with the a
 
 ND histogram
 ------------
-When we want to go to **higher dimensions** then 3 we must use the **N-Dimensional histogram class** (:py:class:`HistND <rootplots.hist.HistND>`). Here, the interface is a bit different since we must deal 
+When we want to go to **higher dimensions** then 3 we must use the **N-Dimensional histogram class** (:py:class:`HistND <qksplot.hist.HistND>`). Here, the interface is a bit different since we must deal
 with **N** values for each parameter from the bin distribution. For this reason we must use *arrays* or *lists*::
 
 	hN = HistND( N, minBins, maxBins, nBins)
@@ -119,7 +119,7 @@ First, we start with the simples methods. We kept the more advanced functionalit
 1D histogram
 ------------
 
-One can fill a 1-dimensional histogram by simply calling the :py:meth:`fill <rootplots.hist.HistND.fill>` method::
+One can fill a 1-dimensional histogram by simply calling the :py:meth:`fill <qksplot.hist.HistND.fill>` method::
 
 	h.fill(val)
 
@@ -141,7 +141,7 @@ The 2D histograms are filled similarly to 1D case, with the exception this time 
 
 	h2.fill(valX, valY)
 
-Now, the :py:meth:`fill <rootplots.hist.HistND.fill>` method automatically searches the bin on the first axis (alternatively called X-axis) that can contain the value *valX* and the bin on the second axis (aka called Y-axis) that can contain the value *valY* and adds 1 to the counter of the bin. 
+Now, the :py:meth:`fill <qksplot.hist.HistND.fill>` method automatically searches the bin on the first axis (alternatively called X-axis) that can contain the value *valX* and the bin on the second axis (aka called Y-axis) that can contain the value *valY* and adds 1 to the counter of the bin.
 
 .. note::
 	You may wonder: since there are bins on X-axis and bins on Y-axis which bin its actually filled?
@@ -155,7 +155,7 @@ Respectively, you can specify a weight::
 3D histogram
 ------------
 
-Its obvious by now, the :py:meth:`fill <rootplots.hist.HistND.fill>` method for the 3D histogram is::
+Its obvious by now, the :py:meth:`fill <qksplot.hist.HistND.fill>` method for the 3D histogram is::
 
 	h3.fill(valX, valY, valZ)
 
@@ -181,7 +181,7 @@ where **n** is the number of dimensions of the histogram ::
 	# or, fill 5D hist with a weight
 	h.fill(3.46, -0.33, 7.1, 2.28, 9, weight=2.33)   # 5D means listing 5 arguments and weight as keyword argument
 
-Since the :py:meth:`fill <rootplots.hist.HistND.fill>` method accepts arbitrary argument list, we can also use tuples or lists but care must be taken to first unpack them::
+Since the :py:meth:`fill <qksplot.hist.HistND.fill>` method accepts arbitrary argument list, we can also use tuples or lists but care must be taken to first unpack them::
 
 	d = [3.46, -0.33, 7.1, 2.28, 9, 2.76, 3.1415, 6.67, 2.998, 0.0, 1.0] # d has 11 values since a 11D hist needs 11 values
 	h11.fill(*d) # use * to unpack a list or tuple
@@ -193,7 +193,7 @@ Other Filling Methods
 
 There are more ways to fill histograms. The methods below are available to all histograms, regardless of its dimension.
 
-Use :py:meth:`fill_pos <rootplots.hist.HistND.fill_pos>` when you know the position on each axis::
+Use :py:meth:`fill_pos <qksplot.hist.HistND.fill_pos>` when you know the position on each axis::
 
 	p = [1,0,100,2,86,47]
 	hist.fill_pos(*p)
@@ -203,7 +203,7 @@ Use :py:meth:`fill_pos <rootplots.hist.HistND.fill_pos>` when you know the posit
 	hist.fill_pos(*p, weight=w)
 
 
-Use :py:meth:`fill_bins <rootplots.hist.HistND.fill_bins>` when you know the bins ids on each axis::
+Use :py:meth:`fill_bins <qksplot.hist.HistND.fill_bins>` when you know the bins ids on each axis::
 
 	mbins = [1,0,100,2,86,47]
 	hist.fill_bins(*mbins)
@@ -216,7 +216,7 @@ Use :py:meth:`fill_bins <rootplots.hist.HistND.fill_bins>` when you know the bin
 	The argument is a list of bin indexes. The dimension of the list must be the same as the dimension of the histogram.
 	The bin indexes start from 0 to MaxBinIndex-1. MaxBinIndex is known when creating the histogram.
 
-Use :py:meth:`fill_cell <rootplots.hist.HistND.fill_cell>` when you know the cell index (global bin idex)::
+Use :py:meth:`fill_cell <qksplot.hist.HistND.fill_cell>` when you know the cell index (global bin idex)::
 
 	icell = 34
 	hist.fill_cell(icell)
@@ -237,7 +237,7 @@ The histograms in this package support multiple operations done on them, such as
 
 Scaling
 -------
-Any histogram, whether its 1D, 2D, 3D or ND, can be scaled by a factor using the :py:meth:`scale <rootplots.hist.HistND.scale>` method.
+Any histogram, whether its 1D, 2D, 3D or ND, can be scaled by a factor using the :py:meth:`scale <qksplot.hist.HistND.scale>` method.
 Take the following example::
 
 	# create a 1D histogram
@@ -320,7 +320,7 @@ You can integrate the histogram (do the sum of the values of its internal cells 
 
 To do the integration you have 3 ways or methods, they differ by the meaning of their arguments.
 
-Use :py:meth:`integral_over_pos <rootplots.hist.HistND.integral_over_pos>` to do the integration over 2 position::
+Use :py:meth:`integral_over_pos <qksplot.hist.HistND.integral_over_pos>` to do the integration over 2 position::
 
 	p = [0.33, 4.61, 78.29, 11.2]
 	q = [1.22, 3.2, 88, 27.0]
@@ -328,7 +328,7 @@ Use :py:meth:`integral_over_pos <rootplots.hist.HistND.integral_over_pos>` to do
 
 here *h* can be any dimensional histogram. The arguments *p* and *q* are two positions (arrays) and p < q.
 
-Use :py:meth:`integral_over_bins <rootplots.hist.HistND.integral_over_bins>` when you know the bins::
+Use :py:meth:`integral_over_bins <qksplot.hist.HistND.integral_over_bins>` when you know the bins::
 
 	b1 = [0, 4, 5]
 	b2 = [1, 1, 0]
@@ -336,7 +336,7 @@ Use :py:meth:`integral_over_bins <rootplots.hist.HistND.integral_over_bins>` whe
 
 here *h* can be any dimensional histogram. The arguments *b1* and *b2* are bins positions (arrays) and b1 < b2.
 
-Use :py:meth:`integral <rootplots.hist.HistND.integral>` when you know the two cell indexes::
+Use :py:meth:`integral <qksplot.hist.HistND.integral>` when you know the two cell indexes::
 
 	c1 = 34
 	c2 = 90
@@ -372,7 +372,7 @@ You can also project it on the second axe, called Y::
 Projecting 3D histograms
 ------------------------
 
-Besides the usual projecting methods as seen for 2D histograms (:py:meth:`projection_x <rootplots.hist.Hist3D.projection_x>`, :py:meth:`projection_y <rootplots.hist.Hist3D.projection_y>`) we get specific methods for 3D such as :py:meth:`projection_z <rootplots.hist.Hist3D.projection_z>`. Also, we can make projections on multiple planes defined by different combinations of axis.
+Besides the usual projecting methods as seen for 2D histograms (:py:meth:`projection_x <qksplot.hist.Hist3D.projection_x>`, :py:meth:`projection_y <qksplot.hist.Hist3D.projection_y>`) we get specific methods for 3D such as :py:meth:`projection_z <qksplot.hist.Hist3D.projection_z>`. Also, we can make projections on multiple planes defined by different combinations of axis.
 
 Thus, we get a projection on XY plane::
 
@@ -392,7 +392,7 @@ Projecting ND histograms
 
 We've seen how easy is to do projections for lower dimensional histograms.
 
-When projecting higher dimensional histograms (HistND) we must be more explicit and specify which dimensions we keep while projecting. For example, when we used :py:meth:`projection_x <rootplots.hist.Hist3D.projection_x>` to project a 2D or 3D histogram on the X axis, the projection operation does this: **keep X axis** and all the rest axis are projected. When we used :py:meth:`projection_yz <rootplots.hist.Hist3D.projection_yz>` the projection operation **keeps Y & Z axis** and projects the rest (only X axis in this case). 
+When projecting higher dimensional histograms (HistND) we must be more explicit and specify which dimensions we keep while projecting. For example, when we used :py:meth:`projection_x <qksplot.hist.Hist3D.projection_x>` to project a 2D or 3D histogram on the X axis, the projection operation does this: **keep X axis** and all the rest axis are projected. When we used :py:meth:`projection_yz <qksplot.hist.Hist3D.projection_yz>` the projection operation **keeps Y & Z axis** and projects the rest (only X axis in this case).
 
 We must recognize a general projection algorithm can not contain the letters for N-dimensional histograms, we do not have that many letters. For this reason, we must specify an **variadic argument list** as *axis indexes* the ones we want to keep. Axis indexis are just numbered as the first axis (called X) has index 0, Y is 1 and Z is 2, and so on.
 
@@ -433,7 +433,7 @@ Drawing
 
 The Histogramming module's design is intended only for histogramming in order to let the user decide which library they prefer for plotting. Hence, this module has no drawing/plotting capabilities.
 
-We recognized the need to plot easy and quickly and for this reason the rootplots package provides a separate module specifically created to quickly draw the histograms objects. Go read about it here.
+We recognized the need to plot easy and quickly and for this reason the qksplot package provides a separate module specifically created to quickly draw the histograms objects. Go read about it here.
 
 
 Reference Documentation

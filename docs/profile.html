@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>The Profile Histogram Module &#8212; rootplots 1.0 documentation</title>
+    <title>The Profile Histogram Module &#8212; qksplot 1.0 documentation</title>
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="reference_hist.html" title="API Reference for Histogram Module"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">rootplots 1.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">qksplot 1.0 documentation</a> &#187;</li>
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -106,14 +106,14 @@
 <p>While histograms show the value filled in each their bin, profile histograms show the mean of the values and its root mean square filled in each bin.</p>
 <div class="section" id="the-profile-histogram-classes">
 <h2>The Profile Histogram Classes<a class="headerlink" href="#the-profile-histogram-classes" title="Permalink to this headline">¶</a></h2>
-<p>This package provides full support for N-Dimensional profile histograms: <a class="reference internal" href="reference_profile.html#rootplots.profile.ProfileND" title="rootplots.profile.ProfileND"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileND</span></code></a> a class is derived from <code class="xref py py-class docutils literal notranslate"><span class="pre">HistND</span></code>.</p>
-<p>But for your convenience, there are also classes derived from <a class="reference internal" href="reference_profile.html#rootplots.profile.ProfileND" title="rootplots.profile.ProfileND"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileND</span></code></a>
+<p>This package provides full support for N-Dimensional profile histograms: <a class="reference internal" href="reference_profile.html#qksplot.profile.ProfileND" title="qksplot.profile.ProfileND"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileND</span></code></a> a class is derived from <code class="xref py py-class docutils literal notranslate"><span class="pre">HistND</span></code>.</p>
+<p>But for your convenience, there are also classes derived from <a class="reference internal" href="reference_profile.html#qksplot.profile.ProfileND" title="qksplot.profile.ProfileND"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileND</span></code></a>
 that are more convenient to use when you need lower dimensional profile histograms:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="reference_profile.html#rootplots.profile.Profile1D" title="rootplots.profile.Profile1D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile1D</span></code></a> for 1D profile histograms</li>
-<li><a class="reference internal" href="reference_profile.html#rootplots.profile.Profile2D" title="rootplots.profile.Profile2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile2D</span></code></a> for 2D profile histograms</li>
-<li><a class="reference internal" href="reference_profile.html#rootplots.profile.Profile3D" title="rootplots.profile.Profile3D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile3D</span></code></a> for 3D profile histograms</li>
+<li><a class="reference internal" href="reference_profile.html#qksplot.profile.Profile1D" title="qksplot.profile.Profile1D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile1D</span></code></a> for 1D profile histograms</li>
+<li><a class="reference internal" href="reference_profile.html#qksplot.profile.Profile2D" title="qksplot.profile.Profile2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile2D</span></code></a> for 2D profile histograms</li>
+<li><a class="reference internal" href="reference_profile.html#qksplot.profile.Profile3D" title="qksplot.profile.Profile3D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile3D</span></code></a> for 3D profile histograms</li>
 </ul>
 </div></blockquote>
 </div>
@@ -122,14 +122,14 @@ that are more convenient to use when you need lower dimensional profile histogra
 <div class="section" id="importing-the-library">
 <h3>importing the library<a class="headerlink" href="#importing-the-library" title="Permalink to this headline">¶</a></h3>
 <p>But first we must import the profile histogram module:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rootplots.profile</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qksplot.profile</span> <span class="k">import</span> <span class="o">*</span>
 </pre></div>
 </div>
-<p>This command imports all classes defined in rootplots.profile module, which includes classes for 1D, 2D, 3D and ND profile histograms.</p>
+<p>This command imports all classes defined in qksplot.profile module, which includes classes for 1D, 2D, 3D and ND profile histograms.</p>
 </div>
 <div class="section" id="d-profile">
 <h3>1D Profile<a class="headerlink" href="#d-profile" title="Permalink to this headline">¶</a></h3>
-<p>The easiest profile histograms to create are <strong>one dimensional</strong> (<a class="reference internal" href="reference_profile.html#rootplots.profile.Profile1D" title="rootplots.profile.Profile1D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile1D</span></code></a>):</p>
+<p>The easiest profile histograms to create are <strong>one dimensional</strong> (<a class="reference internal" href="reference_profile.html#qksplot.profile.Profile1D" title="qksplot.profile.Profile1D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile1D</span></code></a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prof</span> <span class="o">=</span> <span class="n">Profile1D</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -137,7 +137,7 @@ that are more convenient to use when you need lower dimensional profile histogra
 </div>
 <div class="section" id="id1">
 <h3>2D Profile<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>To create <strong>two dimensional</strong> profiles (<a class="reference internal" href="reference_profile.html#rootplots.profile.Profile2D" title="rootplots.profile.Profile2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile2D</span></code></a>) it gets a bit complex, because we must explicitly say how the bins are distributed on 2 axis.:</p>
+<p>To create <strong>two dimensional</strong> profiles (<a class="reference internal" href="reference_profile.html#qksplot.profile.Profile2D" title="qksplot.profile.Profile2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile2D</span></code></a>) it gets a bit complex, because we must explicitly say how the bins are distributed on 2 axis.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prof2</span> <span class="o">=</span> <span class="n">Profile2D</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -145,7 +145,7 @@ that are more convenient to use when you need lower dimensional profile histogra
 </div>
 <div class="section" id="id2">
 <h3>3D Profile<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>A bit more complex is to create <strong>three dimensional</strong> profiles (<a class="reference internal" href="reference_profile.html#rootplots.profile.Profile3D" title="rootplots.profile.Profile3D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile3D</span></code></a>):</p>
+<p>A bit more complex is to create <strong>three dimensional</strong> profiles (<a class="reference internal" href="reference_profile.html#qksplot.profile.Profile3D" title="qksplot.profile.Profile3D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile3D</span></code></a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prof</span> <span class="o">=</span> <span class="n">Profile3D</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -153,7 +153,7 @@ that are more convenient to use when you need lower dimensional profile histogra
 </div>
 <div class="section" id="nd-profiles">
 <h3>ND Profiles<a class="headerlink" href="#nd-profiles" title="Permalink to this headline">¶</a></h3>
-<p>When we want to go to <strong>higher dimensions</strong> then 3 we must use the <strong>N-Dimensional profile class</strong> (<a class="reference internal" href="reference_profile.html#rootplots.profile.ProfileND" title="rootplots.profile.ProfileND"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileND</span></code></a>). Here, the interface is a bit different since we must deal
+<p>When we want to go to <strong>higher dimensions</strong> then 3 we must use the <strong>N-Dimensional profile class</strong> (<a class="reference internal" href="reference_profile.html#qksplot.profile.ProfileND" title="qksplot.profile.ProfileND"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileND</span></code></a>). Here, the interface is a bit different since we must deal
 with <strong>N</strong> values for each parameter from the bin distribution. For this reason we must use <em>arrays</em> or <em>lists</em>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">profN</span> <span class="o">=</span> <span class="n">ProfileND</span><span class="p">(</span> <span class="n">N</span><span class="p">,</span> <span class="n">minBins</span><span class="p">,</span> <span class="n">maxBins</span><span class="p">,</span> <span class="n">nBins</span><span class="p">)</span>
 </pre></div>
@@ -260,7 +260,7 @@ First, we start with the simples methods. We kept the more advanced functionalit
 <div class="section" id="advanced-filling-methods">
 <h3>Advanced Filling Methods<a class="headerlink" href="#advanced-filling-methods" title="Permalink to this headline">¶</a></h3>
 <p>There are more ways to fill.</p>
-<p>Use <a class="reference internal" href="reference_profile.html#rootplots.profile.ProfileND.fill_pos" title="rootplots.profile.ProfileND.fill_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_pos</span></code></a> when you know the a position on each axis:</p>
+<p>Use <a class="reference internal" href="reference_profile.html#qksplot.profile.ProfileND.fill_pos" title="qksplot.profile.ProfileND.fill_pos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_pos</span></code></a> when you know the a position on each axis:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">47</span><span class="p">]</span>
 <span class="n">v</span> <span class="o">=</span> <span class="mf">56.4</span>
 <span class="n">prof</span><span class="o">.</span><span class="n">fill_pos</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
@@ -270,7 +270,7 @@ First, we start with the simples methods. We kept the more advanced functionalit
 <span class="n">prof</span><span class="o">.</span><span class="n">fill_pos</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Use <a class="reference internal" href="reference_profile.html#rootplots.profile.ProfileND.fill_bins" title="rootplots.profile.ProfileND.fill_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_bins</span></code></a> when you know the bins ids on each axis:</p>
+<p>Use <a class="reference internal" href="reference_profile.html#qksplot.profile.ProfileND.fill_bins" title="qksplot.profile.ProfileND.fill_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_bins</span></code></a> when you know the bins ids on each axis:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mbins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">47</span><span class="p">]</span>
 <span class="n">v</span> <span class="o">=</span> <span class="mf">56.4</span>
 <span class="n">prof</span><span class="o">.</span><span class="n">fill_bins</span><span class="p">(</span><span class="o">*</span><span class="n">mbins</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
@@ -285,7 +285,7 @@ First, we start with the simples methods. We kept the more advanced functionalit
 <p class="last">The argument is a list of bin indexes. The dimension of the list must be the same as the dimension of the Profile.
 The bin indexes start from 0 to MaxBinIndex-1. MaxBinIndex is known when creating the Profile.</p>
 </div>
-<p>Use <a class="reference internal" href="reference_profile.html#rootplots.profile.ProfileND.fill_cell" title="rootplots.profile.ProfileND.fill_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_cell</span></code></a> when you know the cell index:</p>
+<p>Use <a class="reference internal" href="reference_profile.html#qksplot.profile.ProfileND.fill_cell" title="qksplot.profile.ProfileND.fill_cell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_cell</span></code></a> when you know the cell index:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">icell</span> <span class="o">=</span> <span class="mi">34</span>
 <span class="n">v</span> <span class="o">=</span> <span class="mf">56.4</span>
 <span class="n">prof</span><span class="o">.</span><span class="n">fill_bins</span><span class="p">(</span><span class="n">icell</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
@@ -312,7 +312,7 @@ Meaning for a 5D Profile that contains <cite>nbins=[5,6,8,10,10]</cite> the <cit
 </div>
 <div class="section" id="drawing">
 <h2>Drawing<a class="headerlink" href="#drawing" title="Permalink to this headline">¶</a></h2>
-<p>The Profile module’s design is intended only for profilling in order to let the user decide which library they prefer for plotting. Hence, this module has no drawing/plotting capabilities. But, we recognized the need to plot easy and quickly and for this reason the rootplots package provides a separate module specifically created to quickly draw profile objects. Go read about it here.</p>
+<p>The Profile module’s design is intended only for profilling in order to let the user decide which library they prefer for plotting. Hence, this module has no drawing/plotting capabilities. But, we recognized the need to plot easy and quickly and for this reason the qksplot package provides a separate module specifically created to quickly draw profile objects. Go read about it here.</p>
 </div>
 <div class="section" id="reference-documentation">
 <h2>Reference Documentation<a class="headerlink" href="#reference-documentation" title="Permalink to this headline">¶</a></h2>
@@ -348,7 +348,7 @@ Meaning for a 5D Profile that contains <cite>nbins=[5,6,8,10,10]</cite> the <cit
         <li class="right" >
           <a href="reference_hist.html" title="API Reference for Histogram Module"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">rootplots 1.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">qksplot 1.0 documentation</a> &#187;</li>
       </ul>
     </div>
     <div class="footer" role="contentinfo">

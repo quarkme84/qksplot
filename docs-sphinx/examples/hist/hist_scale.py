@@ -2,8 +2,8 @@ import random
 import copy
 import matplotlib.pyplot as plt
 
-from rootplots.hist import Hist1D
-from rootplots import mpl
+from qksplot.hist import Hist1D
+from qksplot import mpl
 
 # create a 1D histogram
 myhist = Hist1D(10, 0, 10)

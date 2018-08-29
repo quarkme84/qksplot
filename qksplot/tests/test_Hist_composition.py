@@ -1,4 +1,4 @@
-from rootplots.hist import HistND
+from qksplot.hist import HistND
 import pympler.asizeof as asizeof
 
 

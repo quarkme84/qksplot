@@ -3,8 +3,8 @@
 import random
 import matplotlib.pyplot as plt
 
-from rootplots.hist import Hist1D
-from rootplots import mpl
+from qksplot.hist import Hist1D
+from qksplot import mpl
 
 # create histograms
 h1 = Hist1D(10, -1, 1, title="H1")
